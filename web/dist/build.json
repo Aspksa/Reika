@@ -1,17 +1,17 @@
 {
-  "version": "0.17.0",
+  "version": "0.18.0",
   "components": {
     "core": "0.8.1",
-    "frontend": "0.15.0",
-    "styles": "0.7.0",
+    "frontend": "0.15.1",
+    "styles": "0.8.0",
     "launcher": "0.3.1",
     "tray": "0.3.1",
-    "build": "0.3.13",
-    "checks": "0.5.1",
+    "build": "0.3.14",
+    "checks": "0.5.2",
     "docs": "0.5.0",
-    "config": "0.5.1",
+    "config": "0.5.2",
     "release": "0.2.0",
-    "updates": "0.1.0"
+    "updates": "0.2.0"
   },
   "files": {
     "assets/index-CX-7lGBG.js": "97037b54cce80efe9eab33047e1721a09fef55420d0f4bafe1212f586e0e4f16",

@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "project": "0.17.0",
+  "project": "0.18.0",
   "components": {
     "core": {
       "name": "Ядро и API",
@@ -30,7 +30,7 @@
     },
     "frontend": {
       "name": "Интерфейс",
-      "version": "0.15.0",
+      "version": "0.15.1",
       "paths": [
         "web/index.html",
         "web/app.js",
@@ -64,7 +64,7 @@
     },
     "styles": {
       "name": "Стили и темы",
-      "version": "0.7.0",
+      "version": "0.8.0",
       "paths": [
         "web/app.css",
         "web/styles/"
@@ -116,7 +116,7 @@
     },
     "build": {
       "name": "Сборка Node.js",
-      "version": "0.3.13",
+      "version": "0.3.14",
       "paths": [
         "package.json",
         "package-lock.json",
@@ -150,7 +150,7 @@
     },
     "checks": {
       "name": "Проверки",
-      "version": "0.5.1",
+      "version": "0.5.2",
       "paths": [
         "tests/",
         ".github/"
@@ -212,7 +212,7 @@
     },
     "config": {
       "name": "Конфигурация",
-      "version": "0.5.1",
+      "version": "0.5.2",
       "paths": [
         "versions.json",
         ".gitignore",
@@ -258,7 +258,7 @@
     },
     "updates": {
       "name": "Обновления проекта",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "description": "Проверяет доступный официальный выпуск, показывает полное описание и сверяет целостность скачанного архива.",
       "status": "active",
       "paths": [

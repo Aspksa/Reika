@@ -2,6 +2,124 @@
   "schema": 1,
   "releases": [
     {
+      "version": "0.18.0",
+      "previous": "0.17.0",
+      "source": "2ae434c76ecaec7ef3d90946631ec6309ff3c9e2",
+      "created_at": "2026-10-25T21:45:06.605Z",
+      "components": [
+        {
+          "id": "updates",
+          "name": "Обновления проекта",
+          "from": "0.1.0",
+          "version": "0.2.0",
+          "reason": "Описано в записи об изменении",
+          "level": "minor"
+        },
+        {
+          "id": "frontend",
+          "name": "Интерфейс",
+          "from": "0.15.0",
+          "version": "0.15.1",
+          "reason": "Описано в записи об изменении",
+          "level": "patch"
+        },
+        {
+          "id": "styles",
+          "name": "Стили и темы",
+          "from": "0.7.0",
+          "version": "0.8.0",
+          "reason": "Описано в записи об изменении",
+          "level": "minor"
+        },
+        {
+          "id": "checks",
+          "name": "Проверки",
+          "from": "0.5.1",
+          "version": "0.5.2",
+          "reason": "Описано в записи об изменении",
+          "level": "patch"
+        },
+        {
+          "id": "config",
+          "name": "Конфигурация",
+          "from": "0.5.1",
+          "version": "0.5.2",
+          "reason": "Описано в записи об изменении",
+          "level": "patch"
+        },
+        {
+          "id": "build",
+          "name": "Сборка Node.js",
+          "from": "0.3.13",
+          "version": "0.3.14",
+          "reason": "Описано в записи об изменении",
+          "level": "patch"
+        }
+      ],
+      "changes": [
+        {
+          "id": "updates-page-design",
+          "kind": "design",
+          "title": "Новый дизайн страницы обновлений проекта",
+          "description": "Страница обновлений получила выразительную шапку с орбитой Reika, мягкими движением и сеткой, крупное сравнение установленной и доступной версий, отдельные карточки истории выпуска и проверки архива. Состояния загрузки, нового и актуального выпуска, ошибки сети и результата SHA-256 оформлены визуально и подписаны текстом. Для маленьких экранов предусмотрена адаптивная компоновка, для системной настройки уменьшения движения анимация отключается.",
+          "reason": "На прежней странице важные сведения выглядели одинаково и было сложно быстро понять статус выпуска и следующий шаг.",
+          "userImpact": "Пользователь быстрее видит, есть ли новая версия, где скачать архив и как проверить его целостность. Страница остаётся удобной на телефоне и в тёмной теме.",
+          "components": {
+            "updates": "minor",
+            "frontend": "patch",
+            "styles": "minor",
+            "checks": "patch",
+            "config": "patch",
+            "build": "patch"
+          },
+          "testing": [
+            "npm run build — успешно.",
+            "Браузерный smoke-тест: статусы нового, актуального и недоступного выпуска; проверка правильного и повреждённого архива; мобильные ширины и тёмная тема — успешно.",
+            "npm run test:versions: 3 теста пройдены; npm run test:release: 10 тестов пройдены.",
+            "Python unittest: 40 тестов пройдены, 3 Windows-проверки пропущены на Linux.",
+            "npm run check, npm run check:build, npm run release:check и python scripts/chronicle.py validate — успешно."
+          ],
+          "risks": [
+            "Оформление не меняет источник данных: для проверки новых выпусков всё ещё нужен доступ к GitHub."
+          ],
+          "migration": [
+            "После обновления перезапустите Reika и откройте раздел «Обновления проекта»."
+          ]
+        }
+      ],
+      "files": [
+        {
+          "path": ".chronicle/events.jsonl",
+          "action": "modified",
+          "component": "config"
+        },
+        {
+          "path": "tests/browser_smoke.cjs",
+          "action": "modified",
+          "component": "checks"
+        },
+        {
+          "path": "web/index.html",
+          "action": "modified",
+          "component": "frontend"
+        },
+        {
+          "path": "web/styles/updates.css",
+          "action": "modified",
+          "component": "updates"
+        },
+        {
+          "path": "web/updates.js",
+          "action": "modified",
+          "component": "updates"
+        }
+      ],
+      "commits": [
+        "c62c4812b0f257e1ed4e75d823115ec38af4f17b",
+        "2ae434c76ecaec7ef3d90946631ec6309ff3c9e2"
+      ]
+    },
+    {
       "version": "0.17.0",
       "previous": "0.16.0",
       "source": "b7dfd24ee386144cce822630b4364d791bbf0f95",
