@@ -27,6 +27,8 @@ def _protect(data: bytes, decrypt=False) -> bytes:
         raise RuntimeError("Защищённое сохранение ключа пока доступно только в Windows.")
     library = ctypes.windll.crypt32
     kernel = ctypes.windll.kernel32
+    kernel.LocalFree.argtypes = [ctypes.c_void_p]
+    kernel.LocalFree.restype = ctypes.c_void_p
     data_buffer = ctypes.create_string_buffer(data)
     inp = _Blob(len(data), ctypes.cast(data_buffer, ctypes.POINTER(ctypes.c_byte)))
     out = _Blob()
@@ -82,6 +84,10 @@ class CloudSettings:
                 "secure_storage": os.name == "nt"}
 
     def update(self, data):
+        if not isinstance(data, dict):
+            raise ValueError("Неверный формат настроек.")
+        if set(data) - {"model", "key", "delete_key"}:
+            raise ValueError("Недопустимые поля настроек.")
         model = data.get("model", self.model)
         if model not in {item["id"] for item in CATALOG}:
             raise ValueError("Модель отсутствует в проверенном каталоге.")
