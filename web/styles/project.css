@@ -46,3 +46,44 @@
 .project-empty {padding:20px;border:1px dashed var(--border);border-radius:12px;color:var(--muted);grid-column:1/-1}
 @media (max-width:960px) {.project-metrics {grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:600px) {.project-tools label {width:100%}.project-tools button {width:100%}.project-metrics>div {padding:13px}}
+
+/* Компактный визуальный ритм и навигация раздела «Проект». */
+#view-project {scroll-margin-top:24px}
+.project-jump {display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 24px}
+.project-jump a {color:var(--ink);border:1px solid var(--border);background:var(--surface);padding:10px 14px;border-radius:999px;text-decoration:none;font-size:12px;font-weight:600;transition:border-color .18s,background .18s}
+.project-jump a:hover {border-color:var(--accent);background:var(--surface)}
+.project-jump a:focus-visible {outline:2px solid var(--accent);outline-offset:3px}
+.project-section {scroll-margin-top:24px;margin-top:28px}
+.project-section>.section-heading {margin:0 0 16px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.project-section>.section-heading h2 {margin:0}
+.project-metrics>div {position:relative;min-height:100px;gap:12px}
+.project-metrics>div:before {content:"";height:3px;position:absolute;top:0;left:18px;right:18px;background:var(--gold);opacity:.55;border-radius:0 0 4px 4px}
+.project-tools {padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:13px;gap:12px}
+.project-tools label:first-child {flex:1 1 220px}
+.project-tools select,.project-tools input {min-height:40px}
+.project-tools button {min-height:40px;white-space:nowrap}
+.project-secondary-action {color:var(--accent)!important;background:transparent!important}
+.module-grid {gap:13px}
+.module-card {padding:19px;transition:border-color .18s,transform .18s}
+.module-card:hover {border-color:var(--gold)}
+.module-heading {align-items:flex-start}
+.module-heading h3 {font-size:15px;line-height:1.4}
+.module-card>p {font-size:13px;line-height:1.65;margin:8px 0 12px}
+.module-meta {margin:8px 0}
+.module-details {margin-top:12px}
+.module-details summary {padding:7px 0;font-weight:600}
+.module-details[open] summary {margin-bottom:9px}
+.module-paths li {margin:4px 0}
+.project-history {gap:11px}
+.release-card {padding:19px}
+.release-card>summary {font-size:15px;line-height:1.5}
+.release-card[open] {border-color:var(--gold)}
+@media (max-width:600px) {
+ .project-jump {display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+ .project-jump a {text-align:center}
+ .project-tools {padding:12px}
+ .project-tools label,.project-tools label:first-child {flex:1 1 100%;min-width:0}
+ .module-card,.release-card {padding:16px}
+ .project-section {margin-top:22px}
+}
+@media (prefers-reduced-motion:reduce) {.project-jump a,.module-card {transition:none}}
