@@ -306,6 +306,76 @@
       "task_ids": [],
       "attribution": "unlinked",
       "files": []
+    },
+    {
+      "sha": "c7e6a1cbae58baa82426cd89668f7eaa38cdb535",
+      "release": "0.8.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/index.html"
+      ]
+    },
+    {
+      "sha": "9ad7b0bd1f837c9f638a37f2bad573feb0851690",
+      "release": "0.8.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/project.js"
+      ]
+    },
+    {
+      "sha": "3d26116c5fb3ab270ae584c07b60be46785657a6",
+      "release": "0.8.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/styles/project.css"
+      ]
+    },
+    {
+      "sha": "639d4351b3955d9f69ac2506e4429690a5e6c98c",
+      "release": "0.8.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "tests/browser_smoke.cjs"
+      ]
+    },
+    {
+      "sha": "10002c2f3062495391b03bb6e604a54b2d784ec9",
+      "release": "0.8.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        ".changes/project-tabs-comparison-modes.json"
+      ]
+    },
+    {
+      "sha": "565bbc96a7a8a62642d07fc1abdf4ce538d68bf5",
+      "release": "0.8.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/project.js"
+      ]
+    },
+    {
+      "sha": "f35833da92beb112486f3d24fa5ebc6f75617f6f",
+      "release": "0.8.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "tests/browser_smoke.cjs"
+      ]
+    },
+    {
+      "sha": "ef67c478203d7cdb9349f560618ee2ee2d624214",
+      "release": "0.8.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": []
     }
   ]
 }
