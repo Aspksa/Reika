@@ -8,6 +8,35 @@ import { spawnSync } from "node:child_process";
 
 const source = fileURLToPath(new URL("../", import.meta.url));
 
+test("raw Windows script blobs remain clean and byte-identical after Git checkout", async () => {
+  const root = await mkdtemp(join(tmpdir(), "reika-script-checkout-"));
+  const git = (args, input) => {
+    const result = spawnSync("git", args, {cwd: root, input, encoding: "utf8"});
+    assert.equal(result.status, 0, result.stdout + result.stderr);
+    return result.stdout.trim();
+  };
+  try {
+    git(["init"]);
+    git(["config", "user.name", "Reika Test"]);
+    git(["config", "user.email", "reika-test@example.invalid"]);
+    const files = {
+      ".gitattributes": await readFile(join(source, ".gitattributes")),
+      "Reika.bat": await readFile(join(source, "Reika.bat")),
+      "start.ps1": await readFile(join(source, "scripts/start.ps1")),
+    };
+    for (const [path, contents] of Object.entries(files)) {
+      await writeFile(join(root, path), contents);
+      const sha = git(["hash-object", "-w", "--stdin"], contents);
+      git(["update-index", "--add", "--cacheinfo", `100644,${sha},${path}`]);
+    }
+    git(["commit", "-m", "Файлы с исходными байтами"]);
+    git(["checkout-index", "--all", "--force"]);
+    assert.equal(git(["status", "--porcelain"]), "");
+    assert.deepEqual(await readFile(join(root, "Reika.bat")), files["Reika.bat"]);
+    assert.deepEqual(await readFile(join(root, "start.ps1")), files["start.ps1"]);
+  } finally { await rm(root, {recursive: true, force: true}); }
+});
+
 test("a real Git checkout produces one coherent candidate and no recursive release", async () => {
   const root = await mkdtemp(join(tmpdir(), "reika-publication-"));
   const excluded = new Set([".git", "node_modules", ".runtime", "logs", "test-results", "__pycache__", ".venv"]);
