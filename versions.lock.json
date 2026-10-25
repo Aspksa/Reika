@@ -86,11 +86,17 @@
       "hashMode": "utf8-lf",
       "sha256": "86247987213b3cd9fed6af223bb4f72b805fb4ddf3f3e752806a714a77f2f03e"
     },
+    ".changes/project-live-map-timeout.json": {
+      "component": "release",
+      "version": "0.2.0",
+      "hashMode": "utf8-lf",
+      "sha256": "4ca91ec313fe8fb09358d083fcafca7a69180e1e7b4a6529a46256893bd6da78"
+    },
     ".chronicle/events.jsonl": {
       "component": "config",
       "version": "0.5.0",
       "hashMode": "bytes",
-      "sha256": "2af829f22d41b6975bb87e1b2ade3dabea71425029faf1301e64e8c8fd17f8f0"
+      "sha256": "db927c9116cd346586acddd7994fb14d984c8241cf6e545323413bef75a9ead0"
     },
     ".gitattributes": {
       "component": "config",
@@ -180,7 +186,7 @@
       "component": "core",
       "version": "0.8.0",
       "hashMode": "utf8-lf",
-      "sha256": "176b8827c8fd96327dba7250c9ab2a01029e43d842997d7111d0162543b9e8a4"
+      "sha256": "ef302b5f7344bd162c3d3c6acc1c2b1442a38c7c8ff69af0ad2faf9e9de4e80d"
     },
     "reika/project_monitor.py": {
       "component": "core",
@@ -192,7 +198,7 @@
       "component": "core",
       "version": "0.8.0",
       "hashMode": "utf8-lf",
-      "sha256": "9a1d8b84848e56336d56d27350ad189f92aa03a34c942c8ece41489de522dda5"
+      "sha256": "2e0a8c7ad43756f406a5d243f479040884b0967c665d00c9ddc1dd1e4af788ad"
     },
     "reika/updates.py": {
       "component": "updates",
@@ -354,7 +360,7 @@
       "component": "checks",
       "version": "0.5.0",
       "hashMode": "utf8-lf",
-      "sha256": "680632f9248c22890c04acaaef02b1e9097909c4f65225ec1b8082ac4eb74da6"
+      "sha256": "45663559e0dc397ecc48091aeb53afe7b1d7fb54de84bdd3d43f5b09b95be9f4"
     },
     "tests/release-integration.test.mjs": {
       "component": "checks",
@@ -390,7 +396,7 @@
       "component": "checks",
       "version": "0.5.0",
       "hashMode": "utf8-lf",
-      "sha256": "3e8759d8872f375cf563e420f7fcb5036bc8f747b16dcd985784e111be332696"
+      "sha256": "4ec7cafc1406e2a5c2f5adb688f98c0f96099046a08e9c8a61ae53ef195b376d"
     },
     "tests/test_project_monitor.py": {
       "component": "checks",
@@ -464,17 +470,17 @@
       "hashMode": "utf8-lf",
       "sha256": "ced90e10cc89efa82afbb09846a4544dff0ba97a0485fdfdf9166a54d6cd6d1c"
     },
-    "web/dist/assets/index-CV48YsSW.js": {
+    "web/dist/assets/index-COdivi5G.js": {
       "component": "build",
       "version": "0.3.12",
       "hashMode": "utf8-lf",
-      "sha256": "57a19df14f88649d8cb7b8f02697d515f3e3c1673a78478cc680e18f9d8c12bc"
+      "sha256": "67c6409a1664f5fbbc516ddef6a0c5f1d718a7b6e07cdbfc05cba8d08030408e"
     },
-    "web/dist/assets/index-btlo2_6E.css": {
+    "web/dist/assets/index-CPXsBk-S.css": {
       "component": "build",
       "version": "0.3.12",
       "hashMode": "utf8-lf",
-      "sha256": "5d011135d0a3a729886ee87831c0583592e775a467f9cb7d6c604609a0ee8376"
+      "sha256": "74b1df31b15d2e698f6575fc8f6c3d45086fe7a2114fbcde4c6a2e16c4ab9f48"
     },
     "web/dist/assets/reika-vw6GPLNw.svg": {
       "component": "build",
@@ -486,25 +492,25 @@
       "component": "build",
       "version": "0.3.12",
       "hashMode": "utf8-lf",
-      "sha256": "2ded4d01959e9f7eabd4b9dbe6fb5c977a802fe45dfafc5de874bd82c7ccbf79"
+      "sha256": "5bb48200436b2ef4a84f1fcca57ffde1a5c1b429ccb2a3b0184c349c7ffb5ad1"
     },
     "web/dist/index.html": {
       "component": "build",
       "version": "0.3.12",
       "hashMode": "utf8-lf",
-      "sha256": "6afaecfd02f6196abe43f7ba1ad1f56165c4382490f728af676aaabf367fae24"
+      "sha256": "9fed8309f4f4ab22a4dd0bfad25aeb53e92fcf47e11dd6b93712ebdbae51b494"
     },
     "web/index.html": {
       "component": "frontend",
       "version": "0.14.0",
       "hashMode": "utf8-lf",
-      "sha256": "3d829b385d4257abd63fc648f9d72c550ffc6f9d10ec6f95db2b99d2c3605200"
+      "sha256": "2a36df68ea3e85cdb6cd7f4b40994bafc91ad8996a47ebb47600f02edde136f0"
     },
     "web/project.js": {
       "component": "frontend",
       "version": "0.14.0",
       "hashMode": "utf8-lf",
-      "sha256": "24867963a91d4530f7076563b4665fa73c7b6463c9004541367e9618186a629e"
+      "sha256": "6edf0156a516570d7237f245cd9c078855a30429d732c3f29a0324b4b6cca24e"
     },
     "web/reika.svg": {
       "component": "frontend",
@@ -540,7 +546,7 @@
       "component": "styles",
       "version": "0.6.3",
       "hashMode": "utf8-lf",
-      "sha256": "3af257785eca4caa2c7fee8e0f32c9d7d12d4721b29cb7e27f4ef7eb365b7fbe"
+      "sha256": "fd85409fa5712ec5dfb78824a7c5080cc1803af61406d4df4033ae9460e99955"
     },
     "web/styles/responsive.css": {
       "component": "styles",

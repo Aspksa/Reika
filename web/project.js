@@ -115,6 +115,9 @@ function renderHistory(){
 
 function showProjectTab(name) {
   projectTab=name;
+  const pane=$("#project-inspector");
+  if(name==="links")$(".project-map-workspace").append(pane);
+  else $(".project-module-workspace").append(pane);
   document.querySelectorAll("[data-project-panel]").forEach(panel=>{panel.hidden=panel.dataset.projectPanel!==name;});
   document.querySelectorAll("[data-project-tab]").forEach(button=>{const active=button.dataset.projectTab===name;button.setAttribute("aria-selected",String(active));button.tabIndex=active?0:-1;});
 }
@@ -175,7 +178,7 @@ function stats(){
 function openInspector(id){
  const item=cached.modules[id],pane=$("#project-inspector");if(!item)return;
  pane.hidden=false;pane.replaceChildren();pane.dataset.category=categoryColor[category(id)]||"misc";
- const close=element("button","✕","project-inspector-close");close.type="button";close.setAttribute("aria-label","Закрыть панель");close.onclick=()=>{pane.hidden=true;$("#project-modules [data-module='"+id+"'] .project-open-module")?.focus();};
+ const close=element("button","✕","project-inspector-close");close.type="button";close.setAttribute("aria-label","Закрыть панель");close.onclick=()=>{pane.hidden=true;($("#project-map .project-map-node[data-id='"+id+"']")||$("#project-modules [data-module='"+id+"'] .project-open-module"))?.focus();};
  pane.append(close,element("span",icons[id]||"◇","module-icon"),element("h3",item.name),element("p",item.description));
  pane.append(element("p","Версия "+item.version+" · "+(statuses[item.status]||item.status),"muted"));
  pane.append(element("h4","Файлы и каталоги"));
@@ -282,6 +285,16 @@ function applyMonitor(data){
  diagnosticItem("Неоднозначные владельцы",data.ambiguous.length,data.ambiguous.length>0));
  if(data.version_problem)diag.append(diagnosticItem("Согласованность сборки",data.version_problem,true));
  if(data.limit_reached)diag.append(diagnosticItem("Ограничение проверки","Сканирование ограничено, отчёт частичный",true));
+ const problems=[];
+ for(const item of data.missing)problems.push(`Отсутствует путь: ${item.path}`);
+ for(const item of data.invalid_links)problems.push(`Ошибочная связь: ${item.source} → ${item.target}`);
+ for(const item of data.ambiguous)problems.push(`Неоднозначный владелец: ${item}`);
+ if(data.version_problem)problems.push(data.version_problem);
+ if(data.limit_reached)problems.push("Проверка ограничена; часть файлов не просмотрена.");
+ $("#project-problems-count").textContent=String(problems.length);
+ const problemList=$("#project-problems-list");problemList.replaceChildren();
+ if(!problems.length)problemList.append(element("p","Локальная проверка не выявила проблем."));
+ else for(const message of problems.slice(0,10))problemList.append(element("p",message));
  const at=new Date(data.checked_at);
  $("#project-monitor-status").textContent="Последняя проверка: "+(Number.isNaN(at.getTime())?data.checked_at:at.toLocaleString("ru-RU"));
  const lines=["Состояние проекта Reika",$("#project-monitor-status").textContent,
@@ -353,7 +366,9 @@ export async function loadProject(force=false){
 const aiRun=document.querySelector("#project-ai-run");
 aiRun.addEventListener("click",async()=>{
  const output=document.querySelector("#project-ai-result");
- aiRun.disabled=true;output.textContent="Cloud.ru анализирует проект…";
+ aiRun.disabled=true;aiRun.setAttribute("aria-busy","true");
+ const started=Date.now();output.textContent="Cloud.ru анализирует проект…";
+ const progress=setInterval(()=>{output.textContent=`Cloud.ru анализирует проект… ${Math.floor((Date.now()-started)/1000)} с. Большой обзор может занять до 150 секунд.`;},1000);
  try{
   const response=await fetch("/api/project/ai-review",{method:"POST",headers:{"Origin":location.origin},credentials:"same-origin"});
   const data=await response.json();
@@ -364,7 +379,7 @@ aiRun.addEventListener("click",async()=>{
   output.append(summary,answer);
   const records=historyRead();records.unshift({id:crypto.randomUUID(),at:new Date().toISOString(),model:data.model,count:data.files.length,answer:data.answer,resolved:false});historySave(records);renderReviewHistory();
  }catch(error){output.textContent=error.message;}
- finally{aiRun.disabled=false;}
+ finally{clearInterval(progress);aiRun.disabled=false;aiRun.removeAttribute("aria-busy");}
 });
 
 for(const [id,key] of [["notify-problems","problems"],["notify-changes","changes"]]){
@@ -372,3 +387,9 @@ for(const [id,key] of [["notify-problems","problems"],["notify-changes","changes
  box.addEventListener("change",()=>{try{localStorage.setItem("reika.notify."+key,String(box.checked));}catch{}});
 }
 renderReviewHistory();
+
+$("#project-command-check").onclick=()=>{$("#project-monitor-now").click();$("#project-problems").scrollIntoView({behavior:"smooth",block:"start"});};
+$("#project-command-ai").onclick=()=>{$("#project-ai-run").click();$("#project-ai-title").scrollIntoView({behavior:"smooth",block:"start"});};
+$("#project-command-problems").onclick=()=>{$("#project-problems").scrollIntoView({behavior:"smooth",block:"start"});};
+
+$("#project-open-map").onclick=()=>{showProjectTab("links");$("#project-map-viewport").scrollIntoView({behavior:"smooth",block:"center"});};

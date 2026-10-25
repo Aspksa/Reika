@@ -10,7 +10,7 @@ from .cloud_settings import ENDPOINT, _protect
 SUFFIXES = {".py", ".js", ".mjs", ".cjs", ".css", ".html"}
 EXCLUDED = {".changes", ".chronicle", "releases", "web/dist", "logs", ".runtime"}
 MAX_FILES = 80
-MAX_BYTES = 120_000
+MAX_BYTES = 70_000
 
 
 def collect(root: Path):
@@ -29,8 +29,8 @@ def collect(root: Path):
             content = path.read_text(encoding="utf-8")
         except (OSError, UnicodeError):
             continue
-        if len(content.encode("utf-8")) > 10_000:
-            content = content[:7000] + "\n[Файл сокращён]"
+        if len(content.encode("utf-8")) > 2_600:
+            content = content[:2400] + "\n[Файл сокращён для анализа]"
         encoded = content.encode("utf-8")
         if len(encoded) > budget:
             break
@@ -81,10 +81,14 @@ def review(root: Path, settings, transport=urlopen):
     }, ensure_ascii=False).encode("utf-8"), headers={
         "Authorization": "Bearer " + key, "Content-Type": "application/json"}, method="POST")
     try:
-        with transport(request, timeout=45) as response:
+        with transport(request, timeout=150) as response:
             answer = answer_text(json.load(response))
     except HTTPError as error:
         raise ValueError(f"Cloud.ru отклонил запрос (HTTP {error.code}). Проверьте ключ, модель и доступ к API.") from None
-    except URLError:
+    except TimeoutError:
+        raise ValueError("Cloud.ru не ответил за 150 секунд. Попробуйте другую модель или повторите анализ позже.") from None
+    except URLError as error:
+        if isinstance(error.reason, TimeoutError):
+            raise ValueError("Cloud.ru не ответил за 150 секунд. Попробуйте другую модель или повторите анализ позже.") from None
         raise ValueError("Нет соединения с API Cloud.ru. Проверьте доступ к сети.") from None
     return {"answer": answer[:14000], "files": [item["path"] for item in files], "truncated": len(files) >= MAX_FILES or bool(diagnostics["limit_reached"]), "model": settings.model}

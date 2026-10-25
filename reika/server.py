@@ -252,8 +252,8 @@ class ReikaHandler(BaseHTTPRequestHandler):
         if length != 0:
             self._json(400, {"error": "Эта команда не принимает данные."})
             return
-        self._json(200, {"status": "stopping"})
         self.server.stop_requested.set()
+        self._json(200, {"status": "stopping"})
 
     def do_OPTIONS(self):
         if self._allowed_request():
