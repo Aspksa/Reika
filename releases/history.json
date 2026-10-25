@@ -2,6 +2,115 @@
   "schema": 1,
   "releases": [
     {
+      "version": "0.12.0",
+      "previous": "0.11.0",
+      "source": "0a6edbbd89345dff40a2198b75c49da5d987d72a",
+      "created_at": "2026-10-25T11:40:16.088Z",
+      "components": [
+        {
+          "id": "frontend",
+          "name": "Интерфейс",
+          "from": "0.10.0",
+          "version": "0.10.1",
+          "reason": "Описано в записи об изменении",
+          "level": "patch"
+        },
+        {
+          "id": "styles",
+          "name": "Стили и темы",
+          "from": "0.4.2",
+          "version": "0.5.0",
+          "reason": "Описано в записи об изменении",
+          "level": "minor"
+        },
+        {
+          "id": "checks",
+          "name": "Проверки",
+          "from": "0.4.7",
+          "version": "0.4.8",
+          "reason": "Описано в записи об изменении",
+          "level": "patch"
+        },
+        {
+          "id": "config",
+          "name": "Конфигурация",
+          "from": "0.4.1",
+          "version": "0.4.2",
+          "reason": "Описано в записи об изменении",
+          "level": "patch"
+        },
+        {
+          "id": "build",
+          "name": "Сборка Node.js",
+          "from": "0.3.7",
+          "version": "0.3.8",
+          "reason": "Связь с Интерфейс: Обрабатывает HTML и JavaScript интерфейса.",
+          "level": "patch"
+        }
+      ],
+      "changes": [
+        {
+          "id": "project-architecture-refresh",
+          "kind": "design",
+          "title": "Новый дизайн каталога модулей Reika",
+          "description": "Переработаны шапка раздела, сводка показателей, вкладки, фильтры и карточки модулей. Добавлена декоративная схема в шапке и счётчики входящих и исходящих связей. Стили страницы объединены в согласованный набор правил для светлой и тёмной темы. Добавлена браузерная проверка страницы на пяти ширинах экрана и в двух темах. Действия записаны в Chronicle. Дизайн объединён с версией 0.11.0, включая мониторинг проекта и настройки Cloud.ru.",
+          "reason": "Разделу нужна ясная визуальная иерархия, чтобы быстрее находить модули и понимать количество их связей.",
+          "userImpact": "Пользователь видит компактную сводку проекта и читабельный каталог; подробности, поиск, список, карта связей и история остаются доступны.",
+          "components": {
+            "frontend": "patch",
+            "styles": "minor",
+            "checks": "patch",
+            "config": "patch"
+          },
+          "testing": [
+            "npm run check — успешно.",
+            "npm run test:versions — 3 теста пройдены; npm run test:release — 10 тестов пройдены.",
+            "npm run check:build — готовая сборка соответствует исходникам.",
+            "Python unittest discover: 30 тестов пройдены, 3 проверки Windows пропущены на Linux.",
+            "Браузерный smoke-тест на системном Chromium пройден: навигация, фильтры, темы, карта, панель модуля, Vite и горячее обновление CSS. Страница проекта проверена на 360, 390, 768, 1024 и 1440 px в двух темах без горизонтального переполнения. Скриншоты светлой настольной и тёмной мобильной страницы просмотрены."
+          ],
+          "risks": [
+            "Windows BAT, трей и хранение ключей через DPAPI требуют проверки на Windows."
+          ],
+          "migration": [
+            "Дополнительные действия не требуются. Используйте обновлённую готовую сборку web/dist; после обновления перезапустите Reika."
+          ]
+        }
+      ],
+      "files": [
+        {
+          "path": ".chronicle/events.jsonl",
+          "action": "added",
+          "component": "config"
+        },
+        {
+          "path": "tests/browser_smoke.cjs",
+          "action": "modified",
+          "component": "checks"
+        },
+        {
+          "path": "web/index.html",
+          "action": "modified",
+          "component": "frontend"
+        },
+        {
+          "path": "web/project.js",
+          "action": "modified",
+          "component": "frontend"
+        },
+        {
+          "path": "web/styles/project.css",
+          "action": "modified",
+          "component": "styles"
+        }
+      ],
+      "commits": [
+        "01a92908eb2982fc8b93a7b0ab389b0523a930ea",
+        "04244f9fb5be5ea8f05bfbc145d3313087e45dd9",
+        "0a6edbbd89345dff40a2198b75c49da5d987d72a"
+      ]
+    },
+    {
       "version": "0.11.0",
       "previous": "0.10.0",
       "source": "69e91ec6b56c991bb4b7a46146e251fb2c665ed3",
