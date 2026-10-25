@@ -118,3 +118,66 @@
 #view-project[data-audience="user"] .module-paths {display:none}
 @media(max-width:750px){.project-links,.project-compare-grid {grid-template-columns:1fr}.project-view-controls label {flex:1 1 140px}.project-tabs {flex-basis:100%}}
 @media(max-width:440px){.project-tabs button {font-size:12px}.project-compare-controls label {width:100%}}
+
+
+/* Project design system: inherited Reika theme, no external fonts or CDNs. */
+.project-hero{display:flex;justify-content:space-between;align-items:center;gap:22px;border:1px solid var(--border);padding:24px;border-radius:20px;background:linear-gradient(125deg,rgba(191,151,86,.12),transparent 65%),var(--surface);margin:12px 0 20px;position:relative;overflow:hidden}
+.project-hero:after{content:"✧";font-size:125px;position:absolute;right:15%;top:-50px;opacity:.045;pointer-events:none}
+.project-hero h2{font-size:clamp(23px,3vw,32px);margin:8px 0;font-weight:650;letter-spacing:-.035em}
+.project-hero h2 span{color:var(--gold)}
+.project-hero .page-intro{margin:8px 0 0;max-width:540px}
+.project-health{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--border);border-radius:99px;padding:9px 12px;background:var(--surface);font-size:12px;white-space:nowrap;z-index:1}
+.project-health-dot{height:8px;width:8px;background:#72a98c;border-radius:50%}
+.project-action-row{display:flex;gap:10px;justify-content:space-between;align-items:center;margin:12px 0}
+.project-action-row button,.project-inspector-close,.project-open-module,.project-map-toolbar button{background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:9px 13px;color:var(--ink);font:inherit;cursor:pointer}
+.project-layout-toggle{display:flex;gap:5px}
+.project-layout-toggle button[aria-pressed="true"]{border-color:var(--gold);color:var(--accent)}
+.module-card{position:relative;border-radius:16px;isolation:isolate;box-shadow:0 2px 16px rgba(49,35,25,.025)}
+.module-card:hover{box-shadow:0 12px 28px rgba(85,62,35,.09);transform:translateY(-2px)}
+.module-card[data-category="core"]{--module-tone:#a6754e}
+.module-card[data-category="frontend"]{--module-tone:#9b80b7}
+.module-card[data-category="launcher"]{--module-tone:#649d9c}
+.module-card[data-category="build"]{--module-tone:#668eb5}
+.module-card[data-category="docs"]{--module-tone:#799b75}
+.module-card[data-category="release"]{--module-tone:#bd8e51}
+.module-card[data-category="misc"]{--module-tone:#888}
+.module-card:before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:var(--module-tone,var(--gold));border-radius:16px 0 0 16px}
+.module-heading{gap:9px;justify-content:start}
+.module-heading h3{flex:1}
+.module-icon{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;flex:0 0 38px;border-radius:12px;background:color-mix(in srgb,var(--module-tone,var(--gold)) 13%,var(--surface));color:var(--module-tone,var(--gold));font-size:23px}
+.module-meta{margin:8px 0 10px 47px}
+.module-details[open]{animation:project-reveal .2s ease-out}
+.project-open-module{width:100%;text-align:left;margin-top:9px;color:var(--accent);border-color:transparent;background:transparent;font-size:12px;font-weight:600}
+.project-open-module:hover{border-color:var(--border)}
+.project-module-workspace{display:grid;grid-template-columns:minmax(0,1fr);gap:16px}
+.project-module-workspace:has(.project-inspector:not([hidden])){grid-template-columns:minmax(0,1fr) minmax(265px,32%)}
+.project-module-workspace:has(.project-inspector:not([hidden])) .module-grid{grid-template-columns:1fr}
+.project-inspector{background:var(--surface);border:1px solid var(--gold);border-radius:16px;padding:20px;position:sticky;top:20px;align-self:start;max-height:80vh;overflow:auto;box-shadow:0 12px 36px rgba(49,35,25,.08)}
+.project-inspector-close{float:right}
+.project-inspector h3{font-size:21px;margin:12px 0}
+.project-inspector h4{font-size:12px;margin-top:18px}
+.project-empty{min-height:200px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:7px}
+.project-empty-symbol{font-size:45px;color:var(--gold)}
+.project-empty h3{margin:0}
+.project-links{margin-top:20px}
+.project-map-toolbar{display:flex;justify-content:end;gap:6px;margin:15px 0 8px}
+.project-map-viewport{border:1px solid var(--border);background:radial-gradient(circle at 50% 50%,rgba(192,151,87,.07),transparent 60%),var(--surface);border-radius:17px;overflow:hidden;touch-action:none;cursor:grab}
+.project-map-viewport:active{cursor:grabbing}
+#project-map{display:block;width:100%;height:auto;min-height:280px}
+.project-map-node{cursor:pointer;outline:none}
+.project-map-node:focus circle{stroke:var(--accent);stroke-width:4}
+.project-map-warning{font-size:12px;color:var(--muted)}
+.project-history{position:relative;padding-left:18px}
+.project-history:before{content:"";position:absolute;top:0;bottom:0;left:3px;width:2px;background:var(--gold);opacity:.35}
+.release-card{position:relative}
+.release-card:before{content:"";position:absolute;left:-21px;top:23px;width:9px;height:9px;border-radius:100%;background:var(--gold)}
+.project-change-tag{display:inline-flex;font-size:11px;color:var(--accent);border-radius:99px;padding:3px 7px;background:rgba(188,150,96,.12)}
+.project-chronicle-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:28px}
+.project-feature-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px}
+.project-feature-card h3{font-size:14px;margin:0 0 11px}
+.project-event-list{color:var(--muted);font-size:12px;line-height:1.75}
+#view-project[data-layout="list"] .module-grid{grid-template-columns:1fr}
+@keyframes project-reveal{from{opacity:.55;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:950px){.project-module-workspace:has(.project-inspector:not([hidden])){grid-template-columns:1fr}.project-inspector{position:static;max-height:none}.project-chronicle-grid{grid-template-columns:1fr}}
+@media(max-width:580px){.project-hero{padding:16px;align-items:start;flex-direction:column}.project-hero h2{font-size:25px}.project-health{align-self:start}.project-chronicle-grid{gap:9px}.project-map-toolbar{flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){.module-card,.module-details[open]{animation:none;transition:none}.module-card:hover{transform:none}}
