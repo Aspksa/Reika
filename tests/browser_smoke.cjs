@@ -32,7 +32,7 @@ async function run() {
   page.on("pageerror", (error) => errors.push(error.message));
   page.on("response", (response) => { if (response.status() >= 400) failures.push(response.url()); });
   await page.goto(url);
-  await page.waitForSelector('[data-connection][data-state="online"]');
+  await page.waitForSelector('.view:not([hidden]) [data-connection][data-state="online"]');
   await page.screenshot({ path: path.join(results, "desktop.png"), fullPage: true });
   await page.getByRole("button", { name: "Скопировать адрес" }).click();
   assert.equal(await page.evaluate(() => navigator.clipboard.readText()), url);
@@ -41,7 +41,7 @@ async function run() {
   await page.getByRole("button", { name: "Включить тёмную тему" }).click();
   await page.reload();
   assert.equal(await page.locator("html").getAttribute("data-theme"), "dark");
-  await page.waitForSelector('[data-connection][data-state="online"]');
+  await page.waitForSelector('.view:not([hidden]) [data-connection][data-state="online"]');
   await page.screenshot({ path: path.join(results, "system-dark.png"), fullPage: true });
   await page.getByRole("link", { name: "О Reika", exact: true }).click();
   await page.waitForSelector("#view-about:not([hidden])");
@@ -56,11 +56,11 @@ async function run() {
   }
   await context.setOffline(true);
   await page.getByRole("button", { name: "Проверить соединение" }).click();
-  await page.waitForSelector('[data-connection][data-state="offline"]');
+  await page.waitForSelector('.view:not([hidden]) [data-connection][data-state="offline"]');
   assert.equal(await page.locator("#uptime").textContent(), "—");
   await context.setOffline(false);
   await page.getByRole("button", { name: "Проверить соединение" }).click();
-  await page.waitForSelector('[data-connection][data-state="online"]');
+  await page.waitForSelector('.view:not([hidden]) [data-connection][data-state="online"]');
   assert.deepEqual(errors, []);
   assert.deepEqual(failures, []);
   console.log("Browser checks passed: navigation, clipboard, themes, 5 viewport sizes, offline recovery, no script/resource errors.");
