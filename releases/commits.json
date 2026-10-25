@@ -60,6 +60,112 @@
         "tests/release-integration.test.mjs",
         "versions.lock.json"
       ]
+    },
+    {
+      "sha": "270003262e2563d6b4464b0276aecac9908f384e",
+      "release": "0.5.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "scripts/chronicle.py"
+      ]
+    },
+    {
+      "sha": "db90e3405f3bd7afa0ce2c42d3fc2e623b15c2ad",
+      "release": "0.5.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "scripts/release.mjs"
+      ]
+    },
+    {
+      "sha": "346b5e7196b95d9d714e4ee3b1a7951fd5872d99",
+      "release": "0.5.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "scripts/release.mjs"
+      ]
+    },
+    {
+      "sha": "287ffa279c06fe5e9e2466f04da59cf99ea5c03d",
+      "release": "0.5.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "tests/test_chronicle.py"
+      ]
+    },
+    {
+      "sha": "fddafffb2345d73023322ee813ee0eff0465b639",
+      "release": "0.5.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "CHRONICLE.md"
+      ]
+    },
+    {
+      "sha": "9d87639874bde3d89422219d109d8d5ff6d89e60",
+      "release": "0.5.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "versions.json"
+      ]
+    },
+    {
+      "sha": "4226a420e640ae4603cf95f83a9f7316d18f7815",
+      "release": "0.5.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "AGENTS.md"
+      ]
+    },
+    {
+      "sha": "c8a5665d46b925394fe4eb3660efa862dd64428e",
+      "release": "0.5.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        ".github/workflows/checks.yml"
+      ]
+    },
+    {
+      "sha": "39bef1d837416152a22f23d7e4213313c74357a7",
+      "release": "0.5.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        ".changes/project-chronicle-problems-agents-links.json"
+      ]
+    },
+    {
+      "sha": "1420b369da27f9cae606e1b048a32fc5db919aa9",
+      "release": "0.5.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "versions.json"
+      ]
+    },
+    {
+      "sha": "d1a18c169ec90f7f9f95e0b225d57b5ec6df75c3",
+      "release": "0.5.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        ".github/workflows/checks.yml"
+      ]
+    },
+    {
+      "sha": "df8fa931c47a157f9189b9437594c805f21b9386",
+      "release": "0.5.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": []
     }
   ]
 }
