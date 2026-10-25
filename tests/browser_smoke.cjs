@@ -64,6 +64,13 @@ async function run() {
   await page.waitForSelector('[data-module="release"]');
   assert.ok(Number(await page.locator("#project-count-modules").textContent()) >= 10);
   assert.ok(Number(await page.locator("#project-count-links").textContent()) > 0);
+  await page.waitForFunction(() => document.querySelector("#project-monitor-status").textContent.includes("Последняя проверка"));
+  assert.ok(Number(await page.locator(".project-monitor-item").count()) >= 5);
+  await page.locator("#project-monitor-interval").selectOption("0");
+  await page.locator("#project-monitor-now").click();
+  await page.waitForFunction(() => document.querySelector("#project-monitor-status").textContent.includes("Последняя проверка"));
+  await page.locator("#project-monitor-interval").selectOption("30000");
+
   assert.equal(await page.locator('[data-project-tab]').count(),3);
   assert.ok(await page.locator(".project-hero").isVisible());
   await page.locator("#project-toggle-filters").click();
