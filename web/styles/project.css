@@ -169,3 +169,32 @@
 .cloud-model-card .cloud-price{color:var(--accent);font-weight:600}
 .cloud-model-card small{font-size:11px;color:var(--muted)}
 @media(max-width:720px){.cloud-model-grid{grid-template-columns:1fr}.cloud-panel{padding:16px}}
+
+/* Настройки проекта */
+.settings-jump{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px}
+.settings-jump button{border:1px solid var(--border);background:var(--surface);color:var(--ink);padding:10px 16px;border-radius:var(--ui-radius,10px);font:inherit;font-size:12px;cursor:pointer}
+.settings-jump button:hover{color:var(--accent);border-color:var(--accent)}
+.appearance-panel{border:1px solid var(--border);background:var(--surface);border-radius:var(--ui-radius,18px);padding:28px;margin:0 0 28px;scroll-margin-top:25px}
+.settings-section-heading{display:flex;gap:16px;align-items:center;padding-bottom:24px}
+.settings-section-heading h2{font-size:24px;letter-spacing:-.5px;margin:0 0 5px}
+.settings-section-heading p:last-child{color:var(--muted);font-size:12px;line-height:1.6}
+.settings-icon{display:grid;place-items:center;flex:0 0 48px;height:48px;border-radius:var(--ui-radius,13px);color:var(--accent);background:var(--accent-soft);font-size:25px}
+.appearance-row{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:20px 0;border-top:1px solid var(--border)}
+.appearance-row>div:first-child{max-width:350px}
+.appearance-row h3{font-size:14px;margin:0 0 5px}
+.appearance-row p{font-size:12px;color:var(--muted);line-height:1.6}
+.appearance-hint{text-align:right}
+.appearance-options{display:flex;flex-wrap:wrap;justify-content:end;gap:6px;max-width:540px}
+.appearance-options button{font:inherit;font-size:12px;display:inline-flex;align-items:center;gap:7px;color:var(--ink);background:var(--surface-soft);border:1px solid var(--border);border-radius:var(--ui-radius,8px);padding:10px 12px;cursor:pointer}
+.appearance-options button:hover,.appearance-options button[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.appearance-options i{width:12px;height:12px;background:var(--swatch);border-radius:50%}
+#appearance-custom-color{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+#cloud-section,#catalog-section{scroll-margin-top:25px}
+.cloud-panel{margin:0 0 32px}
+.cloud-panel h2{font-size:22px}
+.cloud-panel>p:first-of-type{color:var(--success);font-size:12px}
+.cloud-panel input:focus-visible,.cloud-panel select:focus-visible,.appearance-options button:focus-visible,.settings-jump button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.cloud-model-card{position:relative;gap:12px}
+.cloud-model-card:before{content:"";position:absolute;top:0;left:20px;right:20px;height:2px;background:var(--accent);opacity:.5}
+.cloud-model-card .cloud-capabilities{padding-left:18px;margin:0;color:var(--muted);font-size:12px;line-height:1.7}
+@media(max-width:750px){.appearance-panel{padding:18px}.appearance-row{align-items:start;flex-direction:column}.appearance-options{justify-content:start}.appearance-hint{text-align:left}.settings-section-heading{align-items:start}.cloud-panel{margin-top:0}}

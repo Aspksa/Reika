@@ -1,3 +1,12 @@
+const capabilities={
+ "openai/gpt-oss-120b":["Помогает разбирать сложные вопросы по шагам и сравнивать варианты решения.","Пишет и объясняет код, составляет планы и структурированные ответы."],
+ "Qwen/Qwen3-Coder-Next":["Работает с программным кодом: предлагает реализацию, рефакторинг и тесты.","Помогает читать большие фрагменты проекта и искать причины ошибок."],
+ "deepseek-ai/DeepSeek-V4-Pro":["Подходит для задач, где нужно подробное рассуждение и анализ условий.","Помогает проектировать алгоритмы, писать код и проверять гипотезы."],
+ "moonshotai/Kimi-K2.6":["Удобна для разбора длинных документов и сопоставления большого объёма сведений.","Подходит для задач с текстом и другими типами входных данных, если их поддерживает выбранный API."],
+ "GigaChat/GigaChat-3-Pro":["Помогает писать, редактировать и кратко пересказывать тексты на русском языке.","Подходит для диалогов, аналитических записок и ответов на вопросы."],
+ "GigaChat/GigaChat-2-Max":["Помогает составлять деловые письма, инструкции и развёрнутые ответы.","Подходит для русскоязычных диалогов и обработки текстовых запросов."],
+ "MiniMaxAI/MiniMax-M3":["Помогает писать код и разбирать многошаговые задачи.","Подходит для подготовки сценариев автоматизации и структурированных инструкций."]
+};
 let ready=false;
 const $=id=>document.getElementById(id);
 function render(data){
@@ -13,7 +22,9 @@ function render(data){
     const price=document.createElement("p");price.className="cloud-price";
     price.textContent="Ввод: "+model.input+" ₽ / 1 млн · Вывод: "+model.output+" ₽ / 1 млн";
     const id=document.createElement("small");id.textContent=model.id;
-    article.append(title,desc,price,id);cards.append(article);
+    const details=document.createElement("ul");details.className="cloud-capabilities";
+    for(const text of capabilities[model.id]||[]) {const li=document.createElement("li");li.textContent=text;details.append(li);}
+    article.append(title,desc,details,price,id);cards.append(article);
   }
   selector.value=data.model;
   $("cloud-save").disabled=!data.secure_storage;

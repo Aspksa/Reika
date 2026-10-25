@@ -66,6 +66,29 @@ async function run() {
   assert.ok(await page.locator(".cloud-model-card").count() >= 7);
   assert.ok((await page.locator("#cloud-key-status").textContent()).length>0);
   assert.ok(await page.locator("#cloud-model option").count()>=7);
+  assert.equal(await page.locator(".cloud-capabilities").count(), await page.locator(".cloud-model-card").count());
+  await page.locator('[data-appearance-theme="dark"]').click();
+  assert.equal(await page.locator("html").getAttribute("data-theme"),"dark");
+  await page.locator('[data-appearance-theme="light"]').click();
+  await page.locator('[data-appearance-accent="jade"]').click();
+  await page.locator('[data-appearance-rounding="round"]').click();
+  await page.locator('[data-appearance-scale="large"]').click();
+  assert.equal(await page.locator("html").getAttribute("data-accent"),"jade");
+  assert.equal(await page.locator("html").getAttribute("data-rounding"),"round");
+  assert.equal(await page.locator("html").getAttribute("data-scale"),"large");
+  await page.reload();
+  await page.waitForSelector(".cloud-model-card");
+  assert.equal(await page.locator("html").getAttribute("data-accent"),"jade");
+  assert.equal(await page.locator("html").getAttribute("data-rounding"),"round");
+  assert.equal(await page.locator("html").getAttribute("data-scale"),"large");
+  for (const width of [390,768,1440]) {
+    await page.setViewportSize({width,height:900});
+    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth),false,`Settings overflow at ${width}px`);
+    if(width===390||width===1440)await capture(page,`settings-${width}.png`);
+  }
+  await page.locator('[data-appearance-scale="normal"]').click();
+  await page.locator('[data-appearance-rounding="normal"]').click();
+  await page.locator('[data-appearance-accent="sakura"]').click();
   await capture(page, "cloud-settings.png");
   await page.getByRole("link", { name: "Проект", exact: true }).click();
   await page.waitForSelector('[data-module="release"]');
