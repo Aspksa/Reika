@@ -19,6 +19,7 @@ from urllib.parse import urlsplit, unquote
 from . import __version__
 from .versions import COMPONENTS, COMPONENT_VERSIONS
 from .project_monitor import ProjectMonitor
+from .cloud_settings import CloudSettings
 
 
 LOGGER = logging.getLogger("reika.http")
@@ -80,6 +81,7 @@ class ReikaServer(ThreadingHTTPServer):
                         for path in sorted((project_root / ".changes").glob("*.json"))],
         }
         self.project_monitor = ProjectMonitor(project_root)
+        self.cloud_settings = CloudSettings(project_root)
         self.instance_id = instance_id
         self.control_token = control_token
         self.stop_requested = threading.Event()
@@ -181,6 +183,8 @@ class ReikaHandler(BaseHTTPRequestHandler):
         route = self._route()
         if route == "/api/status":
             self._json(200, self.server.status())
+        elif route == "/api/project/cloud":
+            self._json(200, self.server.cloud_settings.public())
         elif route == "/api/project/monitor":
             self._json(200, self.server.project_monitor.status())
         elif route == "/api/project":
@@ -196,6 +200,20 @@ class ReikaHandler(BaseHTTPRequestHandler):
 
     def do_POST(self):
         if not self._allowed_request():
+            return
+        if self._route() == "/api/project/cloud":
+            if self.headers.get("Origin") != self.server.url:
+                self._json(403, {"error": "Недопустимый источник."})
+                return
+            try:
+                size = int(self.headers.get("Content-Length", "-1"))
+                if not 1 <= size <= 2048:
+                    raise ValueError("Размер настроек недопустим.")
+                incoming = json.loads(self.rfile.read(size))
+                result = self.server.cloud_settings.update(incoming)
+                self._json(200, result)
+            except (ValueError, RuntimeError, OSError) as error:
+                self._json(400, {"error": str(error)})
             return
         if self._route() != "/api/shutdown":
             self._json(404, {"error": "Команда не найдена."})

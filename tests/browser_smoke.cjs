@@ -60,6 +60,13 @@ async function run() {
   await page.waitForSelector("#view-about:not([hidden])");
   await capture(page, "about.png");
   await page.getByRole("button", { name: "Включить светлую тему" }).click();
+  await page.getByRole("link", { name: "Настройки проекта", exact: true }).click();
+  await page.waitForSelector("#view-project-settings:not([hidden])");
+  await page.waitForSelector(".cloud-model-card");
+  assert.ok(await page.locator(".cloud-model-card").count() >= 7);
+  assert.ok((await page.locator("#cloud-key-status").textContent()).length>0);
+  assert.ok(await page.locator("#cloud-model option").count()>=7);
+  await capture(page, "cloud-settings.png");
   await page.getByRole("link", { name: "Проект", exact: true }).click();
   await page.waitForSelector('[data-module="release"]');
   assert.ok(Number(await page.locator("#project-count-modules").textContent()) >= 10);

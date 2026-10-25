@@ -7,7 +7,8 @@
       "version": "0.5.0",
       "paths": [
         "reika/",
-        "run.py"
+        "run.py",
+        "reika/cloud_settings.py"
       ],
       "description": "Запускает приложение, обслуживает локальный API и проверяет готовую сборку.",
       "status": "active",
@@ -27,7 +28,8 @@
         "web/index.html",
         "web/app.js",
         "web/reika.svg",
-        "web/project.js"
+        "web/project.js",
+        "web/cloud_settings.js"
       ],
       "description": "Показывает страницы Reika, состояние приложения и действия пользователя.",
       "status": "active",
