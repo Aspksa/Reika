@@ -1,5 +1,6 @@
 import { loadProject } from "./project.js";
 import { loadCloudSettings } from "./cloud_settings.js";
+import { initAppearance, syncTheme } from "./appearance.js";
 "use strict";
 
 (() => {
@@ -41,6 +42,7 @@ import { loadCloudSettings } from "./cloud_settings.js";
 
   function setTheme(theme) {
     document.documentElement.dataset.theme = theme;
+    syncTheme();
     $("#theme-toggle").setAttribute("aria-label", theme === "dark" ? "Включить светлую тему" : "Включить тёмную тему");
     $("#theme-toggle").setAttribute("aria-pressed", String(theme === "dark"));
     try { localStorage.setItem("reika.theme", theme); } catch { /* Optional preference. */ }
@@ -124,6 +126,7 @@ import { loadCloudSettings } from "./cloud_settings.js";
   }
 
   $("#reload-project").addEventListener("click", () => loadProject(true));
+  window.addEventListener("reika:set-theme",(event)=>setTheme(event.detail));
   $("#theme-toggle").addEventListener("click", () => setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark"));
   $("#check-connection").addEventListener("click", () => refresh(true));
   $("#copy-address").addEventListener("click", async () => {
@@ -143,6 +146,7 @@ import { loadCloudSettings } from "./cloud_settings.js";
     initialTheme = saved ? saved[1] : (localStorage.getItem("reika.theme") === "dark" ? "dark" : "light");
   } catch { /* Storage can be disabled in the browser. */ }
   setTheme(initialTheme);
+  initAppearance();
   $("#today").textContent = new Intl.DateTimeFormat("ru-RU", {day: "numeric", month: "long", weekday: "short"}).format(new Date());
   route();
   refresh();

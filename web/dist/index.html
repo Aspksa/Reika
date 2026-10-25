@@ -7,8 +7,8 @@
   <meta name="description" content="Рэйка Амацухара — ваше локальное пространство.">
   <title>Рэйка Амацухара · Reika</title>
   <link rel="icon" type="image/svg+xml" href="/assets/reika-vw6GPLNw.svg">
-  <script type="module" crossorigin src="/assets/index--iOOvOUp.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-Txfql9vn.css">
+  <script type="module" crossorigin src="/assets/index-xz9ZMOy5.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-DYZb1fDd.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Перейти к содержимому</a>
@@ -119,8 +119,14 @@
       </section>
       <section class="view" id="view-project-settings" aria-labelledby="cloud-settings-title" hidden>
         <div class="page-heading"><div><p class="eyebrow">УСТРОЙСТВО И РАЗВИТИЕ</p><h1 id="cloud-settings-title">Настройки проекта</h1></div></div>
-        <p class="page-intro">Подключение Evolution Foundation Models Cloud.ru. Запросы могут быть платными, выбор модели не выполняет запрос.</p>
-        <div class="cloud-panel">
+        <nav class="settings-jump" aria-label="Разделы настроек"><button type="button" data-settings-target="appearance-section">Внешний вид</button><button type="button" data-settings-target="cloud-section">Cloud.ru</button><button type="button" data-settings-target="catalog-section">Каталог моделей</button></nav>
+        <section class="appearance-panel" id="appearance-section" aria-labelledby="appearance-title"><div class="settings-section-heading"><span class="settings-icon" aria-hidden="true">✦</span><div><p class="eyebrow">ПОД СВОЙ ВКУС</p><h2 id="appearance-title">Внешний вид</h2><p>Тема, цвет, скругления и размер интерфейса. Меняются сразу, хранятся в этом браузере.</p></div></div>
+          <div class="appearance-row"><div><h3>Тема</h3><p>Светлый или тёмный фон</p></div><div class="appearance-options" role="group" aria-label="Тема"><button type="button" data-appearance-theme="light">☀ Светлая</button><button type="button" data-appearance-theme="dark">☾ Тёмная</button></div></div>
+          <div class="appearance-row"><div><h3>Акцентный цвет</h3><p>Цвет кнопок, отметок и аватара. «Свой» открывает палитру.</p></div><div class="appearance-options appearance-colors" role="group" aria-label="Акцентный цвет"><button type="button" data-appearance-accent="gold"><i style="--swatch:#9b6b32"></i>Золото</button><button type="button" data-appearance-accent="sakura"><i style="--swatch:#a64f72"></i>Сакура</button><button type="button" data-appearance-accent="jade"><i style="--swatch:#287965"></i>Нефрит</button><button type="button" data-appearance-accent="violet"><i style="--swatch:#7456aa"></i>Фиалка</button><button type="button" data-appearance-accent="custom"><i style="--swatch:var(--chosen-accent,#93507a)"></i>Свой</button><input id="appearance-custom-color" type="color" aria-label="Свой акцентный цвет"></div></div>
+          <div class="appearance-row"><div><h3>Скругление</h3><p>Углы карточек и кнопок</p></div><div class="appearance-options" role="group" aria-label="Скругление"><button type="button" data-appearance-rounding="sharp">Острые</button><button type="button" data-appearance-rounding="normal">Обычные</button><button type="button" data-appearance-rounding="round">Круглые</button></div></div>
+          <div class="appearance-row"><div><h3>Масштаб</h3><p>Размер текста и элементов всего приложения</p></div><div class="appearance-options" role="group" aria-label="Масштаб"><button type="button" data-appearance-scale="small">Мельче</button><button type="button" data-appearance-scale="normal">Обычный</button><button type="button" data-appearance-scale="large">Крупнее</button></div></div>
+        </section>
+        <div class="cloud-panel" id="cloud-section">
           <h2>Cloud.ru · подключение</h2>
           <p id="cloud-key-status" role="status">Проверка хранилища…</p>
           <label>Ключ API<input type="password" autocomplete="off" spellcheck="false" id="cloud-key" placeholder="Введите новый API-ключ"></label>
@@ -129,7 +135,7 @@
           <div class="cloud-actions"><button type="button" id="cloud-save">Сохранить настройки</button><button type="button" id="cloud-delete">Удалить ключ</button><button type="button" id="cloud-refresh">Обновить каталог</button></div>
           <p id="cloud-message" role="status"></p>
         </div>
-        <div class="section-heading"><h2>Каталог моделей и стоимость</h2></div>
+        <div class="section-heading" id="catalog-section"><h2>Каталог моделей и стоимость</h2></div>
         <p class="page-intro">Цены ориентировочные, за миллион входных и выходных токенов. Они могут измениться. Перед использованием проверяйте тарифы на <a href="https://cloud.ru/products/evolution-ai-factory/catalog-foundation-models" target="_blank" rel="noopener noreferrer">Cloud.ru</a>.</p>
         <div id="cloud-model-cards" class="cloud-model-grid"></div>
       </section>
