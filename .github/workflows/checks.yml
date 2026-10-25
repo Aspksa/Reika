@@ -4,6 +4,11 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_call:
+    inputs:
+      ref:
+        required: false
+        type: string
 
 permissions:
   contents: read
@@ -14,6 +19,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.ref }}
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -21,6 +29,11 @@ jobs:
       - run: npm ci --ignore-scripts
       - run: npm run check
       - run: npm run test:versions
+      - run: npm run test:release
+      - name: Проверить русские описания изменений
+        env:
+          RELEASE_BASE: ${{ github.event.pull_request.base.sha }}
+        run: npm run release:check -- --base "$RELEASE_BASE"
       - run: npm run check:build
 
   checks:
@@ -36,6 +49,9 @@ jobs:
             python: '3.12'
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.ref }}
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
@@ -51,6 +67,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.ref }}
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'

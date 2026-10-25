@@ -1,0 +1,140 @@
+name: Автоматический выпуск Reika
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: reika-publication
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    name: Подготовка выпуска
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      ready: ${{ steps.candidate.outputs.ready }}
+      sha: ${{ steps.candidate.outputs.sha }}
+      source: ${{ steps.candidate.outputs.source }}
+      version: ${{ steps.candidate.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Восстановить незавершённую публикацию
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version=$(node -p "require('./versions.json').project")
+          tag="v$version"
+          if git rev-parse --verify "refs/tags/$tag" >/dev/null 2>&1; then
+            if ! gh release view "$tag" >/dev/null 2>&1; then
+              mkdir -p .runtime/release
+              git show "$tag:releases/$version.md" > .runtime/release/recovery.md
+              git archive --format=zip --prefix="Reika-$version/" "$tag" > ".runtime/release/Reika-$version.zip"
+              gh release create "$tag" ".runtime/release/Reika-$version.zip" --verify-tag --title "Рэйка Амацухара $version" --notes-file .runtime/release/recovery.md
+            fi
+          fi
+      - name: Подготовить неизменяемого кандидата
+        id: candidate
+        run: |
+          source=$(git rev-parse HEAD)
+          branch="automation/release-${source:0:12}"
+          if git ls-remote --exit-code --heads origin "$branch" >/dev/null 2>&1; then
+            git fetch origin "$branch"
+            git checkout --detach FETCH_HEAD
+            test "$(git rev-parse HEAD^)" = "$source"
+          else
+            node scripts/release.mjs prepare
+            if ! node -e "const p=require('./.runtime/release/plan.json');process.exit(p.plan?0:1)"; then
+              echo 'ready=false' >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            git config user.name 'Reika Release Bot'
+            git config user.email 'reika-release@users.noreply.github.com'
+            git add --all
+            git commit -m "Выпуск Reika $(node -p "require('./versions.json').project")"
+            git push origin "HEAD:refs/heads/$branch"
+          fi
+          echo 'ready=true' >> "$GITHUB_OUTPUT"
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          echo "source=$source" >> "$GITHUB_OUTPUT"
+          echo "version=$(node -p "require('./versions.json').project")" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: release-plan-${{ github.run_id }}
+          path: .runtime/release/
+          if-no-files-found: ignore
+
+  verify:
+    name: Проверка кандидата
+    needs: prepare
+    if: needs.prepare.outputs.ready == 'true'
+    uses: ./.github/workflows/checks.yml
+    with:
+      ref: ${{ needs.prepare.outputs.sha }}
+
+  publish:
+    name: Публикация проверенного выпуска
+    needs: [prepare, verify]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.prepare.outputs.sha }}
+          fetch-depth: 0
+      - name: Сохранить выпуск и тег атомарно
+        env:
+          SOURCE_SHA: ${{ needs.prepare.outputs.source }}
+          RELEASE_VERSION: ${{ needs.prepare.outputs.version }}
+        run: |
+          current=$(git ls-remote origin refs/heads/main | cut -f1)
+          test "$current" = "$SOURCE_SHA"
+          test "$(git rev-parse HEAD^)" = "$SOURCE_SHA"
+          git tag "v$RELEASE_VERSION"
+          git push --atomic origin HEAD:refs/heads/main "refs/tags/v$RELEASE_VERSION"
+      - name: Опубликовать русский отчёт и ZIP
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_VERSION: ${{ needs.prepare.outputs.version }}
+        run: |
+          mkdir -p .runtime/release
+          cp "releases/$RELEASE_VERSION.md" .runtime/release/notes.md
+          printf '\nАвтоматические проверки Windows, Linux, Node.js и браузера прошли: %s/%s/actions/runs/%s\n' "$GITHUB_SERVER_URL" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" >> .runtime/release/notes.md
+          git archive --format=zip --prefix="Reika-$RELEASE_VERSION/" HEAD > ".runtime/release/Reika-$RELEASE_VERSION.zip"
+          if ! gh release view "v$RELEASE_VERSION" >/dev/null 2>&1; then
+            gh release create "v$RELEASE_VERSION" ".runtime/release/Reika-$RELEASE_VERSION.zip" --verify-tag --title "Рэйка Амацухара $RELEASE_VERSION" --notes-file .runtime/release/notes.md
+          fi
+
+  report:
+    name: Результат автоматического выпуска
+    if: always()
+    needs: [prepare, verify, publish]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Сохранить результат попытки
+        env:
+          RESULTS: ${{ toJSON(needs) }}
+        run: |
+          mkdir -p attempt
+          printf '%s\n' "$RESULTS" > attempt/results.json
+          printf 'Результаты подготовки, проверок и публикации находятся в артефакте release-attempt. Неудачная проверка не публикует новую версию.\n' >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-attempt-${{ github.run_id }}
+          path: attempt/

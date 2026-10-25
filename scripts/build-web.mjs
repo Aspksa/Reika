@@ -29,7 +29,7 @@ try {
     files: {},
   };
   for (const path of await files(output)) {
-    if (path !== "index.html" && !/^assets\/[a-zA-Z0-9_.-]+\.(css|js|svg)$/.test(path)) {
+    if (path !== "index.html" && !/^assets\/[\p{L}\p{N}_.-]+\.(css|js|svg|png|jpg|jpeg|webp|avif|gif|woff|woff2)$/u.test(path)) {
       throw new Error(`Недопустимый файл сборки: ${path}`);
     }
     manifest.files[path] = createHash("sha256").update(await readFile(join(output, path))).digest("hex");

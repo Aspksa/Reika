@@ -9,6 +9,7 @@ async function fixture() {
   const root = await mkdtemp(join(tmpdir(), "reika-versions-"));
   await mkdir(join(root, "scripts"));
   await copyFile(new URL("../scripts/versions.mjs", import.meta.url), join(root, "scripts/versions.mjs"));
+  await copyFile(new URL("../scripts/project.mjs", import.meta.url), join(root, "scripts/project.mjs"));
   const registry = {schema: 1, project: "1.2.3", components: {
     styles: {name: "Стили", version: "2.3.4", paths: ["styles.css"]},
     config: {name: "Сборка", version: "1.0.0", paths: ["versions.json", "package.json", "package-lock.json", "scripts/"]},
