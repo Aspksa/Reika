@@ -60,6 +60,13 @@ async function run() {
   await page.waitForSelector("#view-about:not([hidden])");
   await capture(page, "about.png");
   await page.getByRole("button", { name: "Включить светлую тему" }).click();
+  await page.getByRole("link", { name: "Проект", exact: true }).click();
+  await page.waitForSelector('[data-module="release"]');
+  await page.locator("#module-filter").selectOption("frontend");
+  assert.ok(await page.locator('[data-module="styles"]').isVisible());
+  assert.equal(await page.locator('[data-module="launcher"]').count(), 0);
+  await page.locator("#module-filter").selectOption("");
+  await capture(page, "project.png");
   await page.getByRole("link", { name: "Главная", exact: true }).click();
   await page.setViewportSize({ width: 390, height: 844 });
   await page.waitForFunction(() => getComputedStyle(document.querySelector(".navigation")).flexDirection === "row");

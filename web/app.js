@@ -1,9 +1,10 @@
+import { loadProject } from "./project.js";
 "use strict";
 
 (() => {
   const $ = (selector) => document.querySelector(selector);
   const all = (selector) => document.querySelectorAll(selector);
-  const viewNames = {home: "Главная", system: "Система", about: "О Reika"};
+  const viewNames = {home: "Главная", system: "Система", about: "О Reika", project: "Проект"};
   let state = null;
   let busy = false;
   let online = false;
@@ -29,6 +30,7 @@
     });
     $("#view-title").textContent = viewNames[name];
     document.title = `${viewNames[name]} · Reika`;
+    if (name === "project") loadProject();
     if (focus) {
       $("#main").focus({preventScroll: true});
       window.scrollTo({top: 0, behavior: "instant"});
@@ -119,6 +121,7 @@
     }
   }
 
+  $("#reload-project").addEventListener("click", () => loadProject(true));
   $("#theme-toggle").addEventListener("click", () => setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark"));
   $("#check-connection").addEventListener("click", () => refresh(true));
   $("#copy-address").addEventListener("click", async () => {

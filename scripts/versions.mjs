@@ -3,6 +3,8 @@ import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 import { join, extname } from "node:path";
 
+import { owner } from "./project.mjs";
+
 const root = fileURLToPath(new URL("../", import.meta.url));
 const mode = process.argv[2] || "check";
 const registry = JSON.parse(await readFile(join(root, "versions.json"), "utf8"));
@@ -44,7 +46,7 @@ for (const name of ["package.json", "package-lock.json"]) {
 if (mode === "bump") {
   console.log(`✓ Версия Reika: ${registry.project}. Обновите CHANGELOG.md и выполните npm run build.`);
 } else {
-  const excluded = new Set([".runtime", "logs", "node_modules", ".git", "__pycache__", ".venv", "test-results"]);
+  const excluded = new Set([".runtime", "logs", "node_modules", ".git", "__pycache__", ".venv", "test-results", "attempt"]);
   const paths = [];
   async function walk(directory, prefix = "") {
     for (const item of await readdir(directory, {withFileTypes: true})) {
@@ -58,13 +60,13 @@ if (mode === "bump") {
   const inventory = {schema: 1, project: registry.project, files: {}};
   const textExtensions = new Set([".py", ".js", ".mjs", ".cjs", ".json", ".css", ".html", ".svg", ".ps1", ".bat", ".md", ".yml", ".yaml"]);
   for (const path of paths.sort()) {
-    const owners = Object.entries(registry.components).filter(([, component]) => component.paths.some((rule) => rule.endsWith("/") ? path.startsWith(rule) : path === rule));
-    if (owners.length !== 1) throw new Error(`Для файла ${path} должен быть ровно один компонент в versions.json`);
-    const [owner, component] = owners[0];
+    const componentId = owner(registry, path);
+    if (!componentId) throw new Error(`Зарегистрируйте модуль для файла: ${path}`);
+    const component = registry.components[componentId];
     const raw = await readFile(join(root, path));
     const text = textExtensions.has(extname(path)) || path === ".gitattributes" || path === ".gitignore";
     const data = text ? Buffer.from(raw.toString("utf8").replaceAll("\r\n", "\n")) : raw;
-    inventory.files[path] = {component: owner, version: component.version, hashMode: text ? "utf8-lf" : "bytes", sha256: createHash("sha256").update(data).digest("hex")};
+    inventory.files[path] = {component: componentId, version: component.version, hashMode: text ? "utf8-lf" : "bytes", sha256: createHash("sha256").update(data).digest("hex")};
   }
   const contents = JSON.stringify(inventory, null, 2) + "\n";
   const path = join(root, "versions.lock.json");

@@ -11,12 +11,16 @@
     "dev": "vite --config vite.config.mjs",
     "build": "node scripts/build-web.mjs && node scripts/versions.mjs sync",
     "check:build": "node scripts/build-web.mjs --check",
-    "check": "node scripts/versions.mjs check && node --check web/app.js && node --check vite.config.mjs && node --check scripts/build-web.mjs && node --check scripts/versions.mjs",
+    "check": "node scripts/versions.mjs check && node --check web/app.js && node --check vite.config.mjs && node --check scripts/build-web.mjs && node --check scripts/versions.mjs && node --check scripts/release.mjs && node --check scripts/project.mjs && node --check web/project.js",
     "versions:sync": "node scripts/versions.mjs sync",
     "versions:check": "node scripts/versions.mjs check",
     "versions:bump": "node scripts/versions.mjs bump",
     "test:browser": "node tests/browser_smoke.cjs",
-    "test:versions": "node --test tests/versions.test.mjs"
+    "test:versions": "node --test tests/versions.test.mjs",
+    "release:check": "node scripts/release.mjs check",
+    "release:plan": "node scripts/release.mjs plan",
+    "module:add": "node scripts/release.mjs register",
+    "test:release": "node --test tests/release.test.mjs tests/release-integration.test.mjs"
   },
   "devDependencies": {
     "vite": "8.3.5"

@@ -2,14 +2,240 @@
   "schema": 1,
   "project": "0.3.0",
   "components": {
-    "core": { "name": "Ядро и API", "version": "0.3.0", "paths": ["reika/", "run.py"] },
-    "frontend": { "name": "Интерфейс", "version": "0.3.0", "paths": ["web/index.html", "web/app.js", "web/reika.svg"] },
-    "styles": { "name": "Стили и темы", "version": "0.3.0", "paths": ["web/app.css", "web/styles/"] },
-    "launcher": { "name": "Запуск Windows", "version": "0.3.0", "paths": ["Reika.bat", "scripts/start.ps1"] },
-    "tray": { "name": "Трей", "version": "0.3.0", "paths": ["scripts/tray.ps1"] },
-    "build": { "name": "Сборка Node.js", "version": "0.3.0", "paths": ["package.json", "package-lock.json", "vite.config.mjs", "scripts/build-web.mjs", "scripts/versions.mjs", "web/dist/"] },
-    "checks": { "name": "Проверки", "version": "0.3.0", "paths": ["tests/", ".github/"] },
-    "docs": { "name": "Документация", "version": "0.3.0", "paths": ["README.md", "CHANGELOG.md"] },
-    "config": { "name": "Конфигурация", "version": "0.3.0", "paths": ["versions.json", ".gitignore", ".gitattributes"] }
+    "core": {
+      "name": "Ядро и API",
+      "version": "0.3.0",
+      "paths": [
+        "reika/",
+        "run.py"
+      ],
+      "description": "Запускает приложение, обслуживает локальный API и проверяет готовую сборку.",
+      "status": "active",
+      "dependencies": [
+        {
+          "target": "config",
+          "kind": "runtime",
+          "reason": "Получает из реестра версии и описания модулей.",
+          "propagate": "none"
+        }
+      ]
+    },
+    "frontend": {
+      "name": "Интерфейс",
+      "version": "0.3.0",
+      "paths": [
+        "web/index.html",
+        "web/app.js",
+        "web/reika.svg",
+        "web/project.js"
+      ],
+      "description": "Показывает страницы Reika, состояние приложения и действия пользователя.",
+      "status": "active",
+      "dependencies": [
+        {
+          "target": "core",
+          "kind": "runtime",
+          "reason": "Получает состояние приложения и историю через локальный API.",
+          "propagate": "none"
+        },
+        {
+          "target": "styles",
+          "kind": "design",
+          "reason": "Использует темы и оформление всех страниц.",
+          "propagate": "patch"
+        }
+      ]
+    },
+    "styles": {
+      "name": "Стили и темы",
+      "version": "0.3.0",
+      "paths": [
+        "web/app.css",
+        "web/styles/"
+      ],
+      "description": "Задаёт цвета, темы, внешний вид компонентов и поведение на разных экранах.",
+      "status": "active",
+      "dependencies": []
+    },
+    "launcher": {
+      "name": "Запуск Windows",
+      "version": "0.3.0",
+      "paths": [
+        "Reika.bat",
+        "scripts/start.ps1"
+      ],
+      "description": "Проверяет Python и запускает Reika из любой папки Windows.",
+      "status": "active",
+      "dependencies": [
+        {
+          "target": "core",
+          "kind": "runtime",
+          "reason": "Запускает основной процесс приложения.",
+          "propagate": "none"
+        },
+        {
+          "target": "config",
+          "kind": "runtime",
+          "reason": "Показывает текущую версию проекта при подготовке.",
+          "propagate": "none"
+        }
+      ]
+    },
+    "tray": {
+      "name": "Трей",
+      "version": "0.3.0",
+      "paths": [
+        "scripts/tray.ps1"
+      ],
+      "description": "Управляет окном и завершением приложения через значок возле часов.",
+      "status": "active",
+      "dependencies": [
+        {
+          "target": "core",
+          "kind": "runtime",
+          "reason": "Открывает сайт и передаёт авторизованную команду завершения.",
+          "propagate": "none"
+        }
+      ]
+    },
+    "build": {
+      "name": "Сборка Node.js",
+      "version": "0.3.0",
+      "paths": [
+        "package.json",
+        "package-lock.json",
+        "vite.config.mjs",
+        "scripts/build-web.mjs",
+        "scripts/versions.mjs",
+        "web/dist/"
+      ],
+      "description": "Собирает исходники интерфейса в готовые файлы для запуска через Python.",
+      "status": "active",
+      "dependencies": [
+        {
+          "target": "frontend",
+          "kind": "build",
+          "reason": "Обрабатывает HTML и JavaScript интерфейса.",
+          "propagate": "patch"
+        },
+        {
+          "target": "styles",
+          "kind": "build",
+          "reason": "Объединяет и сжимает стили для готовой сборки.",
+          "propagate": "patch"
+        },
+        {
+          "target": "config",
+          "kind": "build",
+          "reason": "Добавляет в сборку снимок версий компонентов.",
+          "propagate": "none"
+        }
+      ]
+    },
+    "checks": {
+      "name": "Проверки",
+      "version": "0.3.0",
+      "paths": [
+        "tests/",
+        ".github/"
+      ],
+      "description": "Проверяет запуск, безопасность API, интерфейс и согласованность сборок.",
+      "status": "active",
+      "dependencies": [
+        {
+          "target": "core",
+          "kind": "verification",
+          "reason": "Проверяет работу компонента перед публикацией выпуска.",
+          "propagate": "none"
+        },
+        {
+          "target": "frontend",
+          "kind": "verification",
+          "reason": "Проверяет работу компонента перед публикацией выпуска.",
+          "propagate": "none"
+        },
+        {
+          "target": "launcher",
+          "kind": "verification",
+          "reason": "Проверяет работу компонента перед публикацией выпуска.",
+          "propagate": "none"
+        },
+        {
+          "target": "tray",
+          "kind": "verification",
+          "reason": "Проверяет работу компонента перед публикацией выпуска.",
+          "propagate": "none"
+        },
+        {
+          "target": "build",
+          "kind": "verification",
+          "reason": "Проверяет работу компонента перед публикацией выпуска.",
+          "propagate": "none"
+        }
+      ]
+    },
+    "docs": {
+      "name": "Документация",
+      "version": "0.3.0",
+      "paths": [
+        "README.md",
+        "CHANGELOG.md",
+        "AGENTS.md"
+      ],
+      "description": "Объясняет устройство проекта, работу функций и историю изменений.",
+      "status": "active",
+      "dependencies": [
+        {
+          "target": "config",
+          "kind": "documentation",
+          "reason": "Объясняет правила версий и устройство проекта.",
+          "propagate": "none"
+        }
+      ]
+    },
+    "config": {
+      "name": "Конфигурация",
+      "version": "0.3.0",
+      "paths": [
+        "versions.json",
+        ".gitignore",
+        ".gitattributes"
+      ],
+      "description": "Хранит настройки разработки, версии и определения компонентов.",
+      "status": "active",
+      "dependencies": []
+    },
+    "release": {
+      "name": "История и выпуски",
+      "version": "0.1.0",
+      "description": "Собирает русские описания изменений, рассчитывает версии и готовит проверенные выпуски.",
+      "status": "active",
+      "paths": [
+        "scripts/project.mjs",
+        "scripts/release.mjs",
+        ".changes/",
+        "releases/"
+      ],
+      "dependencies": [
+        {
+          "target": "config",
+          "kind": "build",
+          "reason": "Находит владельцев файлов и связи между компонентами.",
+          "propagate": "none"
+        },
+        {
+          "target": "build",
+          "kind": "build",
+          "reason": "Готовит полную сборку интерфейса с новыми версиями.",
+          "propagate": "none"
+        },
+        {
+          "target": "checks",
+          "kind": "verification",
+          "reason": "Публикует выпуск только после успешных проверок.",
+          "propagate": "none"
+        }
+      ]
+    }
   }
 }

@@ -14,7 +14,7 @@ import time
 from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, unquote
 
 from . import __version__
 from .versions import COMPONENTS, COMPONENT_VERSIONS
@@ -26,6 +26,9 @@ CONTENT_TYPES = {
     ".css": "text/css; charset=utf-8",
     ".js": "text/javascript; charset=utf-8",
     ".svg": "image/svg+xml",
+    ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
+    ".webp": "image/webp", ".avif": "image/avif", ".gif": "image/gif",
+    ".woff": "font/woff", ".woff2": "font/woff2",
 }
 
 
@@ -42,7 +45,7 @@ def load_assets(web_root: Path) -> dict:
             raise ValueError("Неверный список файлов интерфейса.")
         assets = {}
         for name, digest in entries.items():
-            if name != "index.html" and not re.fullmatch(r"assets/[a-zA-Z0-9_.-]+\.(css|js|svg)", name):
+            if name != "index.html" and not re.fullmatch(r"assets/[\w.-]+\.(css|js|svg|png|jpg|jpeg|webp|avif|gif|woff|woff2)", name):
                 raise ValueError("Недопустимый путь в сборке интерфейса.")
             path = directory / name
             if not path.resolve().is_relative_to(directory.resolve()):
@@ -68,6 +71,13 @@ class ReikaServer(ThreadingHTTPServer):
     def __init__(self, web_root: Path, instance_id: str, control_token: str):
         # Validate and load required files before claiming a port or readiness.
         self.assets = load_assets(web_root)
+        project_root = web_root.parent
+        self.project = {
+            "modules": COMPONENTS,
+            "history": json.loads((project_root / "releases/history.json").read_text(encoding="utf-8"))["releases"][:20],
+            "pending": [json.loads(path.read_text(encoding="utf-8"))
+                        for path in sorted((project_root / ".changes").glob("*.json"))],
+        }
         self.instance_id = instance_id
         self.control_token = control_token
         self.stop_requested = threading.Event()
@@ -124,7 +134,7 @@ class ReikaHandler(BaseHTTPRequestHandler):
         self.send_header(
             "Content-Security-Policy",
             "default-src 'none'; script-src 'self'; style-src 'self'; "
-            "img-src 'self'; connect-src 'self'; base-uri 'none'; "
+            "img-src 'self'; font-src 'self'; connect-src 'self'; base-uri 'none'; "
             "frame-ancestors 'none'; form-action 'none'",
         )
         self.end_headers()
@@ -161,7 +171,7 @@ class ReikaHandler(BaseHTTPRequestHandler):
         except ValueError:
             return ""
         # Reject proxy-form requests; only ordinary absolute paths are served.
-        return parsed.path if not parsed.scheme and not parsed.netloc else ""
+        return unquote(parsed.path) if not parsed.scheme and not parsed.netloc else ""
 
     def do_GET(self):
         if not self._allowed_request():
@@ -169,6 +179,8 @@ class ReikaHandler(BaseHTTPRequestHandler):
         route = self._route()
         if route == "/api/status":
             self._json(200, self.server.status())
+        elif route == "/api/project":
+            self._json(200, self.server.project)
         elif route in self.server.assets:
             body, content_type = self.server.assets[route]
             self._send(200, body, content_type)

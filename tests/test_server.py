@@ -116,6 +116,14 @@ class ServerTests(unittest.TestCase):
     def test_cors_preflight_cannot_authorize_commands(self):
         self.assertEqual(self.request("/api/shutdown", "OPTIONS")[0], 405)
 
+    def test_project_metadata_explains_modules_and_never_exposes_tokens(self):
+        status, _, body = self.request("/api/project")
+        self.assertEqual(status, 200)
+        data = json.loads(body)
+        self.assertTrue(data["modules"]["core"]["description"])
+        self.assertTrue(data["modules"]["frontend"]["dependencies"])
+        self.assertNotIn("test-control-token", body.decode())
+
     def test_port_is_reserved_without_scan_race(self):
         other = ReikaServer(ROOT / "web", "other", "other-token")
         try:
