@@ -12,6 +12,12 @@ let browser;
 let output = "";
 app.stderr.on("data", (chunk) => { output += chunk.toString(); });
 
+async function capture(page, name) {
+  await page.mouse.move(0, 0);
+  await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+  await page.screenshot({ path: path.join(results, name), fullPage: true, animations: "disabled" });
+}
+
 async function run() {
   const url = await new Promise((resolve, reject) => {
     const timer = setTimeout(() => reject(new Error(`Startup timeout: ${output}`)), 15000);
@@ -33,7 +39,7 @@ async function run() {
   page.on("response", (response) => { if (response.status() >= 400) failures.push(response.url()); });
   await page.goto(url);
   await page.waitForSelector('.view:not([hidden]) [data-connection][data-state="online"]');
-  await page.screenshot({ path: path.join(results, "desktop.png"), fullPage: true });
+  await capture(page, "desktop.png");
   await page.getByRole("button", { name: "Скопировать адрес" }).click();
   assert.equal(await page.evaluate(() => navigator.clipboard.readText()), url);
   await page.getByRole("link", { name: "Система", exact: true }).click();
@@ -44,14 +50,15 @@ async function run() {
   await page.reload();
   assert.equal(await page.locator("html").getAttribute("data-theme"), "dark");
   await page.waitForSelector('.view:not([hidden]) [data-connection][data-state="online"]');
-  await page.screenshot({ path: path.join(results, "system-dark.png"), fullPage: true });
+  await capture(page, "system-dark.png");
   await page.getByRole("link", { name: "О Reika", exact: true }).click();
   await page.waitForSelector("#view-about:not([hidden])");
-  await page.screenshot({ path: path.join(results, "about.png"), fullPage: true });
+  await capture(page, "about.png");
   await page.getByRole("button", { name: "Включить светлую тему" }).click();
   await page.getByRole("link", { name: "Главная", exact: true }).click();
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.screenshot({ path: path.join(results, "mobile.png"), fullPage: true });
+  await page.waitForFunction(() => getComputedStyle(document.querySelector(".navigation")).flexDirection === "row");
+  await capture(page, "mobile.png");
   for (const width of [360, 390, 768, 1024, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `Overflow at ${width}px`);
