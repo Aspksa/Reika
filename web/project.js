@@ -11,6 +11,7 @@ let projectMonitor = null;
 let monitorTimer = null;
 let projectBaseline = null;
 let lastReport = "";
+let releaseData = null;
 const icons={core:"◆",frontend:"◈",styles:"✦",launcher:"▷",tray:"◉",build:"⬡",checks:"✓",docs:"▤",config:"⚙",release:"↻"};
 const categoryColor={Ядро:"core",Интерфейс:"frontend",Запуск:"launcher",Разработка:"build",Документация:"docs",Обновления:"release"};
 function countRu(n,one,few,many){const v=Math.abs(n)%100,k=v%10;return n+" "+(v>=11&&v<=14?many:k===1?one:k>=2&&k<=4?few:many);}
@@ -46,6 +47,80 @@ function changeCard(note) {
   }
   return card;
 }
+function latestModuleChange(id) {
+  for (const release of cached?.history || []) {
+    const note = (release.changes || []).find(change => Object.hasOwn(change.components || {}, id));
+    if (note) return {release, note};
+  }
+  return null;
+}
+function openModuleFromRelease(id) {
+  if (!cached?.modules?.[id]) return;
+  for (const input of ["module-search", "module-category", "module-status", "module-filter"]) $("#" + input).value = "";
+  showProjectTab("modules");
+  renderModules();
+  openInspector(id);
+  $("#project-architecture").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function openHistoryForModule(id) {
+  const latest = latestModuleChange(id);
+  if (!latest) return;
+  openHistoryForVersion(latest.release.version);
+}
+function openHistoryForVersion(version) {
+  $("#history-search").value = version;
+  $("#history-kind").value = "";
+  showProjectTab("history");
+  renderHistory();
+  const card = document.querySelector(`[data-release-version="${version}"]`);
+  if (card) { card.open = true; card.scrollIntoView({behavior:"smooth",block:"start"}); }
+}
+function releaseModuleButtons(ids) {
+  const list = element("div",undefined,"project-release-modules");
+  for (const id of ids) {
+    const module = cached?.modules?.[id];
+    if (!module) continue;
+    const button = element("button",module.name + " ↗");
+    button.type = "button";
+    button.onclick = () => openModuleFromRelease(id);
+    list.append(button);
+  }
+  return list;
+}
+function renderUpdateConnections() {
+  const teaser = $("#project-release-teaser"), title = $("#project-release-teaser-title"), detail = $("#project-release-teaser-detail");
+  const summary = $("#updates-release-summary");
+  summary.replaceChildren();
+  if (!releaseData) return;
+  if (releaseData.error || !releaseData.release) {
+    teaser.dataset.state = "error";
+    title.textContent = "Не удалось проверить обновления";
+    detail.textContent = "Откройте вкладку и повторите проверку.";
+    summary.textContent = "Сведения о затронутых модулях появятся после проверки выпуска.";
+    return;
+  }
+  const remote = releaseData.release, match = (cached?.history || []).find(item => item.version === remote.version);
+  teaser.dataset.state = remote.newer ? "new" : "current";
+  title.textContent = remote.newer ? `Доступна Reika ${remote.version}` : "Установлена актуальная версия";
+  detail.textContent = `Установлена ${releaseData.current} · опубликована ${remote.version}`;
+  if (!match) {
+    summary.textContent = "Состав модулей этого выпуска ещё не добавлен в локальную историю. Полное описание доступно ниже.";
+    return;
+  }
+  const ids = [...new Set((match.components || []).map(item => item.id).filter(id => cached.modules[id]))];
+  const fixes = (match.changes || []).filter(note => note.kind === "fix").length;
+  const features = (match.changes || []).filter(note => ["feature","new-module"].includes(note.kind)).length;
+  const heading = element("div");
+  heading.append(element("strong",`Выпуск ${remote.version} · ${countRu(ids.length,"модуль","модуля","модулей")}`),element("p",`${countRu(fixes,"исправление","исправления","исправлений")} · ${countRu(features,"новая возможность","новые возможности","новых возможностей")}`));
+  const links=releaseModuleButtons(ids);
+  const history=element("button","Вся история выпуска ↗");history.type="button";history.onclick=()=>openHistoryForVersion(remote.version);links.append(history);
+  summary.append(heading,links);
+}
+export function setReleaseData(data) {
+  if (!data) return;
+  releaseData = data;
+  renderUpdateConnections();
+}
 function filters(){
  return {query:$("#module-search").value,group:$("#module-category").value,status:$("#module-status").value,related:$("#module-filter").value};
 }
@@ -57,7 +132,7 @@ function renderModules(){
    const incoming=Object.entries(cached.modules).filter(([,other])=>(other.dependencies||[]).some(link=>link.target===id));
    const card=element("article",undefined,"module-card");card.dataset.module=id;card.dataset.category=categoryColor[category(id)]||"misc";
    const heading=element("div",undefined,"module-heading");
-   heading.append(element("span",icons[id]||"◇","module-icon"),element("h3",item.name)); if(projectAudience==="developer")heading.append(element("span",item.version,"outline-label"));
+   heading.append(element("span",icons[id]||"◇","module-icon"),element("h3",item.name),element("span",item.version,"outline-label"));
    card.append(heading);
    const meta=element("div",undefined,"module-meta");
    const health=projectMonitor?.module_health?.[id];
@@ -86,6 +161,11 @@ function renderModules(){
    counts.append(element("span",`${(item.dependencies||[]).length} исходящих`),element("span",`${incoming.length} входящих`));
    counts.setAttribute("aria-label","Количество связей");
    card.append(counts,details);
+   const latest=latestModuleChange(id);
+   if(latest){
+     const historyLink=element("button",`Последнее изменение: ${latest.note.title} · Reika ${latest.release.version} ↗`,"project-module-update");
+     historyLink.type="button";historyLink.onclick=()=>openHistoryForModule(id);card.append(historyLink);
+   }
    const open=element("button","Открыть модуль ↗","project-open-module");open.type="button";open.addEventListener("click",()=>openInspector(id));card.append(open);container.append(card);
  }
  if(!visible.length){const empty=element("div",undefined,"project-empty");empty.append(element("span","◇","project-empty-symbol"),element("h3","Ничего не найдено"),element("p","Попробуйте изменить запрос или сбросить фильтры."));container.append(empty);}
@@ -99,11 +179,14 @@ function renderHistory(){
  if(pending.length){const group=element("section",undefined,"release-card");group.append(element("h3","Готовится к следующему выпуску"));pending.forEach(note=>group.append(changeCard(note)));history.append(group);}
  for(const release of releases){
    const section=element("details",undefined,"release-card");
+   section.dataset.releaseVersion=release.version;
    section.append(element("summary",`✦ Reika ${release.version} · ${countRu((release.changes||[]).length,"изменение","изменения","изменений")}${release.date||release.created_at?" · "+new Date(release.date||release.created_at).toLocaleDateString("ru-RU"):""}`));
    if(projectAudience==="developer")section.append(element("p",`Предыдущая версия: ${release.previous}. Исходный коммит: ${String(release.source||"").slice(0,12)}.`,"muted"));
    const versions=element("ul");
    (release.components||[]).forEach(item=>versions.append(element("li",`${item.name}: ${item.from||"новый модуль"} → ${item.version}. ${item.reason}.`)));
    if(projectAudience==="developer")section.append(versions);
+   const modules=releaseModuleButtons([...new Set((release.components||[]).map(item=>item.id))]);
+   if(modules.children.length){section.append(element("h4","Затронутые модули"),modules);}
    (release.changes||[]).filter(note=>!kind||note.kind===kind).forEach(note=>{const change=changeCard(note);change.prepend(element("span",note.kind==="fix"?"Исправление":note.kind==="feature"?"Новое":note.kind==="design"?"Дизайн":"Изменение","project-change-tag"));section.append(change);});
    const files=element("details");files.append(element("summary",`Затронутые файлы: ${(release.files||[]).length}`));
    const ul=element("ul"),actions={added:"Добавлен",modified:"Изменён",deleted:"Удалён"};
@@ -113,7 +196,7 @@ function renderHistory(){
  if(!pending.length&&!releases.length)history.append(element("p","По выбранным условиям обновлений нет.","project-empty"));
 }
 
-function showProjectTab(name) {
+export function showProjectTab(name) {
   projectTab=name;
   const pane=$("#project-inspector");
   if(name==="links")$(".project-map-workspace").append(pane);
@@ -152,6 +235,7 @@ function compareVersions(){
 }
 function initProjectControls(){
  document.querySelectorAll("[data-project-tab]").forEach(button=>button.onclick=()=>showProjectTab(button.dataset.projectTab));
+ $("#project-open-updates").onclick=()=>{showProjectTab("updates");$("#project-release").scrollIntoView({behavior:"smooth",block:"start"});};
  $("#project-density").onchange=event=>{projectDensity=event.target.value;$("#view-project").dataset.density=projectDensity;};
  $("#project-audience").onchange=event=>{projectAudience=event.target.value;$("#view-project").dataset.audience=projectAudience;renderModules();renderHistory();renderLinks();compareVersions();};
  const selector=$("#project-link-filter"),previous=selector.value;selector.replaceChildren(element("option","Все модули"));selector.firstChild.value="";
@@ -181,6 +265,11 @@ function openInspector(id){
  const close=element("button","✕","project-inspector-close");close.type="button";close.setAttribute("aria-label","Закрыть панель");close.onclick=()=>{pane.hidden=true;($("#project-map .project-map-node[data-id='"+id+"']")||$("#project-modules [data-module='"+id+"'] .project-open-module"))?.focus();};
  pane.append(close,element("span",icons[id]||"◇","module-icon"),element("h3",item.name),element("p",item.description));
  pane.append(element("p","Версия "+item.version+" · "+(statuses[item.status]||item.status),"muted"));
+ const latest=latestModuleChange(id);
+ if(latest){
+  const link=element("button",`Последнее изменение: ${latest.note.title} · Reika ${latest.release.version} ↗`,"project-module-update");
+  link.type="button";link.onclick=()=>openHistoryForModule(id);pane.append(link);
+ }
  pane.append(element("h4","Файлы и каталоги"));
  const ul=element("ul",undefined,"module-paths");for(const path of item.paths||[])ul.append(element("li",path));pane.append(ul);
  pane.append(element("h4","Зависимости"));
@@ -356,7 +445,7 @@ export async function loadProject(force=false){
    for(const id of ["module-filter","module-search","module-category","module-status"])$("#"+id).oninput=renderModules;
    for(const id of ["history-search","history-kind"])$("#"+id).oninput=renderHistory;
    $("#reset-project-filters").onclick=()=>{for(const id of ["module-search","module-category","module-status","module-filter"])$("#"+id).value="";renderModules();$("#module-search").focus();};
-   renderModules();renderHistory();initProjectControls();initVisualControls();initMonitorControls();await refreshProjectMonitor();$("#project-health-label").textContent="Реестр доступен";
+   renderModules();renderHistory();initProjectControls();initVisualControls();initMonitorControls();await refreshProjectMonitor();renderUpdateConnections();$("#project-health-label").textContent="Реестр доступен";
    $("#project-message").textContent=`Зарегистрировано модулей: ${Object.keys(cached.modules).length}. Данные из реестра Reika.`;
  }catch{
    $("#project-health-label").textContent="Нет соединения";$("#project-message").textContent="Не удалось получить сведения о проекте. Проверьте соединение и повторите загрузку.";
