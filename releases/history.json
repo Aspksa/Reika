@@ -2,6 +2,160 @@
   "schema": 1,
   "releases": [
     {
+      "version": "0.14.0",
+      "previous": "0.13.0",
+      "source": "fd79a131c0fa166bae02d9f7712232a55fc3b5de",
+      "created_at": "2026-10-25T12:04:08.729Z",
+      "components": [
+        {
+          "id": "core",
+          "name": "Ядро и API",
+          "from": "0.6.0",
+          "version": "0.7.0",
+          "reason": "Описано в записи об изменении",
+          "level": "minor"
+        },
+        {
+          "id": "frontend",
+          "name": "Интерфейс",
+          "from": "0.11.0",
+          "version": "0.12.0",
+          "reason": "Описано в записи об изменении",
+          "level": "minor"
+        },
+        {
+          "id": "styles",
+          "name": "Стили и темы",
+          "from": "0.6.0",
+          "version": "0.6.1",
+          "reason": "Описано в записи об изменении",
+          "level": "patch"
+        },
+        {
+          "id": "checks",
+          "name": "Проверки",
+          "from": "0.4.9",
+          "version": "0.4.10",
+          "reason": "Описано в записи об изменении",
+          "level": "patch"
+        },
+        {
+          "id": "config",
+          "name": "Конфигурация",
+          "from": "0.4.3",
+          "version": "0.4.4",
+          "reason": "Описано в записи об изменении",
+          "level": "patch"
+        },
+        {
+          "id": "build",
+          "name": "Сборка Node.js",
+          "from": "0.3.9",
+          "version": "0.3.10",
+          "reason": "Описано в записи об изменении",
+          "level": "patch"
+        }
+      ],
+      "changes": [
+        {
+          "id": "project-ai-review",
+          "kind": "feature",
+          "title": "Анализ проекта через Cloud.ru и версии разделов",
+          "description": "В разделе «Проект» добавлены переход к настройкам и ручной анализ зарегистрированных файлов кода через выбранную модель Cloud.ru. Анализ показывает возможные ошибки, аномалии и идеи развития. В боковом меню рядом с каждым разделом показана версия его компонента. Для анализа ограничены число и размер файлов; ключ остаётся на сервере, файлы журналов, настроек и сборки исключены.",
+          "reason": "Пользователю нужны заметный доступ к настройкам, версии разделов и инструмент поиска проблем проекта.",
+          "userImpact": "Можно запустить обзор проекта моделью Cloud.ru после сохранения ключа на Windows и получить рекомендации на странице проекта. Запрос может тарифицироваться Cloud.ru.",
+          "components": {
+            "core": "minor",
+            "frontend": "minor",
+            "styles": "patch",
+            "checks": "patch",
+            "config": "patch",
+            "build": "patch"
+          },
+          "testing": [
+            "npm run build, npm run check, npm run test:versions, npm run test:release, npm run check:build — успешно.",
+            "Python unittest discover: 33 теста пройдены, 3 Windows-проверки пропущены на Linux.",
+            "Браузерный smoke-тест пройден: навигация, версии, ссылка на настройки и сообщение при отсутствии ключа.",
+            "Тест вызова Cloud.ru выполнен с подменённым транспортом: проверены выбранные файлы, модель и отсутствие ключа в теле запроса."
+          ],
+          "risks": [
+            "Для реального запроса нужен сохранённый ключ Cloud.ru в Windows и доступ к API; в этой среде запрос к модели не выполнялся.",
+            "Анализ ограничен 80 файлами и 120 КБ; вывод модели требует проверки человеком и не гарантирует обнаружение всех ошибок.",
+            "Запуск анализа может расходовать платные токены Cloud.ru."
+          ],
+          "migration": [
+            "После обновления перезапустите Reika. Для анализа сохраните ключ и выберите модель в настройках проекта."
+          ]
+        }
+      ],
+      "files": [
+        {
+          "path": ".chronicle/events.jsonl",
+          "action": "modified",
+          "component": "config"
+        },
+        {
+          "path": "reika/project_ai.py",
+          "action": "added",
+          "component": "core"
+        },
+        {
+          "path": "reika/server.py",
+          "action": "modified",
+          "component": "core"
+        },
+        {
+          "path": "tests/browser_smoke.cjs",
+          "action": "modified",
+          "component": "checks"
+        },
+        {
+          "path": "tests/test_project_ai.py",
+          "action": "added",
+          "component": "checks"
+        },
+        {
+          "path": "versions.json",
+          "action": "modified",
+          "component": "config"
+        },
+        {
+          "path": "vite.config.mjs",
+          "action": "modified",
+          "component": "build"
+        },
+        {
+          "path": "web/app.js",
+          "action": "modified",
+          "component": "frontend"
+        },
+        {
+          "path": "web/index.html",
+          "action": "modified",
+          "component": "frontend"
+        },
+        {
+          "path": "web/project.js",
+          "action": "modified",
+          "component": "frontend"
+        },
+        {
+          "path": "web/styles/layout.css",
+          "action": "modified",
+          "component": "styles"
+        },
+        {
+          "path": "web/styles/project.css",
+          "action": "modified",
+          "component": "styles"
+        }
+      ],
+      "commits": [
+        "617b11035a4e4624cb8acc5b28cdc581ddaf1e42",
+        "fd79a131c0fa166bae02d9f7712232a55fc3b5de"
+      ]
+    },
+    {
       "version": "0.13.0",
       "previous": "0.12.0",
       "source": "54704aa1eb9ba03f5d29b3d0962250b7a3293792",

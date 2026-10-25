@@ -708,6 +708,45 @@
       ],
       "attribution": "commit-trailer",
       "files": []
+    },
+    {
+      "sha": "617b11035a4e4624cb8acc5b28cdc581ddaf1e42",
+      "release": "0.14.0",
+      "task_ids": [
+        "TASK-20261025"
+      ],
+      "attribution": "commit-trailer",
+      "files": [
+        ".changes/project-ai-review.json",
+        ".chronicle/events.jsonl",
+        "reika/project_ai.py",
+        "reika/server.py",
+        "tests/browser_smoke.cjs",
+        "tests/test_project_ai.py",
+        "versions.json",
+        "versions.lock.json",
+        "vite.config.mjs",
+        "web/app.js",
+        "web/dist/assets/index-C4OXn527.js",
+        "web/dist/assets/index-DHpi5UCE.css",
+        "web/dist/assets/index-DYZb1fDd.css",
+        "web/dist/assets/index-xz9ZMOy5.js",
+        "web/dist/build.json",
+        "web/dist/index.html",
+        "web/index.html",
+        "web/project.js",
+        "web/styles/layout.css",
+        "web/styles/project.css"
+      ]
+    },
+    {
+      "sha": "fd79a131c0fa166bae02d9f7712232a55fc3b5de",
+      "release": "0.14.0",
+      "task_ids": [
+        "TASK-20261025"
+      ],
+      "attribution": "commit-trailer",
+      "files": []
     }
   ]
 }
