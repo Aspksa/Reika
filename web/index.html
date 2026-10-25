@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ru" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Рэйка Амацухара — ваше локальное пространство.">
+  <title>Рэйка Амацухара · Reika</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/reika.svg">
+  <link rel="stylesheet" href="/assets/app.css">
+  <script src="/assets/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+  <aside class="sidebar" aria-label="Боковая панель">
+    <a class="brand" href="#home" aria-label="Reika — главная">
+      <img src="/assets/reika.svg" width="42" height="42" alt="">
+      <span><strong>reika<span class="brand-dot">.</span></strong><small>Рэйка Амацухара</small></span>
+    </a>
+    <div class="nav-caption">ПРОСТРАНСТВО</div>
+    <nav class="navigation" aria-label="Главная навигация">
+      <a class="nav-link active" href="#home" data-view="home" aria-current="page">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/></svg><span>Главная</span>
+      </a>
+      <a class="nav-link" href="#system" data-view="system">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4M6 11h3l2-4 3 7 2-3h2"/></svg><span>Система</span>
+      </a>
+      <a class="nav-link" href="#about" data-view="about">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v1"/></svg><span>О Reika</span>
+      </a>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="local-note"><span class="tiny-orbit" aria-hidden="true">◌</span><span><strong>Рядом с вами</strong><small>На вашем компьютере</small></span></div>
+      <div class="sidebar-footer"><span>REIKA AMATSUHARA</span><span data-version>—</span></div>
+    </div>
+  </aside>
+
+  <div class="workspace">
+    <header class="topbar">
+      <div class="breadcrumb">Пространство <span>/</span> <strong id="view-title">Главная</strong></div>
+      <div class="topbar-tools">
+        <span class="date" id="today"></span>
+        <button class="icon-button" id="theme-toggle" type="button" aria-label="Включить тёмную тему" title="Сменить тему">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 13A8.5 8.5 0 0 1 11 3.2 8.5 8.5 0 1 0 20.8 13Z"/></svg>
+        </button>
+        <div class="owner-badge" title="Личное пространство" aria-label="Личное пространство">R</div>
+      </div>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section class="view" id="view-home" aria-labelledby="home-title">
+        <div class="page-heading"><div><p class="eyebrow">ВАШЕ ПРОСТРАНСТВО</p><h1 id="home-title">Главная</h1></div><span class="connection-badge" data-connection>Подключение…</span></div>
+
+        <section class="hero" aria-label="Рэйка Амацухара">
+          <div class="hero-copy">
+            <span class="hero-label"><span aria-hidden="true">✦</span> REIKA AMATSUHARA</span>
+            <h2>Спокойствие.<br><em>Возможности.</em></h2>
+            <p>Место, где начинается что-то ваше.</p>
+            <a class="primary-button" href="#system">Открыть сведения <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="moon-scene" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="moon"></div><div class="star star-one">✦</div><div class="star star-two">✧</div><div class="star star-three">·</div><span class="scene-caption">ТИХАЯ СИЛА ВНУТРИ</span></div>
+          <span class="hero-index" aria-hidden="true">01 / НАЧАЛО</span>
+        </section>
+
+        <div class="section-heading"><h2>Сейчас в Reika</h2><span id="checked-at">Ожидаем соединение</span></div>
+        <div class="metrics">
+          <article class="metric"><div class="metric-label"><span class="metric-icon" aria-hidden="true">◷</span> Время работы</div><strong id="uptime">—</strong><p>С момента запуска</p></article>
+          <article class="metric"><div class="metric-label"><span class="metric-icon" aria-hidden="true">◇</span> Версия</div><strong data-version>—</strong><p>Основа проекта</p></article>
+          <article class="metric"><div class="metric-label"><span class="metric-icon" aria-hidden="true">⌘</span> Режим</div><strong>Локальный</strong><p>На этом компьютере</p></article>
+        </div>
+
+        <div class="lower-grid">
+          <section class="actions-card" aria-labelledby="actions-title"><div class="section-heading"><h2 id="actions-title">Быстрые действия</h2><span aria-hidden="true">↗</span></div>
+            <button class="action-row" id="check-connection" type="button"><span class="action-symbol" aria-hidden="true">↻</span><span><strong>Проверить соединение</strong><small>Обновить состояние Reika</small></span><span class="row-arrow" aria-hidden="true">↗</span></button>
+            <button class="action-row" id="copy-address" type="button"><span class="action-symbol" aria-hidden="true">⧉</span><span><strong>Скопировать адрес</strong><small id="local-address">Локальный адрес пространства</small></span><span class="row-arrow" aria-hidden="true">↗</span></button>
+          </section>
+          <section class="quiet-card"><span class="quiet-star" aria-hidden="true">✧</span><span class="eyebrow">ВСЁ НА СВОЁМ МЕСТЕ</span><h2>Reika рядом.</h2><p id="tray-note">Проверяем способ управления…</p><a href="#about">Познакомиться с Reika <span aria-hidden="true">→</span></a></section>
+        </div>
+      </section>
+
+      <section class="view" id="view-system" aria-labelledby="system-title" hidden>
+        <div class="page-heading"><div><p class="eyebrow">ПОД КАПОТОМ</p><h1 id="system-title">Система</h1></div><span class="connection-badge" data-connection>Подключение…</span></div>
+        <p class="page-intro">Текущее состояние приложения и сведения о запуске.</p>
+        <section class="detail-card" aria-labelledby="runtime-title"><h2 id="runtime-title">Работа приложения</h2><dl class="details"><div><dt>Состояние</dt><dd id="system-status">Подключение…</dd></div><div><dt>Адрес</dt><dd id="system-url">—</dd></div><div><dt>Запущено</dt><dd id="system-started">—</dd></div><div><dt>Версия Reika</dt><dd data-version>—</dd></div><div><dt>Система</dt><dd id="system-os">—</dd></div><div><dt>Python</dt><dd id="system-python">—</dd></div><div><dt>Процесс</dt><dd id="system-pid">—</dd></div><div><dt>Значок в трее</dt><dd id="system-tray">—</dd></div></dl></section>
+        <section class="detail-card log-card"><span class="card-kicker">ЖУРНАЛЫ</span><h2>Когда нужны подробности</h2><p>Откройте меню значка Reika возле часов и выберите «Открыть журналы». Папка <code>logs</code> также находится рядом с <code>Reika.bat</code>.</p><div class="log-files"><div><code>reika.log</code><span>Работа приложения</span></div><div><code>startup.log</code><span>Подготовка и проверка Python</span></div><div><code>tray.log</code><span>Диагностика трея</span></div></div></section>
+      </section>
+
+      <section class="view" id="view-about" aria-labelledby="about-title" hidden>
+        <div class="page-heading"><div><p class="eyebrow">ИМЯ СО СВОИМ ХАРАКТЕРОМ</p><h1 id="about-title">О Reika</h1></div><span class="outline-label" data-version>—</span></div>
+        <section class="about-card"><img src="/assets/reika.svg" width="80" height="80" alt="Символ Reika — золотой полумесяц"><p class="eyebrow">REIKA AMATSUHARA</p><h2>Рэйка Амацухара</h2><p class="about-quote">Спокойствие той, которой незачем<br>доказывать своё могущество.</p><div class="about-divider"></div><p>Локальное пространство, которое развивается вместе с вашим проектом. Сейчас здесь есть основа: запуск, главная страница, состояние системы и управление из трея.</p><p class="muted">Приложение использует стандартную библиотеку Python. Внешние сервисы и учётные записи для запуска не требуются.</p></section>
+      </section>
+
+      <footer class="page-footer"><span>Рэйка Амацухара</span><span>С вашего компьютера. Для вас.</span><a href="https://github.com/Aspksa/Reika" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></footer>
+      <noscript><p class="noscript-message">Включите JavaScript, чтобы видеть состояние Reika и переключать разделы.</p></noscript>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>

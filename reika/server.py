@@ -1,0 +1,176 @@
+"""Loopback-only HTTP server with an explicit static-file allowlist."""
+
+from __future__ import annotations
+
+import hmac
+import json
+import logging
+import os
+import platform
+import threading
+import time
+from datetime import datetime, timezone
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
+from urllib.parse import urlsplit
+
+from . import __version__
+
+
+LOGGER = logging.getLogger("reika.http")
+STATIC_FILES = {
+    "/": ("index.html", "text/html; charset=utf-8"),
+    "/assets/app.css": ("app.css", "text/css; charset=utf-8"),
+    "/assets/app.js": ("app.js", "text/javascript; charset=utf-8"),
+    "/assets/reika.svg": ("reika.svg", "image/svg+xml"),
+}
+
+
+class ReikaServer(ThreadingHTTPServer):
+    daemon_threads = True
+    allow_reuse_address = False
+
+    def __init__(self, web_root: Path, instance_id: str, control_token: str):
+        # Validate and load required files before claiming a port or readiness.
+        self.assets = {
+            route: ((web_root / filename).read_bytes(), content_type)
+            for route, (filename, content_type) in STATIC_FILES.items()
+        }
+        self.instance_id = instance_id
+        self.control_token = control_token
+        self.stop_requested = threading.Event()
+        self.tray_active = False
+        self.started = time.monotonic()
+        self.started_at = datetime.now(timezone.utc).isoformat()
+        # The OS chooses and reserves a free port in one operation.
+        super().__init__(("127.0.0.1", 0), ReikaHandler)
+        self.url = f"http://127.0.0.1:{self.server_address[1]}"
+
+    def status(self) -> dict:
+        return {
+            "app": "Reika",
+            "full_name": "Рэйка Амацухара",
+            "version": __version__,
+            "status": "ready",
+            "instance_id": self.instance_id,
+            "url": self.url,
+            "pid": os.getpid(),
+            "started_at": self.started_at,
+            "uptime_seconds": int(time.monotonic() - self.started),
+            "platform": platform.system(),
+            "python": platform.python_version(),
+            "tray_active": self.tray_active,
+        }
+
+
+class ReikaHandler(BaseHTTPRequestHandler):
+    server: ReikaServer
+    server_version = "Reika"
+    sys_version = ""
+
+    def setup(self):
+        super().setup()
+        self.connection.settimeout(3)
+
+    def log_message(self, message, *args):
+        # Never log headers, bodies, tokens, or arbitrary URL text.
+        pass
+
+    def log_request(self, code="-", size="-"):
+        LOGGER.debug("HTTP %s", code)
+
+    def _send(self, status: int, body: bytes, content_type: str):
+        self.send_response(status)
+        self.send_header("Content-Type", content_type)
+        self.send_header("Content-Length", str(len(body)))
+        self.send_header("Cache-Control", "no-store")
+        self.send_header("X-Content-Type-Options", "nosniff")
+        self.send_header("X-Frame-Options", "DENY")
+        self.send_header("Referrer-Policy", "no-referrer")
+        self.send_header("Cross-Origin-Resource-Policy", "same-origin")
+        self.send_header(
+            "Content-Security-Policy",
+            "default-src 'none'; script-src 'self'; style-src 'self'; "
+            "img-src 'self'; connect-src 'self'; base-uri 'none'; "
+            "frame-ancestors 'none'; form-action 'none'",
+        )
+        self.end_headers()
+        if self.command != "HEAD":
+            try:
+                self.wfile.write(body)
+            except (BrokenPipeError, ConnectionResetError):
+                pass
+
+    def _json(self, status: int, payload: dict):
+        self._send(
+            status,
+            json.dumps(payload, ensure_ascii=False).encode("utf-8"),
+            "application/json; charset=utf-8",
+        )
+
+    def _allowed_request(self) -> bool:
+        hosts = self.headers.get_all("Host", [])
+        if hosts != [f"127.0.0.1:{self.server.server_address[1]}"]:
+            self._json(403, {"error": "Недопустимый адрес запроса."})
+            return False
+        origins = self.headers.get_all("Origin", [])
+        if origins and origins != [self.server.url]:
+            self._json(403, {"error": "Запрос с другого сайта отклонён."})
+            return False
+        if self.headers.get("Sec-Fetch-Site") == "cross-site":
+            self._json(403, {"error": "Запрос с другого сайта отклонён."})
+            return False
+        return True
+
+    def _route(self) -> str:
+        try:
+            parsed = urlsplit(self.path)
+        except ValueError:
+            return ""
+        # Reject proxy-form requests; only ordinary absolute paths are served.
+        return parsed.path if not parsed.scheme and not parsed.netloc else ""
+
+    def do_GET(self):
+        if not self._allowed_request():
+            return
+        route = self._route()
+        if route == "/api/status":
+            self._json(200, self.server.status())
+        elif route in self.server.assets:
+            body, content_type = self.server.assets[route]
+            self._send(200, body, content_type)
+        else:
+            self._json(404, {"error": "Страница не найдена."})
+
+    def do_HEAD(self):
+        self.do_GET()
+
+    def do_POST(self):
+        if not self._allowed_request():
+            return
+        if self._route() != "/api/shutdown":
+            self._json(404, {"error": "Команда не найдена."})
+            return
+        tokens = self.headers.get_all("X-Reika-Token", [])
+        if len(tokens) != 1 or not hmac.compare_digest(
+            tokens[0].encode("utf-8"), self.server.control_token.encode("utf-8")
+        ):
+            self._json(403, {"error": "Команда не авторизована."})
+            return
+        lengths = self.headers.get_all("Content-Length", [])
+        if self.headers.get_all("Transfer-Encoding") or len(lengths) > 1:
+            self._json(400, {"error": "Недопустимый формат запроса."})
+            return
+        try:
+            length = int(lengths[0]) if lengths else 0
+        except ValueError:
+            length = -1
+        if length != 0:
+            self._json(400, {"error": "Эта команда не принимает данные."})
+            return
+        self._json(200, {"status": "stopping"})
+        self.server.stop_requested.set()
+
+    def do_OPTIONS(self):
+        if self._allowed_request():
+            self._json(405, {"error": "Метод не поддерживается."})

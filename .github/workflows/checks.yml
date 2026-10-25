@@ -1,0 +1,59 @@
+name: Reika checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    name: Python ${{ matrix.python }} / ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            python: '3.10'
+          - os: windows-latest
+            python: '3.12'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Parse Windows PowerShell 5.1 scripts
+        if: runner.os == 'Windows'
+        shell: powershell
+        run: ./tests/validate_windows.ps1
+      - name: Test HTTP security, lifecycle and Windows launcher
+        run: python -X utf8 -B -m unittest discover -s tests -v
+
+  browser:
+    name: Browser interface
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser test tooling
+        run: |
+          npm install --prefix "$RUNNER_TEMP/reika-browser" playwright@1.56.1
+          "$RUNNER_TEMP/reika-browser/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Check browser interface
+        env:
+          PLAYWRIGHT_MODULE: ${{ runner.temp }}/reika-browser/node_modules/playwright
+        run: node tests/browser_smoke.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reika-interface
+          path: test-results/
+          if-no-files-found: ignore
