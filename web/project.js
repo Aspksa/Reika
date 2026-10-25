@@ -82,8 +82,11 @@ function renderModules(){
    if(!links.children.length)links.append(element("li","Зарегистрированных зависимостей нет."));
    details.append(links);
    details.append(element("h4",projectAudience==="developer"?"Входящие связи":"От этого модуля зависят"),element("p",incoming.map(([,source])=>source.name).join(", ")||"Другие модули не зависят от него."));
-   card.append(details);
-   const open=element("button","Открыть панель →","project-open-module");open.type="button";open.addEventListener("click",()=>openInspector(id));card.append(open);container.append(card);
+   const counts=element("div",undefined,"module-counts");
+   counts.append(element("span",`${(item.dependencies||[]).length} исходящих`),element("span",`${incoming.length} входящих`));
+   counts.setAttribute("aria-label","Количество связей");
+   card.append(counts,details);
+   const open=element("button","Открыть модуль ↗","project-open-module");open.type="button";open.addEventListener("click",()=>openInspector(id));card.append(open);container.append(card);
  }
  if(!visible.length){const empty=element("div",undefined,"project-empty");empty.append(element("span","◇","project-empty-symbol"),element("h3","Ничего не найдено"),element("p","Попробуйте изменить запрос или сбросить фильтры."));container.append(empty);}
 }
