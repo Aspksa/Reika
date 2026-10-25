@@ -376,6 +376,58 @@
       "task_ids": [],
       "attribution": "unlinked",
       "files": []
+    },
+    {
+      "sha": "b2ef69411d06fd04bdc18acd0a12261194884d49",
+      "release": "0.9.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/index.html"
+      ]
+    },
+    {
+      "sha": "97ac8030bb2a35e74ceba2580e2949279b240ef8",
+      "release": "0.9.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/project.js"
+      ]
+    },
+    {
+      "sha": "c6fa0aa0e7079a63c4736cf4725346948ba5c814",
+      "release": "0.9.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/styles/project.css"
+      ]
+    },
+    {
+      "sha": "507b7e4a494a496891cc6f60878630d93a15c38a",
+      "release": "0.9.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "tests/browser_smoke.cjs"
+      ]
+    },
+    {
+      "sha": "8951b965c8c1fb755e85d0cc1a6697d30612f0fb",
+      "release": "0.9.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        ".changes/project-visual-dashboard-full.json"
+      ]
+    },
+    {
+      "sha": "01a24712866185fa47161f72a7b04e3936978745",
+      "release": "0.9.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": []
     }
   ]
 }

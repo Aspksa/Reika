@@ -7,8 +7,8 @@
   <meta name="description" content="Рэйка Амацухара — ваше локальное пространство.">
   <title>Рэйка Амацухара · Reika</title>
   <link rel="icon" type="image/svg+xml" href="/assets/reika-vw6GPLNw.svg">
-  <script type="module" crossorigin src="/assets/index-jdve-mnJ.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-yAt2U6iG.css">
+  <script type="module" crossorigin src="/assets/index-vLGoUkPg.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-Beu7-3NT.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Перейти к содержимому</a>
@@ -94,7 +94,7 @@
 
       <section class="view" id="view-project" aria-labelledby="project-title" hidden>
         <div class="page-heading"><div><p class="eyebrow">УСТРОЙСТВО И РАЗВИТИЕ</p><h1 id="project-title">Проект</h1></div><span data-version class="outline-label">—</span></div>
-        <p class="page-intro" id="project-message" role="status">Получаем сведения о модулях…</p>
+        <div class="project-hero"><div><p class="eyebrow">ЦЕНТР АРХИТЕКТУРЫ</p><h2>Устройство Reika <span aria-hidden="true">✦</span></h2><p class="page-intro" id="project-message" role="status">Получаем сведения о модулях…</p></div><div class="project-health" aria-label="Состояние реестра"><span class="project-health-dot"></span><span id="project-health-label">Загрузка данных</span></div></div>
         <div class="project-view-controls"><div class="project-tabs" role="tablist" aria-label="Виды проекта"><button type="button" role="tab" data-project-tab="modules" aria-selected="true">Модули</button><button type="button" role="tab" data-project-tab="links" aria-selected="false">Связи</button><button type="button" role="tab" data-project-tab="history" aria-selected="false">История</button></div><label>Плотность<select id="project-density"><option value="comfortable">Подробная</option><option value="compact">Компактная</option></select></label><label>Вид<select id="project-audience"><option value="user">Для пользователя</option><option value="developer">Для разработчика</option></select></label></div>
         <div id="project-overview" class="project-metrics" aria-label="Показатели проекта">
           <div><span>Модули</span><strong id="project-count-modules">—</strong></div>
@@ -103,7 +103,7 @@
           <div><span>Выпуски в истории</span><strong id="project-count-releases">—</strong></div>
         </div>
         <section id="project-architecture" data-project-panel="modules" class="project-section" aria-labelledby="project-architecture-title"><div class="section-heading"><h2 id="project-architecture-title">Модули и связи</h2><span class="muted">Поиск, фильтры и подробности</span></div>
-        <div class="project-tools">
+        <div class="project-action-row"><button type="button" id="project-toggle-filters" aria-controls="project-filter-fields" aria-expanded="false">Фильтры <span aria-hidden="true">⚙</span></button><div class="project-layout-toggle" role="group" aria-label="Вид карточек"><button type="button" data-project-layout="grid" aria-pressed="true">▦ Сетка</button><button type="button" data-project-layout="list" aria-pressed="false">☷ Список</button></div></div><div class="project-tools" id="project-filter-fields" hidden>
           <label>Поиск модулей<input id="module-search" type="search" placeholder="Название, назначение, файл"></label>
           <label>Категория<select id="module-category"><option value="">Все категории</option><option>Ядро</option><option>Интерфейс</option><option>Запуск</option><option>Разработка</option><option>Документация</option><option>Обновления</option><option>Другие модули</option></select></label>
           <label>Состояние<select id="module-status"><option value="">Все состояния</option><option value="active">Действующий</option><option value="experimental">Разрабатывается</option><option value="deprecated">Устаревает</option></select></label>
@@ -111,10 +111,10 @@
           <button id="reset-project-filters" class="project-secondary-action" type="button">Сбросить фильтры</button><button id="reload-project" type="button">Обновить сведения</button>
         </div>
         <p class="project-counter" id="module-results" role="status"></p>
-        <div class="module-grid" id="project-modules"></div></section>
-        <section data-project-panel="links" class="project-section" hidden><div class="section-heading"><h2>Связи модулей</h2></div><label>Выбрать модуль <select id="project-link-filter"><option value="">Все модули</option></select></label><div id="project-links" class="project-links"></div></section>
+        <div class="project-module-workspace"><div class="module-grid" id="project-modules"></div><aside class="project-inspector" id="project-inspector" hidden aria-label="Подробности выбранного модуля"></aside></div></section>
+        <section data-project-panel="links" class="project-section" hidden><div class="section-heading"><h2>Связи модулей</h2></div><label>Выбрать модуль <select id="project-link-filter"><option value="">Все модули</option></select></label><div class="project-map-toolbar"><button type="button" id="project-map-zoom-in" aria-label="Увеличить карту">＋</button><button type="button" id="project-map-zoom-out" aria-label="Уменьшить карту">－</button><button type="button" id="project-map-reset">Сбросить вид</button></div><div class="project-map-viewport" id="project-map-viewport" tabindex="0" aria-label="Карта зависимостей; стрелки указывают направление; управление стрелками клавиатуры"><svg id="project-map" viewBox="0 0 900 530" role="img" aria-label="Карта связей модулей"></svg></div><p id="project-map-warning" class="project-map-warning" role="status"></p><div id="project-links" class="project-links"></div></section>
         <section id="project-updates" data-project-panel="history" class="project-section" hidden aria-labelledby="project-updates-title"><div class="section-heading"><h2 id="project-updates-title">История изменений</h2><span class="muted">Выпуски и подробности</span></div><div class="project-tools project-history-tools"><label>Поиск обновлений<input id="history-search" type="search" placeholder="Версия или описание"></label><label>Тип изменения<select id="history-kind"><option value="">Все типы</option><option value="fix">Исправления</option><option value="feature">Новые возможности</option><option value="design">Дизайн</option><option value="refactor">Внутренние изменения</option><option value="security">Безопасность</option><option value="docs">Документация</option><option value="test">Проверки</option><option value="maintenance">Обслуживание</option><option value="new-module">Новый модуль</option><option value="breaking">Несовместимые изменения</option></select></label></div><p class="project-counter" id="history-results" role="status"></p>
-        <div class="project-history" id="project-history"></div><div class="project-compare"><h3>Сравнение версий</h3><div class="project-compare-controls"><label>Первая версия<select id="compare-old"></select></label><label>Вторая версия<select id="compare-new"></select></label></div><div id="compare-result" class="project-compare-grid" role="status"></div></div></section>
+        <div class="project-history" id="project-history"></div><div class="project-chronicle-grid"><section class="project-feature-card"><h3>Действия ИИ-агентов</h3><div id="project-agent-events" class="project-event-list">Проверяем доступность журнала…</div></section><section class="project-feature-card"><h3>Проблемы и исправления</h3><div id="project-bug-events" class="project-event-list">Проверяем доступность журнала…</div></section><section class="project-feature-card"><h3>План развития</h3><div id="project-roadmap" class="project-event-list">Проверяем запланированные изменения…</div></section></div><div class="project-compare"><h3>Сравнение версий</h3><div class="project-compare-controls"><label>Первая версия<select id="compare-old"></select></label><label>Вторая версия<select id="compare-new"></select></label></div><div id="compare-result" class="project-compare-grid" role="status"></div></div></section>
       </section>
       <footer class="page-footer"><span>Рэйка Амацухара</span><span>С вашего компьютера. Для вас.</span><a href="https://github.com/Aspksa/Reika" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></footer>
       <noscript><p class="noscript-message">Включите JavaScript, чтобы видеть состояние Reika и переключать разделы.</p></noscript>
