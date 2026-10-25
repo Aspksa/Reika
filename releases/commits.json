@@ -747,6 +747,40 @@
       ],
       "attribution": "commit-trailer",
       "files": []
+    },
+    {
+      "sha": "921e5bb4733570f9da29ae0d704ff63092260f08",
+      "release": "0.15.0",
+      "task_ids": [
+        "TASK-20261025"
+      ],
+      "attribution": "commit-trailer",
+      "files": [
+        ".changes/project-analysis-history.json",
+        ".chronicle/events.jsonl",
+        "reika/project_ai.py",
+        "tests/browser_smoke.cjs",
+        "tests/test_project_ai.py",
+        "versions.lock.json",
+        "web/dist/assets/index-BN_jWZF_.js",
+        "web/dist/assets/index-C4OXn527.js",
+        "web/dist/assets/index-C89JqyMm.css",
+        "web/dist/assets/index-DHpi5UCE.css",
+        "web/dist/build.json",
+        "web/dist/index.html",
+        "web/index.html",
+        "web/project.js",
+        "web/styles/project.css"
+      ]
+    },
+    {
+      "sha": "804b6e188aa2e321a7d38c9d5317c66fd51a5034",
+      "release": "0.15.0",
+      "task_ids": [
+        "TASK-20261025"
+      ],
+      "attribution": "commit-trailer",
+      "files": []
     }
   ]
 }

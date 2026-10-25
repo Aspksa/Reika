@@ -2,6 +2,134 @@
   "schema": 1,
   "releases": [
     {
+      "version": "0.15.0",
+      "previous": "0.14.0",
+      "source": "804b6e188aa2e321a7d38c9d5317c66fd51a5034",
+      "created_at": "2026-10-25T12:10:30.024Z",
+      "components": [
+        {
+          "id": "core",
+          "name": "Ядро и API",
+          "from": "0.7.0",
+          "version": "0.7.1",
+          "reason": "Описано в записи об изменении",
+          "level": "patch"
+        },
+        {
+          "id": "frontend",
+          "name": "Интерфейс",
+          "from": "0.12.0",
+          "version": "0.13.0",
+          "reason": "Описано в записи об изменении",
+          "level": "minor"
+        },
+        {
+          "id": "styles",
+          "name": "Стили и темы",
+          "from": "0.6.1",
+          "version": "0.6.2",
+          "reason": "Описано в записи об изменении",
+          "level": "patch"
+        },
+        {
+          "id": "checks",
+          "name": "Проверки",
+          "from": "0.4.10",
+          "version": "0.4.11",
+          "reason": "Описано в записи об изменении",
+          "level": "patch"
+        },
+        {
+          "id": "config",
+          "name": "Конфигурация",
+          "from": "0.4.4",
+          "version": "0.4.5",
+          "reason": "Описано в записи об изменении",
+          "level": "patch"
+        },
+        {
+          "id": "build",
+          "name": "Сборка Node.js",
+          "from": "0.3.10",
+          "version": "0.3.11",
+          "reason": "Связь с Интерфейс: Обрабатывает HTML и JavaScript интерфейса.",
+          "level": "patch"
+        }
+      ],
+      "changes": [
+        {
+          "id": "project-analysis-history",
+          "kind": "fix",
+          "title": "Исправить ответы Cloud.ru и добавить историю анализов",
+          "description": "Анализ Cloud.ru теперь принимает текстовый и составной формат ответа, а также сообщает о нехватке лимита ответа. В разделе проекта сохраняется история последних восьми анализов с возможностью отметить результат исправленным. В настройках проекта появились уведомления о новых проблемах проверки и изменениях файлов; параметры хранятся в браузере.",
+          "reason": "Часть моделей возвращала ответ не в виде простой строки, поэтому пользователь видел ошибку формата вместо результата. Пользователю также нужна история и контроль уведомлений.",
+          "userImpact": "Результат анализа отображается для большего числа форматов ответов; историю можно открыть после перезагрузки и отметить исправленной. Уведомления появляются при новых событиях на странице проекта.",
+          "components": {
+            "core": "patch",
+            "frontend": "minor",
+            "styles": "patch",
+            "checks": "patch",
+            "config": "patch"
+          },
+          "testing": [
+            "Тесты Python проверяют строковый и составной ответы, ответ с reasoning_content и сообщение о лимите.",
+            "Браузерный smoke-тест проверяет историю, отметку «исправлено», сохранение уведомлений после перезагрузки и работу страницы проекта.",
+            "Python unittest discover: 34 теста пройдены, 3 Windows-проверки пропущены на Linux.",
+            "npm run test:versions: 3 теста пройдены; npm run test:release: 10 тестов пройдены.",
+            "npm run build, npm run check, npm run check:build, npm run release:check и python scripts/chronicle.py validate — успешно."
+          ],
+          "risks": [
+            "Результаты и настройки уведомлений сохраняются только в текущем браузере.",
+            "Без ключа Cloud.ru в этой среде не выполнялся новый платный запрос; формат ответа проверен на тестовых данных."
+          ],
+          "migration": [
+            "Перезапустите Reika после обновления. Ранее неудавшиеся анализы не появятся в истории; запустите их повторно при необходимости."
+          ]
+        }
+      ],
+      "files": [
+        {
+          "path": ".chronicle/events.jsonl",
+          "action": "modified",
+          "component": "config"
+        },
+        {
+          "path": "reika/project_ai.py",
+          "action": "modified",
+          "component": "core"
+        },
+        {
+          "path": "tests/browser_smoke.cjs",
+          "action": "modified",
+          "component": "checks"
+        },
+        {
+          "path": "tests/test_project_ai.py",
+          "action": "modified",
+          "component": "checks"
+        },
+        {
+          "path": "web/index.html",
+          "action": "modified",
+          "component": "frontend"
+        },
+        {
+          "path": "web/project.js",
+          "action": "modified",
+          "component": "frontend"
+        },
+        {
+          "path": "web/styles/project.css",
+          "action": "modified",
+          "component": "styles"
+        }
+      ],
+      "commits": [
+        "921e5bb4733570f9da29ae0d704ff63092260f08",
+        "804b6e188aa2e321a7d38c9d5317c66fd51a5034"
+      ]
+    },
+    {
       "version": "0.14.0",
       "previous": "0.13.0",
       "source": "fd79a131c0fa166bae02d9f7712232a55fc3b5de",
