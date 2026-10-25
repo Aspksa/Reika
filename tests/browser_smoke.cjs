@@ -64,6 +64,12 @@ async function run() {
   await page.waitForSelector('[data-module="release"]');
   assert.ok(Number(await page.locator("#project-count-modules").textContent()) >= 10);
   assert.ok(Number(await page.locator("#project-count-links").textContent()) > 0);
+  assert.equal(await page.locator(".project-jump a").count(),3);
+  await page.locator("#module-search").fill("несуществующий-запрос");
+  assert.equal(await page.locator(".module-card").count(),0);
+  await page.locator("#reset-project-filters").click();
+  assert.equal(await page.locator("#module-search").inputValue(),"");
+  assert.ok(await page.locator(".module-card").count()>0);
   await page.locator("#module-search").fill("Запуск Windows");
   assert.equal(await page.locator(".module-card").count(),1);
   await page.locator("#module-search").fill("несуществующий-запрос");
