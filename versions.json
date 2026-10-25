@@ -8,7 +8,8 @@
       "paths": [
         "reika/",
         "run.py",
-        "reika/cloud_settings.py"
+        "reika/cloud_settings.py",
+        "reika/project_ai.py"
       ],
       "description": "Запускает приложение, обслуживает локальный API и проверяет готовую сборку.",
       "status": "active",

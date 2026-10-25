@@ -20,6 +20,7 @@ from . import __version__
 from .versions import COMPONENTS, COMPONENT_VERSIONS
 from .project_monitor import ProjectMonitor
 from .cloud_settings import CloudSettings
+from .project_ai import review as review_project
 
 
 LOGGER = logging.getLogger("reika.http")
@@ -200,6 +201,18 @@ class ReikaHandler(BaseHTTPRequestHandler):
 
     def do_POST(self):
         if not self._allowed_request():
+            return
+        if self._route() == "/api/project/ai-review":
+            if self.headers.get("Origin") != self.server.url:
+                self._json(403, {"error": "Недопустимый источник."})
+                return
+            if self.headers.get("Content-Length") not in (None, "0") or self.headers.get("Transfer-Encoding"):
+                self._json(400, {"error": "Для анализа не требуется тело запроса."})
+                return
+            try:
+                self._json(200, review_project(self.server.project_monitor.root, self.server.cloud_settings))
+            except (ValueError, OSError, KeyError, TimeoutError) as error:
+                self._json(400, {"error": str(error)[:200]})
             return
         if self._route() == "/api/project/cloud":
             if self.headers.get("Origin") != self.server.url:
