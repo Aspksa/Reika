@@ -122,6 +122,19 @@ async function run() {
   assert.ok(await page.locator('[data-module="styles"]').isVisible());
   assert.equal(await page.locator('[data-module="launcher"]').count(), 0);
   await page.locator("#module-filter").selectOption("");
+  await page.locator("#project-audience").selectOption("user");
+  await page.locator("#project-density").selectOption("comfortable");
+  const moduleCount = await page.locator(".module-card").count();
+  assert.equal(await page.locator(".module-counts").count(), moduleCount);
+  for (const theme of ["light", "dark"]) {
+    await page.evaluate(theme => document.documentElement.dataset.theme = theme, theme);
+    for (const width of [360, 390, 768, 1024, 1440]) {
+      await page.setViewportSize({ width, height: 1080 });
+      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `Project overflow: ${theme}, ${width}px`);
+      if (width === 390 || width === 1440) await capture(page, `project-${theme}-${width}.png`);
+    }
+  }
+  await page.evaluate(() => document.documentElement.dataset.theme = "light");
   await capture(page, "project.png");
   await page.getByRole("link", { name: "Главная", exact: true }).click();
   await page.setViewportSize({ width: 390, height: 844 });
