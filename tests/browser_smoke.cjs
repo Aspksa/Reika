@@ -60,10 +60,24 @@ async function run() {
   await page.waitForSelector("#view-about:not([hidden])");
   await capture(page, "about.png");
   await page.getByRole("button", { name: "Включить светлую тему" }).click();
+  await page.getByRole("link", { name: "Настройки проекта", exact: true }).click();
+  await page.waitForSelector("#view-project-settings:not([hidden])");
+  await page.waitForSelector(".cloud-model-card");
+  assert.ok(await page.locator(".cloud-model-card").count() >= 7);
+  assert.ok((await page.locator("#cloud-key-status").textContent()).length>0);
+  assert.ok(await page.locator("#cloud-model option").count()>=7);
+  await capture(page, "cloud-settings.png");
   await page.getByRole("link", { name: "Проект", exact: true }).click();
   await page.waitForSelector('[data-module="release"]');
   assert.ok(Number(await page.locator("#project-count-modules").textContent()) >= 10);
   assert.ok(Number(await page.locator("#project-count-links").textContent()) > 0);
+  await page.waitForFunction(() => document.querySelector("#project-monitor-status").textContent.includes("Последняя проверка"));
+  assert.ok(Number(await page.locator(".project-monitor-item").count()) >= 5);
+  await page.locator("#project-monitor-interval").selectOption("0");
+  await page.locator("#project-monitor-now").click();
+  await page.waitForFunction(() => document.querySelector("#project-monitor-status").textContent.includes("Последняя проверка"));
+  await page.locator("#project-monitor-interval").selectOption("30000");
+
   assert.equal(await page.locator('[data-project-tab]').count(),3);
   assert.ok(await page.locator(".project-hero").isVisible());
   await page.locator("#project-toggle-filters").click();

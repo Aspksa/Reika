@@ -7,6 +7,10 @@ let projectTab = "modules";
 let projectDensity = "comfortable";
 let projectAudience = "user";
 let projectLayout = "grid";
+let projectMonitor = null;
+let monitorTimer = null;
+let projectBaseline = null;
+let lastReport = "";
 const icons={core:"◆",frontend:"◈",styles:"✦",launcher:"▷",tray:"◉",build:"⬡",checks:"✓",docs:"▤",config:"⚙",release:"↻"};
 const categoryColor={Ядро:"core",Интерфейс:"frontend",Запуск:"launcher",Разработка:"build",Документация:"docs",Обновления:"release"};
 function countRu(n,one,few,many){const v=Math.abs(n)%100,k=v%10;return n+" "+(v>=11&&v<=14?many:k===1?one:k>=2&&k<=4?few:many);}
@@ -56,7 +60,9 @@ function renderModules(){
    heading.append(element("span",icons[id]||"◇","module-icon"),element("h3",item.name)); if(projectAudience==="developer")heading.append(element("span",item.version,"outline-label"));
    card.append(heading);
    const meta=element("div",undefined,"module-meta");
-   const status=element("span",statuses[item.status]||item.status,"module-status");
+   const health=projectMonitor?.module_health?.[id];
+   const status=element("span",health==="problem"?"Проблема":health==="warning"?"Предупреждение":statuses[item.status]||item.status,"module-status");
+   if(health)card.dataset.health=health;
    status.dataset.status=item.status;meta.append(status,element("span",category(id),"module-category-label"));card.append(meta,element("p",item.description));
    const details=element("details",undefined,"module-details");
    details.append(element("summary",projectAudience==="developer"?`Файлы и связи · ${countRu((item.paths||[]).length,"путь","пути","путей")} · ${countRu((item.dependencies||[]).length,"связь","связи","связей")}`:"Подробнее о модуле"));
@@ -182,7 +188,7 @@ function openInspector(id){
 const SVG="http://www.w3.org/2000/svg";
 function svgEl(tag,attrs){const node=document.createElementNS(SVG,tag);for(const [key,value] of Object.entries(attrs||{}))node.setAttribute(key,String(value));return node;}
 let mapZoom=1,mapX=0,mapY=0,mapDragging=false,mapDragX=0,mapDragY=0;
-function applyMapTransform(){const group=$("#project-map-scene");if(group)group.setAttribute("transform",`translate(${mapX} ${mapY}) scale(${mapZoom})`);}
+function applyMapTransform(){const group=$("#project-map-scene");if(group)group.setAttribute("transform",`translate(${mapX} ${mapY}) scale(${mapZoom})`);const overview=$("#project-map-minimap");if(overview)overview.textContent="Мини-карта · "+Math.round(mapZoom*100)+"%";}
 function renderMap(){
  const svg=$("#project-map");svg.replaceChildren();if(!cached)return;
  const names=Object.entries(cached.modules);const positions=new Map(names.map(([id],i)=>[id,{x:450+Math.cos(i*2*Math.PI/names.length-Math.PI/2)*310,y:265+Math.sin(i*2*Math.PI/names.length-Math.PI/2)*188}]));
@@ -196,7 +202,7 @@ function renderMap(){
  let invalid=0;
  for(const [id,item] of names)for(const link of item.dependencies||[]){
  const from=positions.get(id),to=positions.get(link.target);if(!to){invalid++;continue;}
- const edge=svgEl("line",{x1:from.x,y1:from.y,x2:to.x,y2:to.y,stroke:({runtime:"#668bb1",build:"#bc9661",design:"#ac75a6",verification:"#6c9a7c",documentation:"#a5a07b"}[link.kind]||"#888"),"stroke-width":selected&&(selected===id||selected===link.target)?3.2:1.7,"marker-end":"url(#project-arrow-"+( ["runtime","build","design","verification","documentation"].includes(link.kind)?link.kind:"build")+")",opacity:selected&&selected!==id&&selected!==link.target?.22:.85});
+ const edge=svgEl("line",{class:projectMonitor?.events?.[0]?.changes?.some(change=>(change.modules||[]).includes(id))?"project-map-edge-changed":"",x1:from.x,y1:from.y,x2:to.x,y2:to.y,stroke:({runtime:"#668bb1",build:"#bc9661",design:"#ac75a6",verification:"#6c9a7c",documentation:"#a5a07b"}[link.kind]||"#888"),"stroke-width":selected&&(selected===id||selected===link.target)?3.2:1.7,"marker-end":"url(#project-arrow-"+( ["runtime","build","design","verification","documentation"].includes(link.kind)?link.kind:"build")+")",opacity:selected&&selected!==id&&selected!==link.target?.22:.85});
  scene.append(edge);
  }
  for(const [id,item] of names){
@@ -204,7 +210,7 @@ function renderMap(){
  g.append(svgEl("circle",{r:29,fill:"var(--surface)",stroke:selected===id?"var(--accent)":"var(--gold)","stroke-width":selected===id?3:1.5}));
  const label=svgEl("text",{"text-anchor":"middle",y:45,fill:"var(--ink)","font-size":12});label.textContent=item.name;
  const symbol=svgEl("text",{"text-anchor":"middle",y:7,fill:"var(--accent)","font-size":24});symbol.textContent=icons[id]||"◇";
- g.append(symbol,label);g.addEventListener("click",()=>{$("#project-link-filter").value=id;renderLinks();renderMap();openInspector(id);});
+ g.append(symbol,label);if(projectMonitor?.events?.[0]?.changes?.some(change=>(change.modules||[]).includes(id)))g.classList.add("project-map-node-changed");g.addEventListener("click",()=>{$("#project-link-filter").value=id;renderLinks();renderMap();openInspector(id);});
  g.addEventListener("keydown",event=>{if(event.key==="Enter"||event.key===" "){event.preventDefault();g.dispatchEvent(new Event("click"));}});
  scene.append(g);
  }
@@ -229,11 +235,74 @@ function initVisualControls(){
  $("#project-map-zoom-in").onclick=()=>{mapZoom=Math.min(2.5,mapZoom+.2);applyMapTransform();};
  $("#project-map-zoom-out").onclick=()=>{mapZoom=Math.max(.5,mapZoom-.2);applyMapTransform();};
  $("#project-map-reset").onclick=()=>{mapZoom=1;mapX=mapY=0;applyMapTransform();};
+ $("#project-map-fullscreen").onclick=()=>{$("#project-map-viewport").classList.toggle("project-map-expanded");};
  const viewport=$("#project-map-viewport");
  viewport.onpointerdown=e=>{if(e.target.closest(".project-map-node"))return;mapDragging=true;mapDragX=e.clientX;mapDragY=e.clientY;viewport.setPointerCapture(e.pointerId);};
  viewport.onpointermove=e=>{if(!mapDragging)return;const bounds=viewport.getBoundingClientRect();mapX+=(e.clientX-mapDragX)*900/bounds.width;mapY+=(e.clientY-mapDragY)*530/bounds.height;mapDragX=e.clientX;mapDragY=e.clientY;applyMapTransform();};
  viewport.onpointerup=()=>{mapDragging=false;};viewport.onpointercancel=()=>{mapDragging=false;};
  viewport.onkeydown=e=>{const d={ArrowLeft:[-20,0],ArrowRight:[20,0],ArrowUp:[0,-20],ArrowDown:[0,20]}[e.key];if(d){e.preventDefault();mapX+=d[0];mapY+=d[1];applyMapTransform();}};
+}
+
+
+function diagnosticItem(title,value,warning=false){
+ const card=element("div",undefined,"project-monitor-item");if(warning)card.classList.add("warning");
+ card.append(element("strong",title),element("span",String(value)));return card;
+}
+function applyMonitor(data){
+ projectMonitor=data;
+ const diag=$("#project-monitor-diagnostics");diag.replaceChildren();
+ diag.append(diagnosticItem("Проверено файлов",data.file_count),
+ diagnosticItem("Отсутствуют пути",data.missing.length,data.missing.length>0),
+ diagnosticItem("Ошибки связей",data.invalid_links.length,data.invalid_links.length>0),
+ diagnosticItem("Предложенные модули",data.candidates.length),
+ diagnosticItem("Неоднозначные владельцы",data.ambiguous.length,data.ambiguous.length>0));
+ if(data.version_problem)diag.append(diagnosticItem("Согласованность сборки",data.version_problem,true));
+ if(data.limit_reached)diag.append(diagnosticItem("Ограничение проверки","Сканирование ограничено, отчёт частичный",true));
+ const at=new Date(data.checked_at);
+ $("#project-monitor-status").textContent="Последняя проверка: "+(Number.isNaN(at.getTime())?data.checked_at:at.toLocaleString("ru-RU"));
+ const lines=["Состояние проекта Reika",$("#project-monitor-status").textContent,
+ "Зарегистрировано файлов: "+data.file_count,
+ "Пропавших путей: "+data.missing.length,
+ "Некорректных связей: "+data.invalid_links.length,
+ "Неоднозначных владельцев: "+data.ambiguous.length,
+ "Кандидатов на регистрацию: "+data.candidates.join(", "),
+ "Проблемы сборки: "+(data.version_problem||"нет")];
+ lastReport=lines.join("\n");
+ const feed=$("#project-roadmap");
+ feed.replaceChildren();
+ for(const path of data.candidates)feed.append(element("p","Кандидат на регистрацию: "+path));
+ for(const entry of data.missing)feed.append(element("p","Найден отсутствующий путь: "+entry.path));
+ for(const note of cached.pending||[])feed.append(element("p",note.title));
+ if(!feed.children.length)feed.textContent="Новых предложений по результатам проверки нет.";
+ renderModules();renderMap();
+ if(projectBaseline){
+   const before=new Set(projectBaseline),after=new Set(Object.keys(cached.modules));
+   const added=[...after].filter(id=>!before.has(id)),removed=[...before].filter(id=>!after.has(id));
+   $("#project-architecture-diff").textContent=added.length||removed.length?"Состав архитектуры изменился: добавлены "+added.join(", ")+"; удалены "+removed.join(", "):"Изменений состава модулей после последней загрузки нет.";
+ }
+ projectBaseline=Object.keys(cached.modules);
+}
+async function refreshProjectMonitor(){
+ try{
+ const response=await fetch("/api/project/monitor",{cache:"no-store"});
+ if(!response.ok)throw Error("API monitor");
+ applyMonitor(await response.json());
+ }catch{$("#project-monitor-status").textContent="Мониторинг недоступен; повторите проверку";}
+}
+function scheduleMonitor(){
+ if(monitorTimer)clearInterval(monitorTimer);monitorTimer=null;
+ const ms=Number($("#project-monitor-interval").value);
+ if(ms>=30000)monitorTimer=setInterval(async()=>{
+   // Fetch fresh metadata, allowing new modules to appear automatically.
+   if(!document.querySelector("#view-project:not([hidden])"))return;
+   await loadProject(true);
+ },ms);
+}
+function initMonitorControls(){
+ $("#project-monitor-now").onclick=async()=>{await loadProject(true);};
+ $("#project-monitor-interval").onchange=scheduleMonitor;
+ $("#project-monitor-report").onclick=()=>{if(lastReport)navigator.clipboard?.writeText(lastReport).catch(()=>{});};
+ scheduleMonitor();
 }
 
 export async function loadProject(force=false){
@@ -250,7 +319,7 @@ export async function loadProject(force=false){
    for(const id of ["module-filter","module-search","module-category","module-status"])$("#"+id).oninput=renderModules;
    for(const id of ["history-search","history-kind"])$("#"+id).oninput=renderHistory;
    $("#reset-project-filters").onclick=()=>{for(const id of ["module-search","module-category","module-status","module-filter"])$("#"+id).value="";renderModules();$("#module-search").focus();};
-   renderModules();renderHistory();initProjectControls();initVisualControls();$("#project-health-label").textContent="Реестр доступен";
+   renderModules();renderHistory();initProjectControls();initVisualControls();initMonitorControls();await refreshProjectMonitor();$("#project-health-label").textContent="Реестр доступен";
    $("#project-message").textContent=`Зарегистрировано модулей: ${Object.keys(cached.modules).length}. Данные из реестра Reika.`;
  }catch{
    $("#project-health-label").textContent="Нет соединения";$("#project-message").textContent="Не удалось получить сведения о проекте. Проверьте соединение и повторите загрузку.";

@@ -1,10 +1,11 @@
 import { loadProject } from "./project.js";
+import { loadCloudSettings } from "./cloud_settings.js";
 "use strict";
 
 (() => {
   const $ = (selector) => document.querySelector(selector);
   const all = (selector) => document.querySelectorAll(selector);
-  const viewNames = {home: "Главная", system: "Система", about: "О Reika", project: "Проект"};
+  const viewNames = {home: "Главная", system: "Система", about: "О Reika", project: "Проект", "project-settings": "Настройки проекта"};
   let state = null;
   let busy = false;
   let online = false;
@@ -31,6 +32,7 @@ import { loadProject } from "./project.js";
     $("#view-title").textContent = viewNames[name];
     document.title = `${viewNames[name]} · Reika`;
     if (name === "project") loadProject();
+    if (name === "project-settings") loadCloudSettings();
     if (focus) {
       $("#main").focus({preventScroll: true});
       window.scrollTo({top: 0, behavior: "instant"});

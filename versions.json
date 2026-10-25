@@ -1,13 +1,14 @@
 {
   "schema": 1,
-  "project": "0.8.0",
+  "project": "0.11.0",
   "components": {
     "core": {
       "name": "Ядро и API",
-      "version": "0.4.1",
+      "version": "0.6.0",
       "paths": [
         "reika/",
-        "run.py"
+        "run.py",
+        "reika/cloud_settings.py"
       ],
       "description": "Запускает приложение, обслуживает локальный API и проверяет готовую сборку.",
       "status": "active",
@@ -22,12 +23,13 @@
     },
     "frontend": {
       "name": "Интерфейс",
-      "version": "0.7.0",
+      "version": "0.10.0",
       "paths": [
         "web/index.html",
         "web/app.js",
         "web/reika.svg",
-        "web/project.js"
+        "web/project.js",
+        "web/cloud_settings.js"
       ],
       "description": "Показывает страницы Reika, состояние приложения и действия пользователя.",
       "status": "active",
@@ -48,7 +50,7 @@
     },
     "styles": {
       "name": "Стили и темы",
-      "version": "0.3.4",
+      "version": "0.4.2",
       "paths": [
         "web/app.css",
         "web/styles/"
@@ -100,7 +102,7 @@
     },
     "build": {
       "name": "Сборка Node.js",
-      "version": "0.3.4",
+      "version": "0.3.7",
       "paths": [
         "package.json",
         "package-lock.json",
@@ -134,7 +136,7 @@
     },
     "checks": {
       "name": "Проверки",
-      "version": "0.4.4",
+      "version": "0.4.7",
       "paths": [
         "tests/",
         ".github/"

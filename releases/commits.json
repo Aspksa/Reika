@@ -376,6 +376,261 @@
       "task_ids": [],
       "attribution": "unlinked",
       "files": []
+    },
+    {
+      "sha": "b2ef69411d06fd04bdc18acd0a12261194884d49",
+      "release": "0.9.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/index.html"
+      ]
+    },
+    {
+      "sha": "97ac8030bb2a35e74ceba2580e2949279b240ef8",
+      "release": "0.9.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/project.js"
+      ]
+    },
+    {
+      "sha": "c6fa0aa0e7079a63c4736cf4725346948ba5c814",
+      "release": "0.9.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/styles/project.css"
+      ]
+    },
+    {
+      "sha": "507b7e4a494a496891cc6f60878630d93a15c38a",
+      "release": "0.9.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "tests/browser_smoke.cjs"
+      ]
+    },
+    {
+      "sha": "8951b965c8c1fb755e85d0cc1a6697d30612f0fb",
+      "release": "0.9.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        ".changes/project-visual-dashboard-full.json"
+      ]
+    },
+    {
+      "sha": "01a24712866185fa47161f72a7b04e3936978745",
+      "release": "0.9.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": []
+    },
+    {
+      "sha": "32e0efedeaf6c3b14ca78a99327e32cba2ae2998",
+      "release": "0.10.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "reika/project_monitor.py"
+      ]
+    },
+    {
+      "sha": "9259eb7a271462cb116dfa31c0af96876ecce8ee",
+      "release": "0.10.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "reika/server.py"
+      ]
+    },
+    {
+      "sha": "d35305b72be687ac6b3336f60677bf544a38f8df",
+      "release": "0.10.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/index.html"
+      ]
+    },
+    {
+      "sha": "cff114494a983438b8130f03e0299b6cf41cc677",
+      "release": "0.10.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/project.js"
+      ]
+    },
+    {
+      "sha": "72d074c9b55054066b35428be1c220cecdb3a74f",
+      "release": "0.10.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "tests/test_project_monitor.py"
+      ]
+    },
+    {
+      "sha": "7f3ba16d8dae815410ce60b58ad28416b252d8e9",
+      "release": "0.10.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/styles/project.css"
+      ]
+    },
+    {
+      "sha": "974b96e7193182f0591de763daf0cbf29b108cc0",
+      "release": "0.10.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "tests/browser_smoke.cjs"
+      ]
+    },
+    {
+      "sha": "b903f1ac62aafa70fe2429b991332d5d06e6fe06",
+      "release": "0.10.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        ".changes/project-monitoring-automation.json"
+      ]
+    },
+    {
+      "sha": "566ee73b9824e2660d7edceca8c2a6810900fcc7",
+      "release": "0.10.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": []
+    },
+    {
+      "sha": "024731035168e369c4f202c986d7a41ed10a5bfe",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "reika/cloud_settings.py"
+      ]
+    },
+    {
+      "sha": "306cbdab83a405d3be4ba7c2c5e4f7bd435fe962",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "reika/server.py"
+      ]
+    },
+    {
+      "sha": "3f2bad1883d4f190e6fe73d66f94e80d4a5e5a17",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "reika/server.py"
+      ]
+    },
+    {
+      "sha": "7cafbf9019aa0ba8a3471f620f0511d4349da754",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/index.html"
+      ]
+    },
+    {
+      "sha": "7d6253e99c26c9aba5b5f80b6f400cc588707c6e",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/app.js"
+      ]
+    },
+    {
+      "sha": "7cfec3410c05615ad1775437b487de475d80763b",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/cloud_settings.js"
+      ]
+    },
+    {
+      "sha": "f461496935185894f91e6abfeed53f28ee920512",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/styles/project.css"
+      ]
+    },
+    {
+      "sha": "b6854cbf129311bee7e5073f8ef7b70bef0d488f",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "reika/cloud_settings.py"
+      ]
+    },
+    {
+      "sha": "69ab9b75cfdffd5fc9976787f0f86b6984eb55c5",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "tests/browser_smoke.cjs"
+      ]
+    },
+    {
+      "sha": "0bff6cb13266c6e9de0c77f6d383521bd814d817",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "tests/test_server.py"
+      ]
+    },
+    {
+      "sha": "2e32b55874ebf531ecf3d44c9a6f865d45a84d1e",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        ".changes/cloud-project-settings.json"
+      ]
+    },
+    {
+      "sha": "ae0a004e02850d4bd8b091c4a6c40f634221f056",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "versions.json"
+      ]
+    },
+    {
+      "sha": "232a912e108e816288924a66f62dda4eef6f3402",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "tests/test_cloud_settings.py"
+      ]
+    },
+    {
+      "sha": "69e91ec6b56c991bb4b7a46146e251fb2c665ed3",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": []
     }
   ]
 }
