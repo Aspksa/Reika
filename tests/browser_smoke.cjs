@@ -95,7 +95,7 @@ async function run() {
   await page.getByRole("link", { name: "Проект", exact: true }).click();
   await page.waitForSelector('[data-module="release"]');
   assert.ok(await page.locator('.project-quick-links a[href="#project-settings"]').isVisible());
-  assert.equal(await page.locator('[data-nav-version]').count(),5);
+  assert.equal(await page.locator('[data-nav-version]').count(),6);
   assert.match(await page.locator('[data-nav-version="core"]').textContent(),/^\d+\.\d+\.\d+$/);
   await page.locator('#project-ai-run').click();
   await page.waitForFunction(() => document.querySelector('#project-ai-result').textContent.includes('ключ Cloud.ru'));
