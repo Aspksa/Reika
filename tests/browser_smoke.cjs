@@ -150,14 +150,14 @@ async function run() {
   assert.equal(await page.locator("#view-project").getAttribute("data-audience"),"developer");
   await page.locator('[data-project-tab="modules"]').click();
   await page.locator("#module-search").fill("несуществующий-запрос");
-  assert.equal(await page.locator(".module-card").count(),0);
+  assert.equal(await page.locator("#project-modules .module-card").count(),0);
   await page.locator("#reset-project-filters").click();
   assert.equal(await page.locator("#module-search").inputValue(),"");
-  assert.ok(await page.locator(".module-card").count()>0);
+  assert.ok(await page.locator("#project-modules .module-card").count()>0);
   await page.locator("#module-search").fill("Запуск Windows");
-  assert.equal(await page.locator(".module-card").count(),1);
+  assert.equal(await page.locator("#project-modules .module-card").count(),1);
   await page.locator("#module-search").fill("несуществующий-запрос");
-  assert.equal(await page.locator(".module-card").count(),0);
+  assert.equal(await page.locator("#project-modules .module-card").count(),0);
   await page.locator("#module-search").fill("");
   await page.locator("#module-category").selectOption("Интерфейс");
   assert.ok(await page.locator('[data-module="styles"]').isVisible());
@@ -183,7 +183,7 @@ async function run() {
   await page.locator("#module-filter").selectOption("");
   await page.locator("#project-audience").selectOption("user");
   await page.locator("#project-density").selectOption("comfortable");
-  const moduleCount = await page.locator(".module-card").count();
+  const moduleCount = await page.locator("#project-modules .module-card").count();
   assert.equal(await page.locator(".module-counts").count(), moduleCount);
   for (const theme of ["light", "dark"]) {
     await page.evaluate(theme => document.documentElement.dataset.theme = theme, theme);
