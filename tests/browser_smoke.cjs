@@ -218,18 +218,35 @@ async function run() {
   }}));
   await page.getByRole("link", { name: "Обновления проекта", exact: true }).click();
   await page.waitForFunction(() => document.querySelector("#update-available").textContent === "99.0.0");
+  assert.equal(await page.locator(".updates-hero").getAttribute("data-state"), "new");
+  assert.ok(await page.locator(".updates-hero-art").isVisible());
   assert.equal(await page.locator("#update-notes img").count(), 0);
   await page.locator("#update-file").setInputFiles({name: "release.zip", mimeType: "application/zip", buffer: archiveBytes});
   await page.waitForFunction(() => document.querySelector("#verify-result").textContent.startsWith("Проверка пройдена"));
+  assert.equal(await page.locator("#verify-result").getAttribute("data-state"), "passed");
   await capture(page, "updates.png");
   await page.locator("#update-file").setInputFiles({name: "bad.zip", mimeType: "application/zip", buffer: Buffer.alloc(archiveBytes.length)});
   await page.waitForFunction(() => document.querySelector("#verify-result").textContent.includes("SHA-256 не совпадает"));
+  assert.equal(await page.locator("#verify-result").getAttribute("data-state"), "failed");
   await page.locator("#update-file").setInputFiles({name: "short.zip", mimeType: "application/zip", buffer: Buffer.from("x")});
   await page.waitForFunction(() => document.querySelector("#verify-result").textContent.includes("размер файла отличается"));
   for (const width of [360, 390, 768, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `Updates overflow at ${width}px`);
   }
+  await page.route("**/api/updates", (route) => route.fulfill({ json: {
+    current: "0.17.0", checked_at: new Date().toISOString(), error: null,
+    release: { version: "0.17.0", newer: false, notes: "Актуальная версия", archive: null }
+  }}));
+  await page.locator("#check-updates").click();
+  await page.waitForFunction(() => document.querySelector(".updates-hero").dataset.state === "current");
+  assert.equal(await page.locator("#update-download").isVisible(), false);
+  await page.route("**/api/updates", (route) => route.fulfill({ json: {
+    current: "0.17.0", checked_at: new Date().toISOString(), error: "GitHub временно недоступен.", release: null
+  }}));
+  await page.locator("#check-updates").click();
+  await page.waitForFunction(() => document.querySelector(".updates-hero").dataset.state === "error");
+  assert.equal(await page.locator("#update-download").isVisible(), false);
   await page.unroute("**/api/updates");
   await page.getByRole("link", { name: "Главная", exact: true }).click();
   await page.setViewportSize({ width: 390, height: 844 });

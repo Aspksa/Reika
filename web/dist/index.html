@@ -7,8 +7,8 @@
   <meta name="description" content="Рэйка Амацухара — ваше локальное пространство.">
   <title>Рэйка Амацухара · Reika</title>
   <link rel="icon" type="image/svg+xml" href="/assets/reika-vw6GPLNw.svg">
-  <script type="module" crossorigin src="/assets/index-COdivi5G.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-CPXsBk-S.css">
+  <script type="module" crossorigin src="/assets/index-CX-7lGBG.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-DFC3JCt8.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Перейти к содержимому</a>
@@ -147,15 +147,13 @@
       </section>
       <section class="view" id="view-updates" aria-labelledby="updates-title" hidden>
         <div class="page-heading"><div><p class="eyebrow">РАЗВИТИЕ REIKA</p><h1 id="updates-title">Обновления проекта</h1></div></div>
-        <p id="updates-message" role="status" class="page-intro">Проверяем выпуск…</p>
-        <div class="module-grid">
-          <article class="module-card"><h2>Текущая версия</h2><strong id="update-current" data-version>—</strong><p>Версия запущенной Reika.</p></article>
-          <article class="module-card"><h2>Доступная версия</h2><strong id="update-available">—</strong><p>Последний стабильный выпуск на GitHub.</p></article>
+        <div class="updates-hero" data-state="loading">
+          <div class="updates-hero-copy"><span class="updates-kicker"><span class="updates-live-dot" aria-hidden="true"></span> ОФИЦИАЛЬНЫЕ ВЫПУСКИ · GITHUB</span><h2>Следующая глава<br><em>Reika</em></h2><p>Следите за новыми версиями, читайте историю изменений и проверяйте загруженный архив перед использованием.</p><p id="updates-message" role="status" class="updates-status">Проверяем выпуск…</p><div class="updates-actions"><button id="check-updates" type="button">↻ <span>Проверить обновления</span></button><a id="update-download" target="_blank" rel="noopener noreferrer" hidden>Скачать архив ↗</a></div><p id="updates-checked" class="updates-checked"></p></div>
+          <div class="updates-hero-art" aria-hidden="true"><div class="updates-orbit updates-orbit-outer"></div><div class="updates-orbit updates-orbit-inner"></div><span class="updates-orbit-mark updates-orbit-mark-one">✦</span><span class="updates-orbit-mark updates-orbit-mark-two">◆</span><span class="updates-orbit-core">R<span>.</span></span></div>
         </div>
-        <div class="project-tools update-actions"><button id="check-updates" type="button">Проверить обновления</button><a id="update-download" target="_blank" rel="noopener noreferrer" hidden>Скачать архив</a></div>
-        <p id="updates-checked" class="page-intro"></p>
-        <article class="release-card"><h2>Полное описание обновления</h2><pre id="update-notes" class="update-notes"></pre></article>
-        <article class="release-card update-actions"><h2>Проверка скачанных файлов</h2><p>Выберите ZIP последнего выпуска. Файл проверяется на вашем компьютере и никуда не отправляется. Сравнение с SHA-256 GitHub подтверждает целостность архива, но не заменяет цифровую подпись.</p><label for="update-file">Скачанный архив Reika (до 256 МБ)</label><input id="update-file" type="file" accept=".zip,application/zip" disabled><p id="verify-result" role="status"></p></article>
+        <div class="updates-version-row" aria-label="Сравнение версий"><article class="updates-version"><span>01 / СЕЙЧАС</span><h2>Текущая версия</h2><strong id="update-current" data-version>—</strong><p>Установлена на этом компьютере</p></article><span class="updates-version-arrow" aria-hidden="true">→</span><article class="updates-version updates-version-latest"><span>02 / GITHUB</span><h2>Доступная версия</h2><strong id="update-available">—</strong><p>Последний стабильный выпуск</p></article></div>
+        <div class="updates-content-grid"><article class="updates-paper" aria-labelledby="update-notes-title"><div class="updates-card-heading"><span class="updates-card-icon" aria-hidden="true">✦</span><div><span class="updates-section-label">ИСТОРИЯ ИЗМЕНЕНИЙ</span><h2 id="update-notes-title">Что нового в выпуске</h2></div></div><pre id="update-notes" class="update-notes"></pre></article>
+        <article class="updates-verify" aria-labelledby="update-verify-title"><div class="updates-card-heading"><span class="updates-card-icon" aria-hidden="true">✓</span><div><span class="updates-section-label">ПРОВЕРКА ФАЙЛА</span><h2 id="update-verify-title">Убедитесь в целостности</h2></div></div><p>Выберите ZIP последнего выпуска. Проверка проходит на вашем компьютере: файл никуда не отправляется.</p><label class="updates-file-zone" for="update-file"><span class="updates-file-symbol" aria-hidden="true">↓</span><strong>Выбрать архив Reika</strong><small>ZIP · до 256 МБ</small></label><input id="update-file" type="file" accept=".zip,application/zip" disabled><p id="verify-result" role="status"></p><p class="updates-verify-note">Сравнение с SHA-256 GitHub подтверждает целостность архива, но не заменяет цифровую подпись.</p></article></div>
       </section>
       <footer class="page-footer"><span>Рэйка Амацухара</span><span>С вашего компьютера. Для вас.</span><a href="https://github.com/Aspksa/Reika" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></footer>
       <noscript><p class="noscript-message">Включите JavaScript, чтобы видеть состояние Reika и переключать разделы.</p></noscript>
