@@ -18,6 +18,7 @@ from urllib.parse import urlsplit, unquote
 
 from . import __version__
 from .versions import COMPONENTS, COMPONENT_VERSIONS
+from .project_monitor import ProjectMonitor
 
 
 LOGGER = logging.getLogger("reika.http")
@@ -78,6 +79,7 @@ class ReikaServer(ThreadingHTTPServer):
             "pending": [json.loads(path.read_text(encoding="utf-8"))
                         for path in sorted((project_root / ".changes").glob("*.json"))],
         }
+        self.project_monitor = ProjectMonitor(project_root)
         self.instance_id = instance_id
         self.control_token = control_token
         self.stop_requested = threading.Event()
@@ -179,6 +181,8 @@ class ReikaHandler(BaseHTTPRequestHandler):
         route = self._route()
         if route == "/api/status":
             self._json(200, self.server.status())
+        elif route == "/api/project/monitor":
+            self._json(200, self.server.project_monitor.status())
         elif route == "/api/project":
             self._json(200, self.server.project)
         elif route in self.server.assets:
