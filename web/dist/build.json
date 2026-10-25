@@ -10,12 +10,13 @@
     "checks": "0.4.0",
     "docs": "0.4.0",
     "config": "0.4.0",
-    "release": "0.1.0"
+    "release": "0.1.0",
+    "updates": "0.1.0"
   },
   "files": {
-    "assets/index-BTzOBJrb.css": "cc463b74dc52ad8adf0f0fced872aee1fb3c099c96db0122dac8de99ab72cbc8",
-    "assets/index-CNNP1LUx.js": "877a7e8c456258a0a490efa1815a71b79e8346fd214144c7bf897dee51e67d85",
+    "assets/index-Dk8Ef-JJ.css": "0662d6150c111893b5022d452de36dfa839a087e13ba329deded5dd3253234f2",
+    "assets/index-xyCi0wcU.js": "7707adc4d434ed9a199e13d25ac4824fed3eb836ac3f1ab52d554dfdee975f43",
     "assets/reika-vw6GPLNw.svg": "b7a1415321eda6ac63cb589073bc2c3986d2cdd7c73e07b48ec83fabc5d680ba",
-    "index.html": "d9dc4aa16cc45a9274aab3c18341cf87bd3b519d2e6f5f9cd29bd7495abd990f"
+    "index.html": "406adb39f3a96fa2bc6106dbc5daa8072b300f646c2279d5145220f607eadd0e"
   }
 }

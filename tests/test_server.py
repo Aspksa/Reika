@@ -2,6 +2,7 @@ import http.client
 import json
 import threading
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 from reika.server import ReikaServer
@@ -31,6 +32,15 @@ class ServerTests(unittest.TestCase):
             return response.status, dict(response.getheaders()), response.read()
         finally:
             connection.close()
+
+    def test_updates_route_and_origin_protection(self):
+        with patch.object(self.server.updates, 'get', return_value={'current': '0.4.0'}) as check:
+            status, _, body = self.request('/api/updates')
+            self.assertEqual(status, 200)
+            self.assertEqual(json.loads(body)['current'], '0.4.0')
+            status, _, _ = self.request('/api/updates', headers={'Origin': 'https://example.com'})
+            self.assertEqual(status, 403)
+            self.assertEqual(check.call_count, 1)
 
     def test_only_loopback_is_bound(self):
         self.assertEqual(self.server.server_address[0], "127.0.0.1")

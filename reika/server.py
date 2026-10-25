@@ -16,6 +16,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import urlsplit, unquote
 
+from .updates import Updates
 from . import __version__
 from .versions import COMPONENTS, COMPONENT_VERSIONS
 
@@ -78,6 +79,7 @@ class ReikaServer(ThreadingHTTPServer):
             "pending": [json.loads(path.read_text(encoding="utf-8"))
                         for path in sorted((project_root / ".changes").glob("*.json"))],
         }
+        self.updates = Updates()
         self.instance_id = instance_id
         self.control_token = control_token
         self.stop_requested = threading.Event()
@@ -179,6 +181,8 @@ class ReikaHandler(BaseHTTPRequestHandler):
         route = self._route()
         if route == "/api/status":
             self._json(200, self.server.status())
+        elif route == "/api/updates":
+            self._json(200, self.server.updates.get())
         elif route == "/api/project":
             self._json(200, self.server.project)
         elif route in self.server.assets:

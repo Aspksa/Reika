@@ -1,10 +1,11 @@
+import { loadUpdates, verifyArchive } from "./updates.js";
 import { loadProject } from "./project.js";
 "use strict";
 
 (() => {
   const $ = (selector) => document.querySelector(selector);
   const all = (selector) => document.querySelectorAll(selector);
-  const viewNames = {home: "Главная", system: "Система", about: "О Reika", project: "Проект"};
+  const viewNames = {home: "Главная", system: "Система", about: "О Reika", project: "Проект", updates: "Обновления проекта"};
   let state = null;
   let busy = false;
   let online = false;
@@ -31,6 +32,7 @@ import { loadProject } from "./project.js";
     $("#view-title").textContent = viewNames[name];
     document.title = `${viewNames[name]} · Reika`;
     if (name === "project") loadProject();
+    if (name === "updates") loadUpdates();
     if (focus) {
       $("#main").focus({preventScroll: true});
       window.scrollTo({top: 0, behavior: "instant"});
@@ -121,6 +123,8 @@ import { loadProject } from "./project.js";
     }
   }
 
+  $("#check-updates").addEventListener("click", loadUpdates);
+  $("#update-file").addEventListener("change", (event) => verifyArchive(event.target.files[0]));
   $("#reload-project").addEventListener("click", () => loadProject(true));
   $("#theme-toggle").addEventListener("click", () => setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark"));
   $("#check-connection").addEventListener("click", () => refresh(true));
