@@ -63,6 +63,8 @@ async function run() {
   await page.getByRole("link", { name: "Настройки проекта", exact: true }).click();
   await page.waitForSelector("#view-project-settings:not([hidden])");
   await page.waitForSelector(".cloud-model-card");
+  await page.locator("#notify-problems").check();
+  await page.locator("#notify-changes").check();
   assert.ok(await page.locator(".cloud-model-card").count() >= 7);
   assert.ok((await page.locator("#cloud-key-status").textContent()).length>0);
   assert.ok(await page.locator("#cloud-model option").count()>=7);
@@ -97,6 +99,20 @@ async function run() {
   assert.match(await page.locator('[data-nav-version="core"]').textContent(),/^\d+\.\d+\.\d+$/);
   await page.locator('#project-ai-run').click();
   await page.waitForFunction(() => document.querySelector('#project-ai-result').textContent.includes('ключ Cloud.ru'));
+  await page.route('**/api/project/ai-review', route => route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({answer:'Проверьте модуль запуска.',model:'test/model',files:['run.py'],truncated:false})}));
+  await page.locator('#project-ai-run').click();
+  await page.waitForFunction(() => document.querySelector('.project-review-entry')?.textContent.includes('Проверьте модуль запуска.'));
+  await page.locator('.project-review-entry summary').click();
+  await page.locator('.project-review-entry button').click();
+  assert.ok((await page.locator('.project-review-entry summary').textContent()).includes('исправлено'));
+  await page.reload();
+  await page.waitForSelector('.project-review-entry');
+  assert.ok((await page.locator('.project-review-entry summary').textContent()).includes('исправлено'));
+  await page.getByRole('link',{name:'Настройки проекта',exact:true}).click();
+  assert.equal(await page.locator('#notify-problems').isChecked(),true);
+  assert.equal(await page.locator('#notify-changes').isChecked(),true);
+  await page.getByRole('link',{name:'Проект',exact:true}).click();
+  await page.waitForSelector('[data-module="release"]');
 
   assert.ok(Number(await page.locator("#project-count-modules").textContent()) >= 10);
   assert.ok(Number(await page.locator("#project-count-links").textContent()) > 0);

@@ -23,6 +23,12 @@ class ProjectAiTests(unittest.TestCase):
                 files, _ = project_ai.collect(root)
             self.assertEqual([item["path"] for item in files], ["safe.py"])
 
+    def test_answer_formats(self):
+        self.assertEqual(project_ai.answer_text({"choices":[{"message":{"content":[{"type":"text","text":"Ошибка в safe.py"}]}}]}), "Ошибка в safe.py")
+        self.assertEqual(project_ai.answer_text({"choices":[{"message":{"content":None,"reasoning_content":"Проверить safe.py"}}]}), "Проверить safe.py")
+        with self.assertRaisesRegex(ValueError, "лимита"):
+            project_ai.answer_text({"choices":[{"message":{"content":None},"finish_reason":"length"}]})
+
     def test_review_requires_key_before_network(self):
         class Settings:
             def has_key(self): return False
