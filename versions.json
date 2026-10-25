@@ -180,7 +180,8 @@
       "paths": [
         "README.md",
         "CHANGELOG.md",
-        "AGENTS.md"
+        "AGENTS.md",
+        "CHRONICLE.md"
       ],
       "description": "Объясняет устройство проекта, работу функций и историю изменений.",
       "status": "active",
@@ -199,7 +200,8 @@
       "paths": [
         "versions.json",
         ".gitignore",
-        ".gitattributes"
+        ".gitattributes",
+        ".chronicle/"
       ],
       "description": "Хранит настройки разработки, версии и определения компонентов.",
       "status": "active",
@@ -213,6 +215,7 @@
       "paths": [
         "scripts/project.mjs",
         "scripts/release.mjs",
+        "scripts/chronicle.py",
         ".changes/",
         "releases/"
       ],
