@@ -27,6 +27,8 @@ jobs:
           node-version: '24'
           cache: npm
       - run: npm ci --ignore-scripts
+      - name: Prepare reproducible build and version inventory
+        run: npm run build
       - run: npm run check
       - run: npm run test:versions
       - run: npm run test:release
