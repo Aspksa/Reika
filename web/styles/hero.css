@@ -1,0 +1,148 @@
+.hero {
+  background:var(--hero);
+  border:1px solid color-mix(in srgb,var(--accent) 8%,transparent);
+  border-radius:18px;
+  position:relative;
+  overflow:hidden;
+  min-height:326px;
+  padding:40px 42px;
+  color:var(--hero-ink);
+  display:flex;
+  align-items:center
+}
+.hero-copy {
+  position:relative;
+  z-index:2
+}
+.hero-label {
+  display:flex;
+  gap:8px;
+  align-items:center;
+  font-size:8px;
+  letter-spacing:2px;
+  font-weight:600;
+  color:var(--accent)
+}
+.hero-label span {
+  font-size:16px;
+  color:var(--gold);
+  line-height:1
+}
+.hero h2 {
+  font-size:42px;
+  font-weight:500;
+  line-height:1.15;
+  letter-spacing:-1.5px;
+  margin-top:22px
+}
+.hero h2 em {
+  font-family:Georgia,"Times New Roman",serif;
+  font-weight:400;
+  color:var(--accent);
+  font-size:45px
+}
+.hero p {
+  font-size:12px;
+  margin:18px 0 23px;
+  opacity:.7
+}
+.primary-button {
+  background:var(--accent);
+  color:var(--surface);
+  display:inline-flex;
+  align-items:center;
+  gap:25px;
+  font-size:11px;
+  font-weight:500;
+  padding:11px 15px;
+  border-radius:7px;
+  transition:transform .2s
+}
+.primary-button:hover {
+  transform:translateY(-2px)
+}
+.primary-button span {
+  font-size:16px;
+  line-height:1
+}
+.hero-index {
+  position:absolute;
+  right:24px;
+  bottom:20px;
+  font-size:8px;
+  letter-spacing:1.3px;
+  opacity:.4
+}
+.moon-scene {
+  position:absolute;
+  right:20px;
+  top:0;
+  width:45%;
+  height:100%;
+  display:grid;
+  place-items:center;
+  pointer-events:none
+}
+.moon {
+  width:163px;
+  height:163px;
+  border-radius:50%;
+  background:radial-gradient(circle at 26% 28%,#fff7df 1%,#e8d1b1 44%,#ba8e66 100%);
+  box-shadow:inset -12px -9px 24px #70415d21,0 0 65px #dabd8a30;
+  position:relative;
+  transform:rotate(-25deg)
+}
+.moon:after {
+  content:"";
+  position:absolute;
+  width:145px;
+  height:145px;
+  border-radius:50%;
+  background:var(--hero);
+  top:-24px;
+  left:50px;
+  box-shadow:-6px 8px 18px #b58a5512
+}
+.orbit {
+  position:absolute;
+  border:1px solid color-mix(in srgb,var(--accent) 11%,transparent);
+  border-radius:50%;
+  width:265px;
+  height:265px;
+  transform:rotate(-32deg) scaleY(.72)
+}
+.orbit-two {
+  width:340px;
+  height:340px;
+  transform:rotate(41deg) scaleY(.7);
+  border-color:color-mix(in srgb,var(--accent) 6%,transparent)
+}
+.star {
+  position:absolute;
+  color:var(--gold);
+  animation:glimmer 6s ease-in-out infinite
+}
+.star-one {
+  top:23%;
+  right:25%;
+  font-size:20px
+}
+.star-two {
+  bottom:23%;
+  left:19%;
+  font-size:27px;
+  animation-delay:2s
+}
+.star-three {
+  top:22%;
+  left:24%;
+  font-size:36px
+}
+.scene-caption {
+  position:absolute;
+  bottom:35px;
+  font-size:7px;
+  letter-spacing:3px;
+  color:var(--accent);
+  opacity:.55
+}

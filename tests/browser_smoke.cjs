@@ -2,6 +2,7 @@
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
 const { spawn } = require("node:child_process");
 const { mkdir } = require("node:fs/promises");
+const { readFile, writeFile } = require("node:fs/promises");
 const path = require("node:path");
 const assert = require("node:assert/strict");
 
@@ -9,6 +10,7 @@ const root = path.resolve(__dirname, "..");
 const results = path.join(root, "test-results");
 const app = spawn(process.env.REIKA_PYTHON || "python", ["-X", "utf8", "-B", "run.py", "--no-tray", "--no-browser"], { cwd: root });
 let browser;
+let devServer;
 let output = "";
 app.stderr.on("data", (chunk) => { output += chunk.toString(); });
 
@@ -39,6 +41,7 @@ async function run() {
   page.on("response", (response) => { if (response.status() >= 400) failures.push(response.url()); });
   await page.goto(url);
   await page.waitForSelector('.view:not([hidden]) [data-connection][data-state="online"]');
+  assert.equal(await page.locator(".metrics").evaluate((element) => getComputedStyle(element).display), "grid", "CSS bundle was not applied");
   await capture(page, "desktop.png");
   await page.getByRole("button", { name: "Скопировать адрес" }).click();
   assert.equal(await page.evaluate(() => navigator.clipboard.readText()), url);
@@ -70,12 +73,27 @@ async function run() {
   await context.setOffline(false);
   await page.getByRole("button", { name: "Проверить соединение" }).click();
   await page.waitForSelector('.view:not([hidden]) [data-connection][data-state="online"]');
+  // Check the real development server, API proxy, and CSS hot updates too.
+  const { createServer } = await import("vite");
+  devServer = await createServer({ configFile: path.join(root, "vite.config.mjs") });
+  await devServer.listen();
+  await page.goto(devServer.resolvedUrls.local[0]);
+  await page.waitForSelector('.view:not([hidden]) [data-connection][data-state="online"]');
+  const cssPath = path.join(root, "web/styles/hero.css");
+  const originalCss = await readFile(cssPath, "utf8");
+  try {
+    await writeFile(cssPath, originalCss + "\n.hero { border-top-width: 7px; }\n");
+    await page.waitForFunction(() => getComputedStyle(document.querySelector(".hero")).borderTopWidth === "7px");
+  } finally {
+    await writeFile(cssPath, originalCss);
+  }
   assert.deepEqual(errors, []);
   assert.deepEqual(failures, []);
-  console.log("Browser checks passed: navigation, clipboard, themes, 5 viewport sizes, offline recovery, no script/resource errors.");
+  console.log("Browser checks passed: production CSS/JS, navigation, clipboard, themes, 5 viewport sizes, offline recovery, Vite API proxy and CSS hot updates.");
 }
 
 run().catch((error) => { console.error(error); process.exitCode = 1; }).finally(async () => {
   if (browser) await browser.close();
+  if (devServer) await devServer.close();
   if (app.exitCode === null) app.kill("SIGTERM");
 });

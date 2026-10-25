@@ -1,0 +1,234 @@
+.sidebar {
+  position:fixed;
+  inset:0 auto 0 0;
+  width:var(--sidebar);
+  padding:36px 22px 20px;
+  background:var(--surface);
+  border-right:1px solid var(--border);
+  display:flex;
+  flex-direction:column;
+  z-index:5
+}
+.brand {
+  display:flex;
+  gap:12px;
+  align-items:center;
+  padding-left:9px
+}
+.brand img {
+  flex:none
+}
+.brand strong {
+  display:block;
+  font-size:28px;
+  font-weight:650;
+  line-height:1.2;
+  letter-spacing:-1.5px
+}
+.brand-dot {
+  color:var(--gold)
+}
+.brand small {
+  display:block;
+  font-size:10px;
+  color:var(--muted);
+  letter-spacing:.3px;
+  margin-top:3px
+}
+.nav-caption {
+  font-size:9px;
+  letter-spacing:1.5px;
+  color:var(--muted);
+  margin:55px 0 15px 14px
+}
+.navigation {
+  display:flex;
+  flex-direction:column;
+  gap:8px
+}
+.nav-link {
+  display:flex;
+  align-items:center;
+  gap:13px;
+  border-radius:10px;
+  padding:13px 15px;
+  font-size:13px;
+  color:var(--muted);
+  position:relative;
+  transition:background .2s,color .2s
+}
+.nav-link svg {
+  width:19px;
+  height:19px
+}
+.nav-link:hover {
+  color:var(--accent);
+  background:var(--surface-soft)
+}
+.nav-link.active {
+  color:var(--accent);
+  background:var(--accent-soft);
+  font-weight:600
+}
+.nav-link.active:after {
+  content:"";
+  width:4px;
+  height:4px;
+  background:var(--accent);
+  border-radius:50%;
+  margin-left:auto
+}
+.sidebar-bottom {
+  margin-top:auto
+}
+.local-note {
+  display:flex;
+  gap:12px;
+  align-items:center;
+  margin:24px 8px;
+  padding:16px 0;
+  border-top:1px solid var(--border)
+}
+.tiny-orbit {
+  font-size:35px;
+  font-weight:300;
+  color:var(--gold);
+  line-height:1
+}
+.local-note strong {
+  font-size:11px;
+  font-weight:600;
+  display:block
+}
+.local-note small {
+  color:var(--muted);
+  font-size:10px
+}
+.sidebar-footer {
+  display:flex;
+  justify-content:space-between;
+  padding:0 8px;
+  font-size:8px;
+  letter-spacing:1px;
+  color:var(--muted)
+}
+
+.workspace {
+  margin-left:var(--sidebar)
+}
+.topbar {
+  height:84px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 50px;
+  border-bottom:1px solid var(--border)
+}
+.breadcrumb {
+  display:flex;
+  align-items:center;
+  gap:14px;
+  font-size:12px;
+  color:var(--muted)
+}
+.breadcrumb span {
+  opacity:.4
+}
+.breadcrumb strong {
+  font-weight:500;
+  color:var(--ink)
+}
+.topbar-tools {
+  display:flex;
+  align-items:center;
+  gap:22px
+}
+.date {
+  font-size:11px;
+  color:var(--muted)
+}
+.icon-button {
+  display:grid;
+  place-items:center;
+  width:33px;
+  height:33px;
+  border:0;
+  background:none;
+  border-radius:9px
+}
+.icon-button:hover {
+  background:var(--accent-soft)
+}
+.icon-button svg {
+  width:18px;
+  height:18px
+}
+.owner-badge {
+  border:1px solid var(--border);
+  width:33px;
+  height:33px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  color:var(--accent);
+  font-family:Georgia,serif;
+  background:var(--surface)
+}
+main {
+  max-width:1330px;
+  margin:0 auto;
+  padding:43px 50px 0;
+  outline:none
+}
+.page-heading {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:31px;
+  gap:15px
+}
+.eyebrow {
+  font-size:9px;
+  letter-spacing:1.8px;
+  color:var(--muted);
+  font-weight:600;
+  margin-bottom:9px
+}
+h1 {
+  font-size:30px;
+  font-weight:550;
+  letter-spacing:-.9px;
+  line-height:1.2
+}
+.connection-badge {
+  font-size:11px;
+  color:var(--muted);
+  display:flex;
+  align-items:center;
+  gap:7px;
+  background:var(--surface);
+  padding:7px 11px;
+  border:1px solid var(--border);
+  border-radius:20px;
+  white-space:nowrap
+}
+.connection-badge:before {
+  content:"";
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--muted)
+}
+.connection-badge[data-state=online] {
+  color:var(--success)
+}
+.connection-badge[data-state=online]:before {
+  background:var(--success);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--success) 9%,transparent)
+}
+.connection-badge[data-state=offline] {
+  color:var(--danger)
+}
+.connection-badge[data-state=offline]:before {
+  background:var(--danger)
+}
