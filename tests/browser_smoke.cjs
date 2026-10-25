@@ -39,6 +39,8 @@ async function run() {
   await page.getByRole("link", { name: "Система", exact: true }).click();
   await page.waitForSelector("#view-system:not([hidden])");
   await page.getByRole("button", { name: "Включить тёмную тему" }).click();
+  // A fresh server port has a new localStorage, but shares host-scoped cookies.
+  await page.evaluate(() => localStorage.removeItem("reika.theme"));
   await page.reload();
   assert.equal(await page.locator("html").getAttribute("data-theme"), "dark");
   await page.waitForSelector('.view:not([hidden]) [data-connection][data-state="online"]');

@@ -40,6 +40,8 @@
     $("#theme-toggle").setAttribute("aria-label", theme === "dark" ? "Включить светлую тему" : "Включить тёмную тему");
     $("#theme-toggle").setAttribute("aria-pressed", String(theme === "dark"));
     try { localStorage.setItem("reika.theme", theme); } catch { /* Optional preference. */ }
+    // A host-scoped, non-sensitive preference survives changing the local port.
+    try { document.cookie = `reika_theme=${theme}; Max-Age=31536000; Path=/; SameSite=Strict`; } catch { /* Optional preference. */ }
   }
 
   function setOnline(value) {
@@ -118,7 +120,12 @@
   });
   window.addEventListener("hashchange", () => route(true));
   document.addEventListener("visibilitychange", () => { if (!document.hidden) refresh(); });
-  try { setTheme(localStorage.getItem("reika.theme") === "dark" ? "dark" : "light"); } catch { setTheme("light"); }
+  let initialTheme = "light";
+  try {
+    const saved = document.cookie.match(/(?:^|;\s*)reika_theme=(light|dark)(?:;|$)/);
+    initialTheme = saved ? saved[1] : (localStorage.getItem("reika.theme") === "dark" ? "dark" : "light");
+  } catch { /* Storage can be disabled in the browser. */ }
+  setTheme(initialTheme);
   $("#today").textContent = new Intl.DateTimeFormat("ru-RU", {day: "numeric", month: "long", weekday: "short"}).format(new Date());
   route();
   refresh();
