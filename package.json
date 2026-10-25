@@ -1,0 +1,16 @@
+{
+  "name": "reika",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "Рэйка Амацухара — локальное пространство",
+  "engines": { "node": ">=22.12.0" },
+  "scripts": {
+    "dev": "vite --config vite.config.mjs",
+    "build": "node scripts/build-web.mjs",
+    "check:build": "node scripts/build-web.mjs --check",
+    "check": "node --check web/app.js && node --check vite.config.mjs && node --check scripts/build-web.mjs",
+    "test:browser": "node tests/browser_smoke.cjs"
+  },
+  "devDependencies": { "vite": "8.3.5" }
+}

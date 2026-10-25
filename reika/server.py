@@ -3,10 +3,12 @@
 from __future__ import annotations
 
 import hmac
+import hashlib
 import json
 import logging
 import os
 import platform
+import re
 import threading
 import time
 from datetime import datetime, timezone
@@ -18,12 +20,42 @@ from . import __version__
 
 
 LOGGER = logging.getLogger("reika.http")
-STATIC_FILES = {
-    "/": ("index.html", "text/html; charset=utf-8"),
-    "/assets/app.css": ("app.css", "text/css; charset=utf-8"),
-    "/assets/app.js": ("app.js", "text/javascript; charset=utf-8"),
-    "/assets/reika.svg": ("reika.svg", "image/svg+xml"),
+CONTENT_TYPES = {
+    ".html": "text/html; charset=utf-8",
+    ".css": "text/css; charset=utf-8",
+    ".js": "text/javascript; charset=utf-8",
+    ".svg": "image/svg+xml",
 }
+
+
+def load_assets(web_root: Path) -> dict:
+    directory = web_root / "dist"
+    try:
+        manifest = json.loads((directory / "build.json").read_text(encoding="utf-8"))
+        if manifest.get("version") != __version__:
+            raise ValueError("Версия сборки интерфейса не совпадает с версией Reika.")
+        entries = manifest["files"]
+        if not isinstance(entries, dict) or "index.html" not in entries:
+            raise ValueError("Неверный список файлов интерфейса.")
+        assets = {}
+        for name, digest in entries.items():
+            if name != "index.html" and not re.fullmatch(r"assets/[a-zA-Z0-9_.-]+\.(css|js|svg)", name):
+                raise ValueError("Недопустимый путь в сборке интерфейса.")
+            path = directory / name
+            if not path.resolve().is_relative_to(directory.resolve()):
+                raise ValueError("Файл находится за пределами сборки интерфейса.")
+            body = path.read_bytes()
+            if not isinstance(digest, str) or hashlib.sha256(body).hexdigest() != digest:
+                raise ValueError(f"Файл интерфейса повреждён: {name}")
+            assets["/" if name == "index.html" else "/" + name] = (body, CONTENT_TYPES[path.suffix])
+        if not any(name.endswith(".css") for name in entries) or not any(name.endswith(".js") for name in entries):
+            raise ValueError("В сборке отсутствуют стили или JavaScript.")
+        return assets
+    except (OSError, ValueError, TypeError, KeyError) as error:
+        raise RuntimeError(
+            "Не удалось загрузить готовый интерфейс. Полностью распакуйте свежий архив Reika; "
+            "при разработке выполните npm ci и npm run build. " + str(error)
+        ) from error
 
 
 class ReikaServer(ThreadingHTTPServer):
@@ -32,10 +64,7 @@ class ReikaServer(ThreadingHTTPServer):
 
     def __init__(self, web_root: Path, instance_id: str, control_token: str):
         # Validate and load required files before claiming a port or readiness.
-        self.assets = {
-            route: ((web_root / filename).read_bytes(), content_type)
-            for route, (filename, content_type) in STATIC_FILES.items()
-        }
+        self.assets = load_assets(web_root)
         self.instance_id = instance_id
         self.control_token = control_token
         self.stop_requested = threading.Event()

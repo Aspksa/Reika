@@ -8,3 +8,5 @@ Thumbs.db
 .idea/
 .vscode/
 test-results/
+node_modules/
+*.local

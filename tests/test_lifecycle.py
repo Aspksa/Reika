@@ -47,7 +47,7 @@ class LifecycleTests(unittest.TestCase):
     def copy_project(self, parent):
         destination = Path(parent) / "Рэйка путь & (проверка)!"
         shutil.copytree(ROOT, destination, ignore=shutil.ignore_patterns(
-            ".runtime", "logs", "__pycache__", ".git", ".venv"
+            ".runtime", "logs", "__pycache__", ".git", ".venv", "node_modules", "test-results"
         ))
         return destination
 
@@ -79,7 +79,7 @@ class LifecycleTests(unittest.TestCase):
     def test_missing_asset_fails_with_a_visible_error(self):
         with tempfile.TemporaryDirectory() as temporary:
             project = self.copy_project(temporary)
-            (project / "web/app.js").unlink()
+            next((project / "web/dist/assets").glob("*.js")).unlink()
             result = subprocess.run(
                 [sys.executable, "-X", "utf8", str(project / "run.py"), "--check"],
                 cwd=temporary, capture_output=True, timeout=10,

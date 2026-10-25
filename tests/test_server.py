@@ -47,7 +47,7 @@ class ServerTests(unittest.TestCase):
         self.assertNotIn(str(ROOT), body.decode())
 
     def test_all_required_assets_and_security_headers(self):
-        for route in ("/", "/assets/app.css", "/assets/app.js", "/assets/reika.svg"):
+        for route in self.server.assets:
             with self.subTest(route=route):
                 status, headers, body = self.request(route)
                 self.assertEqual(status, 200)
@@ -64,7 +64,7 @@ class ServerTests(unittest.TestCase):
         self.assertEqual(body, b"")
 
     def test_project_files_are_never_served(self):
-        for path in ("/run.py", "/README.md", "/logs/reika.log", "/.runtime/instance.json",
+        for path in ("/run.py", "/README.md", "/logs/reika.log", "/.runtime/instance.json", "/build.json", "/app.js", "/styles/theme.css",
                      "/../run.py", "/assets/../run.py", "/%2e%2e/run.py", "http://example.com/"):
             with self.subTest(path=path):
                 self.assertEqual(self.request(path, headers={
