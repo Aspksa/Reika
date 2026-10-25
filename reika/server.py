@@ -201,6 +201,20 @@ class ReikaHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         if not self._allowed_request():
             return
+        if self._route() == "/api/project/cloud":
+            if self.headers.get("Origin") != self.server.url:
+                self._json(403, {"error": "Недопустимый источник."})
+                return
+            try:
+                size = int(self.headers.get("Content-Length", "-1"))
+                if not 1 <= size <= 2048:
+                    raise ValueError("Размер настроек недопустим.")
+                incoming = json.loads(self.rfile.read(size))
+                result = self.server.cloud_settings.update(incoming)
+                self._json(200, result)
+            except (ValueError, RuntimeError, OSError) as error:
+                self._json(400, {"error": str(error)})
+            return
         if self._route() != "/api/shutdown":
             self._json(404, {"error": "Команда не найдена."})
             return
