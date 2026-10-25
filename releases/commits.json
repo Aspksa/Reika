@@ -781,6 +781,38 @@
       ],
       "attribution": "commit-trailer",
       "files": []
+    },
+    {
+      "sha": "1c481f578ff80c62d41bc9982d0ea31c357cca06",
+      "release": "0.16.0",
+      "task_ids": [
+        "TASK-20261026"
+      ],
+      "attribution": "commit-trailer",
+      "files": [
+        ".changes/project-update-view.json",
+        ".chronicle/events.jsonl",
+        "README.md",
+        "reika/server.py",
+        "reika/updates.py",
+        "tests/browser_smoke.cjs",
+        "tests/test_server.py",
+        "tests/test_updates.py",
+        "versions.json",
+        "versions.lock.json",
+        "vite.config.mjs",
+        "web/app.css",
+        "web/app.js",
+        "web/dist/assets/index-BN_jWZF_.js",
+        "web/dist/assets/index-C89JqyMm.css",
+        "web/dist/assets/index-CV48YsSW.js",
+        "web/dist/assets/index-btlo2_6E.css",
+        "web/dist/build.json",
+        "web/dist/index.html",
+        "web/index.html",
+        "web/styles/updates.css",
+        "web/updates.js"
+      ]
     }
   ]
 }
