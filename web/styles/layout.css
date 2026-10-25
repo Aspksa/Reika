@@ -232,3 +232,4 @@ h1 {
 .connection-badge[data-state=offline]:before {
   background:var(--danger)
 }
+.nav-link small{margin-left:auto;color:var(--muted);font-size:10px;font-variant-numeric:tabular-nums}.nav-link.active small{color:var(--accent)}

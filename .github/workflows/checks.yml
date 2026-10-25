@@ -27,6 +27,8 @@ jobs:
           node-version: '24'
           cache: npm
       - run: npm ci --ignore-scripts
+      - name: Prepare reproducible build and version inventory
+        run: npm run build
       - run: npm run check
       - run: npm run test:versions
       - run: npm run test:release
@@ -59,6 +61,8 @@ jobs:
         if: runner.os == 'Windows'
         shell: powershell
         run: ./tests/validate_windows.ps1
+      - name: Validate Project Chronicle events
+        run: python scripts/chronicle.py validate
       - name: Test HTTP security, lifecycle and Windows launcher
         run: python -X utf8 -B -m unittest discover -s tests -v
 
@@ -81,6 +85,8 @@ jobs:
           npm ci --ignore-scripts
           npm install --prefix "$RUNNER_TEMP/reika-browser" playwright@1.56.1
           "$RUNNER_TEMP/reika-browser/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Build candidate interface for browser tests
+        run: npm run build
       - name: Check browser interface
         env:
           PLAYWRIGHT_MODULE: ${{ runner.temp }}/reika-browser/node_modules/playwright

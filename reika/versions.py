@@ -26,6 +26,6 @@ REGISTRY = validate_versions(json.loads(
     (Path(__file__).resolve().parents[1] / "versions.json").read_text(encoding="utf-8")
 ))
 PROJECT_VERSION = REGISTRY["project"]
-COMPONENTS = {key: {field: value[field] for field in ("name", "version", "description", "status", "dependencies")}
+COMPONENTS = {key: {field: value[field] for field in ("name", "version", "description", "status", "dependencies", "paths")}
               for key, value in REGISTRY["components"].items()}
 COMPONENT_VERSIONS = {key: value["version"] for key, value in COMPONENTS.items()}

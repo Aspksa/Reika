@@ -107,3 +107,11 @@ small {
 .skip-link:focus {
   top:15px
 }
+:root[data-accent]{--accent:var(--chosen-accent);--accent-soft:var(--chosen-accent-soft)}
+:root[data-theme="dark"][data-accent]{--accent:color-mix(in srgb,var(--chosen-accent) 55%,white)}
+:root[data-rounding="sharp"]{--ui-radius:2px}
+:root[data-rounding="normal"]{--ui-radius:12px}
+:root[data-rounding="round"]{--ui-radius:24px}
+:root[data-rounding] :is(.hero,.metric,.actions-card,.quiet-card,.detail-card,.about-card,.project-hero,.module-card,.release-card,.project-metrics,.project-monitor-item,.cloud-panel,.cloud-model-card,.appearance-panel,.action-row,.nav-link,.outline-label,.project-feature-card,.project-link-card,.project-compare-card,.project-tools,.project-inspector,button,input,select){border-radius:var(--ui-radius)!important}
+:root[data-scale="small"] body{zoom:.9}
+:root[data-scale="large"] body{zoom:1.12}

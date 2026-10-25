@@ -1,13 +1,15 @@
 {
   "schema": 1,
-  "project": "0.4.0",
+  "project": "0.15.0",
   "components": {
     "core": {
       "name": "Ядро и API",
-      "version": "0.4.0",
+      "version": "0.7.1",
       "paths": [
         "reika/",
-        "run.py"
+        "run.py",
+        "reika/cloud_settings.py",
+        "reika/project_ai.py"
       ],
       "description": "Запускает приложение, обслуживает локальный API и проверяет готовую сборку.",
       "status": "active",
@@ -28,12 +30,14 @@
     },
     "frontend": {
       "name": "Интерфейс",
-      "version": "0.4.0",
+      "version": "0.13.0",
       "paths": [
         "web/index.html",
         "web/app.js",
         "web/reika.svg",
-        "web/project.js"
+        "web/project.js",
+        "web/cloud_settings.js",
+        "web/appearance.js"
       ],
       "description": "Показывает страницы Reika, состояние приложения и действия пользователя.",
       "status": "active",
@@ -60,7 +64,7 @@
     },
     "styles": {
       "name": "Стили и темы",
-      "version": "0.3.1",
+      "version": "0.6.2",
       "paths": [
         "web/app.css",
         "web/styles/"
@@ -112,7 +116,7 @@
     },
     "build": {
       "name": "Сборка Node.js",
-      "version": "0.3.1",
+      "version": "0.3.11",
       "paths": [
         "package.json",
         "package-lock.json",
@@ -146,7 +150,7 @@
     },
     "checks": {
       "name": "Проверки",
-      "version": "0.4.0",
+      "version": "0.4.11",
       "paths": [
         "tests/",
         ".github/"
@@ -188,11 +192,12 @@
     },
     "docs": {
       "name": "Документация",
-      "version": "0.4.0",
+      "version": "0.4.1",
       "paths": [
         "README.md",
         "CHANGELOG.md",
-        "AGENTS.md"
+        "AGENTS.md",
+        "CHRONICLE.md"
       ],
       "description": "Объясняет устройство проекта, работу функций и историю изменений.",
       "status": "active",
@@ -207,11 +212,12 @@
     },
     "config": {
       "name": "Конфигурация",
-      "version": "0.4.0",
+      "version": "0.4.5",
       "paths": [
         "versions.json",
         ".gitignore",
-        ".gitattributes"
+        ".gitattributes",
+        ".chronicle/"
       ],
       "description": "Хранит настройки разработки, версии и определения компонентов.",
       "status": "active",
@@ -219,12 +225,13 @@
     },
     "release": {
       "name": "История и выпуски",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "description": "Собирает русские описания изменений, рассчитывает версии и готовит проверенные выпуски.",
       "status": "active",
       "paths": [
         "scripts/project.mjs",
         "scripts/release.mjs",
+        "scripts/chronicle.py",
         ".changes/",
         "releases/"
       ],

@@ -134,6 +134,20 @@ class ServerTests(unittest.TestCase):
         self.assertTrue(data["modules"]["frontend"]["dependencies"])
         self.assertNotIn("test-control-token", body.decode())
 
+    def test_cloud_catalog_is_public_but_key_is_never_returned(self):
+        status, _, body = self.request("/api/project/cloud")
+        self.assertEqual(status, 200)
+        data = json.loads(body)
+        self.assertGreaterEqual(len(data["models"]), 7)
+        self.assertIn("model", data)
+        self.assertNotIn("key", data)
+        self.assertNotIn("secret", data)
+        self.assertNotIn("test-control-token", body.decode("utf-8"))
+        self.assertEqual(self.request("/api/project/cloud", "POST")[0], 403)
+        self.assertEqual(self.request("/api/project/cloud", "POST", {
+            "Origin": "https://attacker.example"
+        })[0], 403)
+
     def test_port_is_reserved_without_scan_race(self):
         other = ReikaServer(ROOT / "web", "other", "other-token")
         try:

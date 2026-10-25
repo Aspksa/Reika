@@ -60,6 +60,727 @@
         "tests/release-integration.test.mjs",
         "versions.lock.json"
       ]
+    },
+    {
+      "sha": "270003262e2563d6b4464b0276aecac9908f384e",
+      "release": "0.5.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "scripts/chronicle.py"
+      ]
+    },
+    {
+      "sha": "db90e3405f3bd7afa0ce2c42d3fc2e623b15c2ad",
+      "release": "0.5.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "scripts/release.mjs"
+      ]
+    },
+    {
+      "sha": "346b5e7196b95d9d714e4ee3b1a7951fd5872d99",
+      "release": "0.5.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "scripts/release.mjs"
+      ]
+    },
+    {
+      "sha": "287ffa279c06fe5e9e2466f04da59cf99ea5c03d",
+      "release": "0.5.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "tests/test_chronicle.py"
+      ]
+    },
+    {
+      "sha": "fddafffb2345d73023322ee813ee0eff0465b639",
+      "release": "0.5.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "CHRONICLE.md"
+      ]
+    },
+    {
+      "sha": "9d87639874bde3d89422219d109d8d5ff6d89e60",
+      "release": "0.5.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "versions.json"
+      ]
+    },
+    {
+      "sha": "4226a420e640ae4603cf95f83a9f7316d18f7815",
+      "release": "0.5.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "AGENTS.md"
+      ]
+    },
+    {
+      "sha": "c8a5665d46b925394fe4eb3660efa862dd64428e",
+      "release": "0.5.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        ".github/workflows/checks.yml"
+      ]
+    },
+    {
+      "sha": "39bef1d837416152a22f23d7e4213313c74357a7",
+      "release": "0.5.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        ".changes/project-chronicle-problems-agents-links.json"
+      ]
+    },
+    {
+      "sha": "1420b369da27f9cae606e1b048a32fc5db919aa9",
+      "release": "0.5.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "versions.json"
+      ]
+    },
+    {
+      "sha": "d1a18c169ec90f7f9f95e0b225d57b5ec6df75c3",
+      "release": "0.5.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        ".github/workflows/checks.yml"
+      ]
+    },
+    {
+      "sha": "df8fa931c47a157f9189b9437594c805f21b9386",
+      "release": "0.5.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": []
+    },
+    {
+      "sha": "a1ee4b78f6bc09c4478fdd072d29e6e7527c90ad",
+      "release": "0.6.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/project.js"
+      ]
+    },
+    {
+      "sha": "51527f02a191757a3c9636e6964a1efc93513449",
+      "release": "0.6.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/index.html"
+      ]
+    },
+    {
+      "sha": "d7bbccedd9804887b674dbd6907dd239b6846d66",
+      "release": "0.6.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/styles/project.css"
+      ]
+    },
+    {
+      "sha": "17afb691905c126dd4e5ad180fab78fc596cd447",
+      "release": "0.6.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "tests/browser_smoke.cjs"
+      ]
+    },
+    {
+      "sha": "a34917336441e81a5ccb3af3aba9c97499748714",
+      "release": "0.6.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        ".changes/project-dashboard-first-pack.json"
+      ]
+    },
+    {
+      "sha": "7bbc8be7306439a22d0eac8525e8630b2cb30b3b",
+      "release": "0.6.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        ".github/workflows/checks.yml"
+      ]
+    },
+    {
+      "sha": "fcdf4b496da31658e5e6271860c16d426da3572a",
+      "release": "0.6.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "tests/browser_smoke.cjs"
+      ]
+    },
+    {
+      "sha": "fa9de64b3fbe90dc409f6458280559803f5732d4",
+      "release": "0.6.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "reika/versions.py"
+      ]
+    },
+    {
+      "sha": "77ee1cfef4ede030e6de9632edf90efef99e3274",
+      "release": "0.6.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        ".changes/project-dashboard-first-pack.json"
+      ]
+    },
+    {
+      "sha": "c5ed297e66aa895bc7f1818f8308721f10d730c7",
+      "release": "0.6.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": []
+    },
+    {
+      "sha": "3d8d12ff5b03c298c63ff91141e05ef0de9b7247",
+      "release": "0.7.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/index.html"
+      ]
+    },
+    {
+      "sha": "3c0b0a1e3be0b81132071bd07d867584e984d713",
+      "release": "0.7.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/project.js"
+      ]
+    },
+    {
+      "sha": "32e02cf9639299e3cf3a887149b6fe49f58d8e70",
+      "release": "0.7.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/styles/project.css"
+      ]
+    },
+    {
+      "sha": "f9c8a4f735d47b0312817956a894428f45784619",
+      "release": "0.7.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "tests/browser_smoke.cjs"
+      ]
+    },
+    {
+      "sha": "4cc4a1f4ae06da4b5f5a647748001912aa9c4267",
+      "release": "0.7.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        ".changes/project-ux-polish.json"
+      ]
+    },
+    {
+      "sha": "0df5d46a79c58100fb8be567468eccba45b02ad5",
+      "release": "0.7.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": []
+    },
+    {
+      "sha": "c7e6a1cbae58baa82426cd89668f7eaa38cdb535",
+      "release": "0.8.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/index.html"
+      ]
+    },
+    {
+      "sha": "9ad7b0bd1f837c9f638a37f2bad573feb0851690",
+      "release": "0.8.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/project.js"
+      ]
+    },
+    {
+      "sha": "3d26116c5fb3ab270ae584c07b60be46785657a6",
+      "release": "0.8.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/styles/project.css"
+      ]
+    },
+    {
+      "sha": "639d4351b3955d9f69ac2506e4429690a5e6c98c",
+      "release": "0.8.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "tests/browser_smoke.cjs"
+      ]
+    },
+    {
+      "sha": "10002c2f3062495391b03bb6e604a54b2d784ec9",
+      "release": "0.8.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        ".changes/project-tabs-comparison-modes.json"
+      ]
+    },
+    {
+      "sha": "565bbc96a7a8a62642d07fc1abdf4ce538d68bf5",
+      "release": "0.8.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/project.js"
+      ]
+    },
+    {
+      "sha": "f35833da92beb112486f3d24fa5ebc6f75617f6f",
+      "release": "0.8.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "tests/browser_smoke.cjs"
+      ]
+    },
+    {
+      "sha": "ef67c478203d7cdb9349f560618ee2ee2d624214",
+      "release": "0.8.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": []
+    },
+    {
+      "sha": "b2ef69411d06fd04bdc18acd0a12261194884d49",
+      "release": "0.9.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/index.html"
+      ]
+    },
+    {
+      "sha": "97ac8030bb2a35e74ceba2580e2949279b240ef8",
+      "release": "0.9.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/project.js"
+      ]
+    },
+    {
+      "sha": "c6fa0aa0e7079a63c4736cf4725346948ba5c814",
+      "release": "0.9.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/styles/project.css"
+      ]
+    },
+    {
+      "sha": "507b7e4a494a496891cc6f60878630d93a15c38a",
+      "release": "0.9.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "tests/browser_smoke.cjs"
+      ]
+    },
+    {
+      "sha": "8951b965c8c1fb755e85d0cc1a6697d30612f0fb",
+      "release": "0.9.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        ".changes/project-visual-dashboard-full.json"
+      ]
+    },
+    {
+      "sha": "01a24712866185fa47161f72a7b04e3936978745",
+      "release": "0.9.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": []
+    },
+    {
+      "sha": "32e0efedeaf6c3b14ca78a99327e32cba2ae2998",
+      "release": "0.10.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "reika/project_monitor.py"
+      ]
+    },
+    {
+      "sha": "9259eb7a271462cb116dfa31c0af96876ecce8ee",
+      "release": "0.10.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "reika/server.py"
+      ]
+    },
+    {
+      "sha": "d35305b72be687ac6b3336f60677bf544a38f8df",
+      "release": "0.10.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/index.html"
+      ]
+    },
+    {
+      "sha": "cff114494a983438b8130f03e0299b6cf41cc677",
+      "release": "0.10.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/project.js"
+      ]
+    },
+    {
+      "sha": "72d074c9b55054066b35428be1c220cecdb3a74f",
+      "release": "0.10.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "tests/test_project_monitor.py"
+      ]
+    },
+    {
+      "sha": "7f3ba16d8dae815410ce60b58ad28416b252d8e9",
+      "release": "0.10.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/styles/project.css"
+      ]
+    },
+    {
+      "sha": "974b96e7193182f0591de763daf0cbf29b108cc0",
+      "release": "0.10.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "tests/browser_smoke.cjs"
+      ]
+    },
+    {
+      "sha": "b903f1ac62aafa70fe2429b991332d5d06e6fe06",
+      "release": "0.10.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        ".changes/project-monitoring-automation.json"
+      ]
+    },
+    {
+      "sha": "566ee73b9824e2660d7edceca8c2a6810900fcc7",
+      "release": "0.10.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": []
+    },
+    {
+      "sha": "024731035168e369c4f202c986d7a41ed10a5bfe",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "reika/cloud_settings.py"
+      ]
+    },
+    {
+      "sha": "306cbdab83a405d3be4ba7c2c5e4f7bd435fe962",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "reika/server.py"
+      ]
+    },
+    {
+      "sha": "3f2bad1883d4f190e6fe73d66f94e80d4a5e5a17",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "reika/server.py"
+      ]
+    },
+    {
+      "sha": "7cafbf9019aa0ba8a3471f620f0511d4349da754",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/index.html"
+      ]
+    },
+    {
+      "sha": "7d6253e99c26c9aba5b5f80b6f400cc588707c6e",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/app.js"
+      ]
+    },
+    {
+      "sha": "7cfec3410c05615ad1775437b487de475d80763b",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/cloud_settings.js"
+      ]
+    },
+    {
+      "sha": "f461496935185894f91e6abfeed53f28ee920512",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/styles/project.css"
+      ]
+    },
+    {
+      "sha": "b6854cbf129311bee7e5073f8ef7b70bef0d488f",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "reika/cloud_settings.py"
+      ]
+    },
+    {
+      "sha": "69ab9b75cfdffd5fc9976787f0f86b6984eb55c5",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "tests/browser_smoke.cjs"
+      ]
+    },
+    {
+      "sha": "0bff6cb13266c6e9de0c77f6d383521bd814d817",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "tests/test_server.py"
+      ]
+    },
+    {
+      "sha": "2e32b55874ebf531ecf3d44c9a6f865d45a84d1e",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        ".changes/cloud-project-settings.json"
+      ]
+    },
+    {
+      "sha": "ae0a004e02850d4bd8b091c4a6c40f634221f056",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "versions.json"
+      ]
+    },
+    {
+      "sha": "232a912e108e816288924a66f62dda4eef6f3402",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "tests/test_cloud_settings.py"
+      ]
+    },
+    {
+      "sha": "69e91ec6b56c991bb4b7a46146e251fb2c665ed3",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": []
+    },
+    {
+      "sha": "01a92908eb2982fc8b93a7b0ab389b0523a930ea",
+      "release": "0.12.0",
+      "task_ids": [
+        "TASK-20261025"
+      ],
+      "attribution": "commit-trailer",
+      "files": [
+        ".changes/project-architecture-refresh.json",
+        ".chronicle/events.jsonl",
+        "tests/browser_smoke.cjs",
+        "versions.lock.json",
+        "web/dist/assets/index-BHH-rIJi.js",
+        "web/dist/assets/index-DQTtlvO_.css",
+        "web/dist/assets/index-jdve-mnJ.js",
+        "web/dist/assets/index-yAt2U6iG.css",
+        "web/dist/build.json",
+        "web/dist/index.html",
+        "web/index.html",
+        "web/project.js",
+        "web/styles/project.css"
+      ]
+    },
+    {
+      "sha": "04244f9fb5be5ea8f05bfbc145d3313087e45dd9",
+      "release": "0.12.0",
+      "task_ids": [
+        "TASK-20261025"
+      ],
+      "attribution": "commit-trailer",
+      "files": []
+    },
+    {
+      "sha": "0a6edbbd89345dff40a2198b75c49da5d987d72a",
+      "release": "0.12.0",
+      "task_ids": [
+        "TASK-20261025"
+      ],
+      "attribution": "commit-trailer",
+      "files": []
+    },
+    {
+      "sha": "47130aa32aef23f08919715465c9037559e5456b",
+      "release": "0.13.0",
+      "task_ids": [
+        "TASK-20261025"
+      ],
+      "attribution": "commit-trailer",
+      "files": [
+        ".changes/project-appearance-settings.json",
+        ".chronicle/events.jsonl",
+        "tests/browser_smoke.cjs",
+        "versions.json",
+        "versions.lock.json",
+        "web/app.js",
+        "web/appearance.js",
+        "web/cloud_settings.js",
+        "web/dist/assets/index--iOOvOUp.js",
+        "web/dist/assets/index-DYZb1fDd.css",
+        "web/dist/assets/index-Txfql9vn.css",
+        "web/dist/assets/index-xz9ZMOy5.js",
+        "web/dist/build.json",
+        "web/dist/index.html",
+        "web/index.html",
+        "web/styles/project.css",
+        "web/styles/theme.css"
+      ]
+    },
+    {
+      "sha": "54704aa1eb9ba03f5d29b3d0962250b7a3293792",
+      "release": "0.13.0",
+      "task_ids": [
+        "TASK-20261025"
+      ],
+      "attribution": "commit-trailer",
+      "files": []
+    },
+    {
+      "sha": "617b11035a4e4624cb8acc5b28cdc581ddaf1e42",
+      "release": "0.14.0",
+      "task_ids": [
+        "TASK-20261025"
+      ],
+      "attribution": "commit-trailer",
+      "files": [
+        ".changes/project-ai-review.json",
+        ".chronicle/events.jsonl",
+        "reika/project_ai.py",
+        "reika/server.py",
+        "tests/browser_smoke.cjs",
+        "tests/test_project_ai.py",
+        "versions.json",
+        "versions.lock.json",
+        "vite.config.mjs",
+        "web/app.js",
+        "web/dist/assets/index-C4OXn527.js",
+        "web/dist/assets/index-DHpi5UCE.css",
+        "web/dist/assets/index-DYZb1fDd.css",
+        "web/dist/assets/index-xz9ZMOy5.js",
+        "web/dist/build.json",
+        "web/dist/index.html",
+        "web/index.html",
+        "web/project.js",
+        "web/styles/layout.css",
+        "web/styles/project.css"
+      ]
+    },
+    {
+      "sha": "fd79a131c0fa166bae02d9f7712232a55fc3b5de",
+      "release": "0.14.0",
+      "task_ids": [
+        "TASK-20261025"
+      ],
+      "attribution": "commit-trailer",
+      "files": []
+    },
+    {
+      "sha": "921e5bb4733570f9da29ae0d704ff63092260f08",
+      "release": "0.15.0",
+      "task_ids": [
+        "TASK-20261025"
+      ],
+      "attribution": "commit-trailer",
+      "files": [
+        ".changes/project-analysis-history.json",
+        ".chronicle/events.jsonl",
+        "reika/project_ai.py",
+        "tests/browser_smoke.cjs",
+        "tests/test_project_ai.py",
+        "versions.lock.json",
+        "web/dist/assets/index-BN_jWZF_.js",
+        "web/dist/assets/index-C4OXn527.js",
+        "web/dist/assets/index-C89JqyMm.css",
+        "web/dist/assets/index-DHpi5UCE.css",
+        "web/dist/build.json",
+        "web/dist/index.html",
+        "web/index.html",
+        "web/project.js",
+        "web/styles/project.css"
+      ]
+    },
+    {
+      "sha": "804b6e188aa2e321a7d38c9d5317c66fd51a5034",
+      "release": "0.15.0",
+      "task_ids": [
+        "TASK-20261025"
+      ],
+      "attribution": "commit-trailer",
+      "files": []
     }
   ]
 }

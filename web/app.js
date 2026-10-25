@@ -1,11 +1,13 @@
 import { loadUpdates, verifyArchive } from "./updates.js";
 import { loadProject } from "./project.js";
+import { loadCloudSettings } from "./cloud_settings.js";
+import { initAppearance, syncTheme } from "./appearance.js";
 "use strict";
 
 (() => {
   const $ = (selector) => document.querySelector(selector);
   const all = (selector) => document.querySelectorAll(selector);
-  const viewNames = {home: "Главная", system: "Система", about: "О Reika", project: "Проект", updates: "Обновления проекта"};
+  const viewNames = {home: "Главная", system: "Система", about: "О Reika", project: "Проект", updates: "Обновления проекта", "project-settings": "Настройки проекта"};
   let state = null;
   let busy = false;
   let online = false;
@@ -33,6 +35,7 @@ import { loadProject } from "./project.js";
     document.title = `${viewNames[name]} · Reika`;
     if (name === "project") loadProject();
     if (name === "updates") loadUpdates();
+    if (name === "project-settings") loadCloudSettings();
     if (focus) {
       $("#main").focus({preventScroll: true});
       window.scrollTo({top: 0, behavior: "instant"});
@@ -41,6 +44,7 @@ import { loadProject } from "./project.js";
 
   function setTheme(theme) {
     document.documentElement.dataset.theme = theme;
+    syncTheme();
     $("#theme-toggle").setAttribute("aria-label", theme === "dark" ? "Включить светлую тему" : "Включить тёмную тему");
     $("#theme-toggle").setAttribute("aria-pressed", String(theme === "dark"));
     try { localStorage.setItem("reika.theme", theme); } catch { /* Optional preference. */ }
@@ -88,6 +92,7 @@ import { loadProject } from "./project.js";
       syncedAt = performance.now();
       setOnline(true);
       all("[data-version]").forEach((element) => { element.textContent = data.version; });
+      all("[data-nav-version]").forEach(element => {element.textContent = data.components?.[element.dataset.navVersion]?.version || data.version;});
       const components = document.createDocumentFragment();
       for (const [key, item] of Object.entries(data.components || {})) {
         const row = document.createElement("div");
@@ -126,6 +131,7 @@ import { loadProject } from "./project.js";
   $("#check-updates").addEventListener("click", loadUpdates);
   $("#update-file").addEventListener("change", (event) => verifyArchive(event.target.files[0]));
   $("#reload-project").addEventListener("click", () => loadProject(true));
+  window.addEventListener("reika:set-theme",(event)=>setTheme(event.detail));
   $("#theme-toggle").addEventListener("click", () => setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark"));
   $("#check-connection").addEventListener("click", () => refresh(true));
   $("#copy-address").addEventListener("click", async () => {
@@ -145,6 +151,7 @@ import { loadProject } from "./project.js";
     initialTheme = saved ? saved[1] : (localStorage.getItem("reika.theme") === "dark" ? "dark" : "light");
   } catch { /* Storage can be disabled in the browser. */ }
   setTheme(initialTheme);
+  initAppearance();
   $("#today").textContent = new Intl.DateTimeFormat("ru-RU", {day: "numeric", month: "long", weekday: "short"}).format(new Date());
   route();
   refresh();

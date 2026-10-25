@@ -80,7 +80,10 @@ if (mode === "register") {
     try { journal = await read("releases/commits.json"); } catch { journal = {schema: 1, commits: []}; }
     for (const sha of commitIds) if (!journal.commits.some(item => item.sha === sha)) {
       const files = (await git("diff-tree", "--no-commit-id", "--name-only", "-r", "--no-renames", "-z", sha)).split("\0").filter(Boolean);
-      journal.commits.push({sha, release: plan.version, change_ids: notes.map(note => note.id), files});
+      const message = await git("show", "-s", "--format=%B", sha);
+      const declared = [...message.matchAll(/^(?:Task-Id|Fixes-Id|Refs-Id):\s*((?:BUG|TASK)-[0-9]{4,})\s*$/gim)].map(match => match[1].toUpperCase());
+      const taskIds = [...new Set(declared)].sort();
+      journal.commits.push({sha, release: plan.version, task_ids: taskIds, attribution: taskIds.length ? "commit-trailer" : "unlinked", files});
     }
     const entry = {
       version: plan.version, previous: plan.from, source: head,
