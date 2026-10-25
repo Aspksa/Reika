@@ -248,8 +248,32 @@ function diagnosticItem(title,value,warning=false){
  const card=element("div",undefined,"project-monitor-item");if(warning)card.classList.add("warning");
  card.append(element("strong",title),element("span",String(value)));return card;
 }
+const reviewStore="reika.project.reviews";
+const historyRead=()=>{try{const value=JSON.parse(localStorage.getItem(reviewStore)||"[]");return Array.isArray(value)?value:[];}catch{return [];}};
+function historySave(value){try{localStorage.setItem(reviewStore,JSON.stringify(value.slice(0,8)));}catch{ /* Хранилище браузера может быть недоступно. */ }}
+function renderReviewHistory(){
+ const list=$("#project-review-list");list.replaceChildren();
+ const records=historyRead();
+ if(!records.length){list.append(element("p","Анализов пока нет.","muted"));return;}
+ records.forEach(record=>{
+  const card=element("details",undefined,"project-review-entry");
+  const date=new Date(record.at);
+  card.append(element("summary",`${Number.isNaN(date.getTime())?record.at:date.toLocaleString("ru-RU")} · ${record.model} · ${record.resolved?"исправлено":"требует проверки"}`));
+  card.append(element("p",`Файлов: ${record.count}`),element("pre",record.answer));
+  const button=element("button",record.resolved?"Вернуть в работу":"Отметить исправленным");button.type="button";
+  button.onclick=()=>{const next=historyRead();const found=next.find(item=>item.id===record.id);if(found){found.resolved=!found.resolved;historySave(next);renderReviewHistory();}};
+  card.append(button);list.append(card);
+ });
+}
+function notifyProject(text){const box=$("#project-notification");box.textContent=text;box.hidden=false;}
 function applyMonitor(data){
+ const previous=projectMonitor;
  projectMonitor=data;
+ if(previous){
+  if($("#notify-problems").checked && (data.missing.length>previous.missing.length || data.invalid_links.length>previous.invalid_links.length || data.ambiguous.length>previous.ambiguous.length || (!previous.version_problem && data.version_problem)))notifyProject("Обнаружены новые проблемы проекта. Проверьте показатели ниже.");
+  else if($("#notify-changes").checked && data.events?.[0]?.at && data.events[0].at!==previous.events?.[0]?.at)notifyProject("Обнаружены изменения файлов или модулей проекта.");
+ }
+
  const diag=$("#project-monitor-diagnostics");diag.replaceChildren();
  diag.append(diagnosticItem("Проверено файлов",data.file_count),
  diagnosticItem("Отсутствуют пути",data.missing.length,data.missing.length>0),
@@ -338,6 +362,13 @@ aiRun.addEventListener("click",async()=>{
   const summary=document.createElement("p");summary.textContent=`Модель: ${data.model}. Проверено файлов: ${data.files.length}${data.truncated?" (часть файлов не вошла в лимит)":""}.`;
   const answer=document.createElement("p");answer.className="project-ai-answer";answer.textContent=data.answer;
   output.append(summary,answer);
+  const records=historyRead();records.unshift({id:crypto.randomUUID(),at:new Date().toISOString(),model:data.model,count:data.files.length,answer:data.answer,resolved:false});historySave(records);renderReviewHistory();
  }catch(error){output.textContent=error.message;}
  finally{aiRun.disabled=false;}
 });
+
+for(const [id,key] of [["notify-problems","problems"],["notify-changes","changes"]]){
+ const box=$("#"+id);try{box.checked=localStorage.getItem("reika.notify."+key)==="true";}catch{}
+ box.addEventListener("change",()=>{try{localStorage.setItem("reika.notify."+key,String(box.checked));}catch{}});
+}
+renderReviewHistory();
