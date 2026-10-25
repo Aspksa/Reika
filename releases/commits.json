@@ -856,6 +856,36 @@
       ],
       "attribution": "commit-trailer",
       "files": []
+    },
+    {
+      "sha": "c62c4812b0f257e1ed4e75d823115ec38af4f17b",
+      "release": "0.18.0",
+      "task_ids": [
+        "TASK-20261027"
+      ],
+      "attribution": "commit-trailer",
+      "files": [
+        ".changes/updates-page-design.json",
+        ".chronicle/events.jsonl",
+        "tests/browser_smoke.cjs",
+        "versions.lock.json",
+        "web/dist/assets/index-COdivi5G.js",
+        "web/dist/assets/index-CPXsBk-S.css",
+        "web/dist/assets/index-CX-7lGBG.js",
+        "web/dist/assets/index-DFC3JCt8.css",
+        "web/dist/build.json",
+        "web/dist/index.html",
+        "web/index.html",
+        "web/styles/updates.css",
+        "web/updates.js"
+      ]
+    },
+    {
+      "sha": "2ae434c76ecaec7ef3d90946631ec6309ff3c9e2",
+      "release": "0.18.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": []
     }
   ]
 }
