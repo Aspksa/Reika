@@ -166,6 +166,94 @@
       "task_ids": [],
       "attribution": "unlinked",
       "files": []
+    },
+    {
+      "sha": "a1ee4b78f6bc09c4478fdd072d29e6e7527c90ad",
+      "release": "0.6.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/project.js"
+      ]
+    },
+    {
+      "sha": "51527f02a191757a3c9636e6964a1efc93513449",
+      "release": "0.6.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/index.html"
+      ]
+    },
+    {
+      "sha": "d7bbccedd9804887b674dbd6907dd239b6846d66",
+      "release": "0.6.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/styles/project.css"
+      ]
+    },
+    {
+      "sha": "17afb691905c126dd4e5ad180fab78fc596cd447",
+      "release": "0.6.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "tests/browser_smoke.cjs"
+      ]
+    },
+    {
+      "sha": "a34917336441e81a5ccb3af3aba9c97499748714",
+      "release": "0.6.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        ".changes/project-dashboard-first-pack.json"
+      ]
+    },
+    {
+      "sha": "7bbc8be7306439a22d0eac8525e8630b2cb30b3b",
+      "release": "0.6.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        ".github/workflows/checks.yml"
+      ]
+    },
+    {
+      "sha": "fcdf4b496da31658e5e6271860c16d426da3572a",
+      "release": "0.6.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "tests/browser_smoke.cjs"
+      ]
+    },
+    {
+      "sha": "fa9de64b3fbe90dc409f6458280559803f5732d4",
+      "release": "0.6.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "reika/versions.py"
+      ]
+    },
+    {
+      "sha": "77ee1cfef4ede030e6de9632edf90efef99e3274",
+      "release": "0.6.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        ".changes/project-dashboard-first-pack.json"
+      ]
+    },
+    {
+      "sha": "c5ed297e66aa895bc7f1818f8308721f10d730c7",
+      "release": "0.6.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": []
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "project": "0.5.0",
+  "project": "0.6.0",
   "files": {
     ".changes/archive/0.4.0/automatic-releases-and-project-map.json": {
       "component": "release",
@@ -20,6 +20,12 @@
       "hashMode": "utf8-lf",
       "sha256": "bcf9c9a8aea4266207f883539d72a414bcc4c3a541cb46e7dc63fe9166107feb"
     },
+    ".changes/archive/0.6.0/project-dashboard-first-pack.json": {
+      "component": "release",
+      "version": "0.2.0",
+      "hashMode": "utf8-lf",
+      "sha256": "120518a8e86b0a861412557f369709184738bc35a5b26a4934d1f1cb11b5c790"
+    },
     ".gitattributes": {
       "component": "config",
       "version": "0.4.1",
@@ -28,13 +34,13 @@
     },
     ".github/workflows/checks.yml": {
       "component": "checks",
-      "version": "0.4.1",
+      "version": "0.4.2",
       "hashMode": "utf8-lf",
-      "sha256": "55fc217242ac64178940f189cfe7766707aa45518176ed0a024b3c87d2c2953a"
+      "sha256": "cd9f7d28655b09d3376d143a16c34c0790d06c2f856c78beef7f78ff7564695f"
     },
     ".github/workflows/release.yml": {
       "component": "checks",
-      "version": "0.4.1",
+      "version": "0.4.2",
       "hashMode": "utf8-lf",
       "sha256": "a57af34c79e08d79f5473440ffaf9ca979d7116bb600c897509bcede4549c203"
     },
@@ -54,7 +60,7 @@
       "component": "docs",
       "version": "0.4.1",
       "hashMode": "utf8-lf",
-      "sha256": "3d55c73fde0e7805c0e62bf845d759017f827a8252029afd7403bb69beec152b"
+      "sha256": "10b9361f8181571fcb7471f429c05faef509de20ae4ca4bd8895c44f5b29258c"
     },
     "CHRONICLE.md": {
       "component": "docs",
@@ -76,39 +82,39 @@
     },
     "package-lock.json": {
       "component": "build",
-      "version": "0.3.1",
+      "version": "0.3.2",
       "hashMode": "utf8-lf",
-      "sha256": "bcdc031af1bbc16891d3f3f50d9d1e00c4fa732f6ea3f9dcc857be1d9fb55cff"
+      "sha256": "744fa4472f9c180eaa756c48ca2d49a3449623efc8f4b466f06d9285ffb53456"
     },
     "package.json": {
       "component": "build",
-      "version": "0.3.1",
+      "version": "0.3.2",
       "hashMode": "utf8-lf",
-      "sha256": "c5e493957e275ddaebc273327e9161855aba2b9cefbb226e5b9deab295dbb63b"
+      "sha256": "a27d547f57ef54637be56fdeeac1c36135c293d6a46f683df03fe6006ebe7994"
     },
     "reika/__init__.py": {
       "component": "core",
-      "version": "0.4.0",
+      "version": "0.4.1",
       "hashMode": "utf8-lf",
       "sha256": "a2701f618825e5d62a792946d281a208698989d804c1f87609b473284b3ebaa9"
     },
     "reika/app.py": {
       "component": "core",
-      "version": "0.4.0",
+      "version": "0.4.1",
       "hashMode": "utf8-lf",
       "sha256": "70af63ebf5a177ab80610b893382f7cf98ea7515d9e162529e506960b338945a"
     },
     "reika/server.py": {
       "component": "core",
-      "version": "0.4.0",
+      "version": "0.4.1",
       "hashMode": "utf8-lf",
       "sha256": "7628af7943d8f943428c55cc7004b508c66059f02c999d2ff9a2117b4cbe1348"
     },
     "reika/versions.py": {
       "component": "core",
-      "version": "0.4.0",
+      "version": "0.4.1",
       "hashMode": "utf8-lf",
-      "sha256": "b8b7e405397b8963eb1f20796d63b3d2989891dc8b68e0360350fbe657c8aa0d"
+      "sha256": "5181edc5986bd607c225245cb905af03be8e639433ad808325cbf34aee5579a5"
     },
     "releases/0.4.0.md": {
       "component": "release",
@@ -122,33 +128,39 @@
       "hashMode": "utf8-lf",
       "sha256": "ae4211629e012472720cdf4830f69ffd8bd3cd37724440078fa8cf92beca1140"
     },
+    "releases/0.6.0.md": {
+      "component": "release",
+      "version": "0.2.0",
+      "hashMode": "utf8-lf",
+      "sha256": "0b028f38dac3dd6648e843a98bdb73abf26ee21a17f4d456d6699303d61bbed7"
+    },
     "releases/commits.json": {
       "component": "release",
       "version": "0.2.0",
       "hashMode": "utf8-lf",
-      "sha256": "3fee83d9566b4c44e75365f9b91e2a07b196a3bc889d06387fce7c11e993ea63"
+      "sha256": "997e796c8c409e0d2cd44cee65a75db751bba335de75b39678c0a4e44b247046"
     },
     "releases/history.json": {
       "component": "release",
       "version": "0.2.0",
       "hashMode": "utf8-lf",
-      "sha256": "6f3f6eaac9a8ba3790279b357084725f4c271b2002c562845415aa11195d894a"
+      "sha256": "5312551bc5e7fedbdc6a422c6343c6ed45501f3608edc79bf70d195f3893f48c"
     },
     "releases/state.json": {
       "component": "release",
       "version": "0.2.0",
       "hashMode": "utf8-lf",
-      "sha256": "7c6c52896a9a2da5769fd77de1ed86bb18cacb85b420346afe2f29e4d45b41c0"
+      "sha256": "8e785cc07c7300d0b21908495c8972044c386a151be48222923ab53352b655ca"
     },
     "run.py": {
       "component": "core",
-      "version": "0.4.0",
+      "version": "0.4.1",
       "hashMode": "utf8-lf",
       "sha256": "71577a79b04c165276679b14b41a2adb82b7aa396c6f46888497e4e6edcaf860"
     },
     "scripts/build-web.mjs": {
       "component": "build",
-      "version": "0.3.1",
+      "version": "0.3.2",
       "hashMode": "utf8-lf",
       "sha256": "c1a1c03f5803b6088ed59e8b7c54589a36b1b4a70f5de30782d233a3b60f6acd"
     },
@@ -184,61 +196,61 @@
     },
     "scripts/versions.mjs": {
       "component": "build",
-      "version": "0.3.1",
+      "version": "0.3.2",
       "hashMode": "utf8-lf",
       "sha256": "5e9249a54bd2974de75e625636433044d0807610d2dfd81294ae56d84fe593e4"
     },
     "tests/browser_smoke.cjs": {
       "component": "checks",
-      "version": "0.4.1",
+      "version": "0.4.2",
       "hashMode": "utf8-lf",
-      "sha256": "724e02db3cdbb38cb1aedd87cd5ac49c873b7cd107af947e737cb6d74cdbdda1"
+      "sha256": "fe254bc889734e95a0461745106918ee99c31d83cec07a8665ecf4343cdd87e2"
     },
     "tests/release-integration.test.mjs": {
       "component": "checks",
-      "version": "0.4.1",
+      "version": "0.4.2",
       "hashMode": "utf8-lf",
       "sha256": "bddaa2ad46b23dd209f65367f16551789ccbc3fd1e6880b836ac37b0694c336a"
     },
     "tests/release.test.mjs": {
       "component": "checks",
-      "version": "0.4.1",
+      "version": "0.4.2",
       "hashMode": "utf8-lf",
       "sha256": "a0bf86c181f09e70a2be4509b16ff3e2b3c0d974366fa3dfb083db0b7f581d9c"
     },
     "tests/test_chronicle.py": {
       "component": "checks",
-      "version": "0.4.1",
+      "version": "0.4.2",
       "hashMode": "utf8-lf",
       "sha256": "6b5861f2ba4aea0f6ba314235ef55245d2dab8301d37227610a823ee14476c88"
     },
     "tests/test_lifecycle.py": {
       "component": "checks",
-      "version": "0.4.1",
+      "version": "0.4.2",
       "hashMode": "utf8-lf",
       "sha256": "fe0ad77a768a412036c480638cf15f76b99c98c1cb7125dc9f9e32b0b845aeff"
     },
     "tests/test_server.py": {
       "component": "checks",
-      "version": "0.4.1",
+      "version": "0.4.2",
       "hashMode": "utf8-lf",
       "sha256": "5f15d71c1e2098639a807b286be04394ab6655354e481a90360bc09feb7c25d4"
     },
     "tests/test_web_build.py": {
       "component": "checks",
-      "version": "0.4.1",
+      "version": "0.4.2",
       "hashMode": "utf8-lf",
       "sha256": "4ddbc2b9355ff926e5b7f143d9c28fee7b047eac3e6242048fd9e47f1e202b42"
     },
     "tests/validate_windows.ps1": {
       "component": "checks",
-      "version": "0.4.1",
+      "version": "0.4.2",
       "hashMode": "utf8-lf",
       "sha256": "1ef9667dd6fafe5df215b54fa9df22dee5b0dc99c806d1e6c4d0674da5d688b7"
     },
     "tests/versions.test.mjs": {
       "component": "checks",
-      "version": "0.4.1",
+      "version": "0.4.2",
       "hashMode": "utf8-lf",
       "sha256": "34022e8b29928b2893a11faa08c9b3a8526d7eae4874708fbc7e9052e6162027"
     },
@@ -246,113 +258,113 @@
       "component": "config",
       "version": "0.4.1",
       "hashMode": "utf8-lf",
-      "sha256": "8ebb261f686a1f960913ed66a3b04264dcaa17a9dbd46700a5e0a14f2127ebb2"
+      "sha256": "2378f9f4d333f72751b00a50c1c1b7aa76ae2556b993a13a0e47c61481b1fd3c"
     },
     "vite.config.mjs": {
       "component": "build",
-      "version": "0.3.1",
+      "version": "0.3.2",
       "hashMode": "utf8-lf",
       "sha256": "69d1458cf4c45a742d28ab90a4f5ae4914a46a38c845d26e4189a97847538046"
     },
     "web/app.css": {
       "component": "styles",
-      "version": "0.3.1",
+      "version": "0.3.2",
       "hashMode": "utf8-lf",
       "sha256": "e18ba15af062cbf9b5ac0e05b27204f6aef5be36e60ba483c3135e99cc2f19bc"
     },
     "web/app.js": {
       "component": "frontend",
-      "version": "0.4.0",
+      "version": "0.5.0",
       "hashMode": "utf8-lf",
       "sha256": "0891df990a52c07fc616630ea7201231b126000b0bca501c80f1afc6ad66c138"
     },
-    "web/dist/assets/index-BTzOBJrb.css": {
+    "web/dist/assets/index-2WWD81ho.css": {
       "component": "build",
-      "version": "0.3.1",
+      "version": "0.3.2",
       "hashMode": "utf8-lf",
-      "sha256": "cc463b74dc52ad8adf0f0fced872aee1fb3c099c96db0122dac8de99ab72cbc8"
+      "sha256": "961bcd6a3ddadd7ccdf13607d46b156e4e5c270c1af8acc4d6f42cbdb45ad4a5"
     },
-    "web/dist/assets/index-CNNP1LUx.js": {
+    "web/dist/assets/index-DCxQl6Gd.js": {
       "component": "build",
-      "version": "0.3.1",
+      "version": "0.3.2",
       "hashMode": "utf8-lf",
-      "sha256": "877a7e8c456258a0a490efa1815a71b79e8346fd214144c7bf897dee51e67d85"
+      "sha256": "e300a3330e1d54befe4d49896a95b78c5b57b4dae8860f0baa2ea439c4db4c30"
     },
     "web/dist/assets/reika-vw6GPLNw.svg": {
       "component": "build",
-      "version": "0.3.1",
+      "version": "0.3.2",
       "hashMode": "utf8-lf",
       "sha256": "b7a1415321eda6ac63cb589073bc2c3986d2cdd7c73e07b48ec83fabc5d680ba"
     },
     "web/dist/build.json": {
       "component": "build",
-      "version": "0.3.1",
+      "version": "0.3.2",
       "hashMode": "utf8-lf",
-      "sha256": "bc381b0bb46d905b535446b423528f34859f3ce6c2089602dbc5382cd0f02dcb"
+      "sha256": "2700d899a9fdab89dae350eb72397d73cfaea8ddbb37ee5409e13b4002f69788"
     },
     "web/dist/index.html": {
       "component": "build",
-      "version": "0.3.1",
+      "version": "0.3.2",
       "hashMode": "utf8-lf",
-      "sha256": "d9dc4aa16cc45a9274aab3c18341cf87bd3b519d2e6f5f9cd29bd7495abd990f"
+      "sha256": "cc17f1bb118270f4b42af7e2020c09dec8645d0fba04ef95e484e6a4a85ecb4f"
     },
     "web/index.html": {
       "component": "frontend",
-      "version": "0.4.0",
+      "version": "0.5.0",
       "hashMode": "utf8-lf",
-      "sha256": "bf7b2c8dd83f855dcbe4cb6952a4b554adbfe5f19def01df2c75a3bb052bef38"
+      "sha256": "da238b1ad7f31e17cc741dd9ed0d5df2290bda7cb5ff35fc37eb52f817c5445c"
     },
     "web/project.js": {
       "component": "frontend",
-      "version": "0.4.0",
+      "version": "0.5.0",
       "hashMode": "utf8-lf",
-      "sha256": "3cb6c47df71b91d37fe72f7c4b762182ddc53ada10f0ca03c19a0b0e6746794c"
+      "sha256": "a1556555d45d69d247c968fece0308df605780a1e4e7125778fc2edb8cfd4a4d"
     },
     "web/reika.svg": {
       "component": "frontend",
-      "version": "0.4.0",
+      "version": "0.5.0",
       "hashMode": "utf8-lf",
       "sha256": "b7a1415321eda6ac63cb589073bc2c3986d2cdd7c73e07b48ec83fabc5d680ba"
     },
     "web/styles/components.css": {
       "component": "styles",
-      "version": "0.3.1",
+      "version": "0.3.2",
       "hashMode": "utf8-lf",
       "sha256": "66ec983b424c445dd8deaa49af93d599d32d76a8e7e1e1c703d71992c2876180"
     },
     "web/styles/details.css": {
       "component": "styles",
-      "version": "0.3.1",
+      "version": "0.3.2",
       "hashMode": "utf8-lf",
       "sha256": "ed6ff73056ca683e252d96ccdf1a003d7e809a8d292a8d1677aad078bc449109"
     },
     "web/styles/hero.css": {
       "component": "styles",
-      "version": "0.3.1",
+      "version": "0.3.2",
       "hashMode": "utf8-lf",
       "sha256": "21237794d385ce802827599a36b27fa2fe74aebdd22e613b0350d6bff3697c21"
     },
     "web/styles/layout.css": {
       "component": "styles",
-      "version": "0.3.1",
+      "version": "0.3.2",
       "hashMode": "utf8-lf",
       "sha256": "36ac73fb3a74015325a85a66025920662fb4b96ceb35bd39d4d82fc22afeb648"
     },
     "web/styles/project.css": {
       "component": "styles",
-      "version": "0.3.1",
+      "version": "0.3.2",
       "hashMode": "utf8-lf",
-      "sha256": "57142ce0318ab2c7fe005e1731534e87b72aa70ae9277f97c53ccda56b4b0808"
+      "sha256": "0711602c4657ae34d74cf2b4680d311a10b460125a44eee47adc01edc3fa10d2"
     },
     "web/styles/responsive.css": {
       "component": "styles",
-      "version": "0.3.1",
+      "version": "0.3.2",
       "hashMode": "utf8-lf",
       "sha256": "796eb9baa812edba7d8465e2c2bc0d0179006a153375a342297dec1c249152b4"
     },
     "web/styles/theme.css": {
       "component": "styles",
-      "version": "0.3.1",
+      "version": "0.3.2",
       "hashMode": "utf8-lf",
       "sha256": "d0e624205bfa390f3e44e4bb7c14850c4f043f167afbb8b1826f0271f4f5fe5e"
     }
