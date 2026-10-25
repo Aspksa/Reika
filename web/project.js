@@ -40,7 +40,7 @@ function filters(){
 }
 function renderModules(){
  const container=$("#project-modules");container.replaceChildren();
- const visible=Object.entries(cached.modules).filter(([id,item])=>moduleMatches(id,item,filters()));
+ const visible=Object.entries(cached.modules).filter(([id,item])=>moduleMatches(id,item,filters())).sort((a,b)=>category(a[0]).localeCompare(category(b[0]),"ru")||a[1].name.localeCompare(b[1].name,"ru"));
  $("#module-results").textContent=`Показано модулей: ${visible.length} из ${Object.keys(cached.modules).length}`;
  for(const [id,item] of visible){
    const incoming=Object.entries(cached.modules).filter(([,other])=>(other.dependencies||[]).some(link=>link.target===id));
@@ -114,6 +114,7 @@ export async function loadProject(force=false){
    filter.value=old&&cached.modules[old]?old:"";
    for(const id of ["module-filter","module-search","module-category","module-status"])$("#"+id).oninput=renderModules;
    for(const id of ["history-search","history-kind"])$("#"+id).oninput=renderHistory;
+   $("#reset-project-filters").onclick=()=>{for(const id of ["module-search","module-category","module-status","module-filter"])$("#"+id).value="";renderModules();$("#module-search").focus();};
    renderModules();renderHistory();
    $("#project-message").textContent=`Зарегистрировано модулей: ${Object.keys(cached.modules).length}. Данные из реестра Reika.`;
  }catch{
