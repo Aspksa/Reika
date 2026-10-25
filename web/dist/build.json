@@ -1,21 +1,21 @@
 {
-  "version": "0.6.0",
+  "version": "0.7.0",
   "components": {
     "core": "0.4.1",
-    "frontend": "0.5.0",
-    "styles": "0.3.2",
+    "frontend": "0.6.0",
+    "styles": "0.3.3",
     "launcher": "0.3.1",
     "tray": "0.3.1",
-    "build": "0.3.2",
-    "checks": "0.4.2",
+    "build": "0.3.3",
+    "checks": "0.4.3",
     "docs": "0.4.1",
     "config": "0.4.1",
     "release": "0.2.0"
   },
   "files": {
-    "assets/index-2WWD81ho.css": "961bcd6a3ddadd7ccdf13607d46b156e4e5c270c1af8acc4d6f42cbdb45ad4a5",
-    "assets/index-DCxQl6Gd.js": "e300a3330e1d54befe4d49896a95b78c5b57b4dae8860f0baa2ea439c4db4c30",
+    "assets/index-BVN2Udow.css": "16ad1e6b8808ae7fb0756bdb8b2b79c031aeafcc218db362c317e0c698988c2f",
+    "assets/index-KMOWvVxI.js": "2dff1d6d41b68984032a3ed8a4e7ca4f4d85de38e262de9987f78d8815d25857",
     "assets/reika-vw6GPLNw.svg": "b7a1415321eda6ac63cb589073bc2c3986d2cdd7c73e07b48ec83fabc5d680ba",
-    "index.html": "cc17f1bb118270f4b42af7e2020c09dec8645d0fba04ef95e484e6a4a85ecb4f"
+    "index.html": "2df3b504b37d880a847d00ec5a51378af13c330e14678b13b001d5cd3230dba4"
   }
 }

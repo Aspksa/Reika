@@ -254,6 +254,58 @@
       "task_ids": [],
       "attribution": "unlinked",
       "files": []
+    },
+    {
+      "sha": "3d8d12ff5b03c298c63ff91141e05ef0de9b7247",
+      "release": "0.7.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/index.html"
+      ]
+    },
+    {
+      "sha": "3c0b0a1e3be0b81132071bd07d867584e984d713",
+      "release": "0.7.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/project.js"
+      ]
+    },
+    {
+      "sha": "32e02cf9639299e3cf3a887149b6fe49f58d8e70",
+      "release": "0.7.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/styles/project.css"
+      ]
+    },
+    {
+      "sha": "f9c8a4f735d47b0312817956a894428f45784619",
+      "release": "0.7.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "tests/browser_smoke.cjs"
+      ]
+    },
+    {
+      "sha": "4cc4a1f4ae06da4b5f5a647748001912aa9c4267",
+      "release": "0.7.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        ".changes/project-ux-polish.json"
+      ]
+    },
+    {
+      "sha": "0df5d46a79c58100fb8be567468eccba45b02ad5",
+      "release": "0.7.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": []
     }
   ]
 }
