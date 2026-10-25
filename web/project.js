@@ -6,6 +6,7 @@ let cached;
 let projectTab = "modules";
 let projectDensity = "comfortable";
 let projectAudience = "user";
+function countRu(n,one,few,many){const v=Math.abs(n)%100,k=v%10;return n+" "+(v>=11&&v<=14?many:k===1?one:k>=2&&k<=4?few:many);}
 
 export function normalize(value) { return String(value ?? "").toLocaleLowerCase("ru").trim(); }
 export function category(id) { return groups[id] || "Другие модули"; }
@@ -55,7 +56,7 @@ function renderModules(){
    const status=element("span",statuses[item.status]||item.status,"module-status");
    status.dataset.status=item.status;meta.append(status,element("span",category(id),"module-category-label"));card.append(meta,element("p",item.description));
    const details=element("details",undefined,"module-details");
-   details.append(element("summary",projectAudience==="developer"?`Файлы и связи · ${(item.paths||[]).length} путей · ${(item.dependencies||[]).length} связей`:"Подробнее о модуле"));
+   details.append(element("summary",projectAudience==="developer"?`Файлы и связи · ${countRu((item.paths||[]).length,"путь","пути","путей")} · ${countRu((item.dependencies||[]).length,"связь","связи","связей")}`:"Подробнее о модуле"));
    if(projectAudience==="developer")details.append(element("h4","Файлы и каталоги"));
    const paths=element("ul",undefined,"module-paths");
    (item.paths||[]).forEach(path=>paths.append(element("li",path)));if(projectAudience==="developer")details.append(paths);
@@ -93,7 +94,7 @@ function renderHistory(){
    (release.changes||[]).filter(note=>!kind||note.kind===kind).forEach(note=>section.append(changeCard(note)));
    const files=element("details");files.append(element("summary",`Затронутые файлы: ${(release.files||[]).length}`));
    const ul=element("ul"),actions={added:"Добавлен",modified:"Изменён",deleted:"Удалён"};
-   (release.files||[]).forEach(item=>ul.append(element("li",`${actions[item.action]||"Учтён"}: ${item.path}`)));
+   (release.files||[]).filter(item=>item?.path).forEach(item=>ul.append(element("li",`${actions[item.action]||"Учтён"}: ${item.path}`)));
    files.append(ul);if(projectAudience==="developer" && ul.children.length)section.append(files);history.append(section);
  }
  if(!pending.length&&!releases.length)history.append(element("p","По выбранным условиям обновлений нет.","project-empty"));
