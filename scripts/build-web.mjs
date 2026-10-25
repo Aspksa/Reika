@@ -22,7 +22,12 @@ async function files(directory, base = directory) {
 
 try {
   await build({ configFile: join(root, "vite.config.mjs"), build: { outDir: output } });
-  const manifest = { version: JSON.parse(await readFile(join(root, "package.json"), "utf8")).version, files: {} };
+  const versions = JSON.parse(await readFile(join(root, "versions.json"), "utf8"));
+  const manifest = {
+    version: versions.project,
+    components: Object.fromEntries(Object.entries(versions.components).map(([key, value]) => [key, value.version])),
+    files: {},
+  };
   for (const path of await files(output)) {
     if (path !== "index.html" && !/^assets\/[a-zA-Z0-9_.-]+\.(css|js|svg)$/.test(path)) {
       throw new Error(`Недопустимый файл сборки: ${path}`);

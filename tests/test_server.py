@@ -43,6 +43,9 @@ class ServerTests(unittest.TestCase):
         self.assertEqual(data["instance_id"], "test-instance")
         self.assertEqual(data["url"], self.server.url)
         self.assertEqual(data["status"], "ready")
+        self.assertIn("core", data["components"])
+        self.assertIn("styles", data["components"])
+        self.assertTrue(data["components"]["launcher"]["version"])
         self.assertNotIn("test-control-token", body.decode())
         self.assertNotIn(str(ROOT), body.decode())
 

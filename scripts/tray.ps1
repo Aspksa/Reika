@@ -64,7 +64,7 @@ $Canvas.FillEllipse($BackgroundBrush, 13, 3, 17, 17)
 $IconHandle = $Bitmap.GetHicon()
 $Icon = [Drawing.Icon]::FromHandle($IconHandle)
 $Tray.Icon = $Icon
-$Tray.Text = 'Рэйка Амацухара · Reika'
+$Tray.Text = 'Рэйка Амацухара · v' + $env:REIKA_VERSION
 
 $OpenItem = $Menu.Items.Add('Открыть Reika')
 $OpenItem.Add_Click({ Start-Process -FilePath $ReikaUrl })

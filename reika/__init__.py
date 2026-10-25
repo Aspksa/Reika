@@ -1,3 +1,3 @@
 """Reika Amatsuhara: a local application foundation."""
 
-__version__ = "0.2.0"
+from .versions import PROJECT_VERSION as __version__

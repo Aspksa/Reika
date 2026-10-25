@@ -21,6 +21,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 from .server import ReikaServer
+from . import __version__
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -168,6 +169,7 @@ def start_tray(server: ReikaServer, runtime: Path, logs: Path, handle: int):
         "REIKA_CONTROL_TOKEN": server.control_token,
         "REIKA_INSTANCE_ID": server.instance_id,
         "REIKA_CONSOLE_HANDLE": str(handle),
+        "REIKA_VERSION": __version__,
     })
     with (logs / "tray.log").open("ab") as output:
         process = subprocess.Popen(
@@ -233,7 +235,7 @@ def main(argv=None) -> int:
                 open_browser(url)
             return 0
         configure_logging(logs, options.diagnostics)
-        LOGGER.info("✦ Рэйка Амацухара · Reika")
+        LOGGER.info("✦ Рэйка Амацухара · Reika %s", __version__)
         LOGGER.info("◈ Python %s · %s", sys.version.split()[0], sys.platform)
         server = ReikaServer(ROOT / "web", uuid.uuid4().hex, secrets.token_urlsafe(32))
         thread = threading.Thread(target=server.serve_forever, name="reika-http", daemon=True)

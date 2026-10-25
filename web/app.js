@@ -84,6 +84,18 @@
       syncedAt = performance.now();
       setOnline(true);
       all("[data-version]").forEach((element) => { element.textContent = data.version; });
+      const components = document.createDocumentFragment();
+      for (const [key, item] of Object.entries(data.components || {})) {
+        const row = document.createElement("div");
+        row.dataset.component = key;
+        const name = document.createElement("dt");
+        const version = document.createElement("dd");
+        name.textContent = item.name;
+        version.textContent = item.version;
+        row.append(name, version);
+        components.append(row);
+      }
+      $("#component-versions").replaceChildren(components);
       $("#local-address").textContent = data.url;
       $("#system-url").textContent = data.url;
       $("#system-started").textContent = new Date(data.started_at).toLocaleString("ru-RU");
