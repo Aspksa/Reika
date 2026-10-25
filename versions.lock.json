@@ -458,17 +458,17 @@
       "hashMode": "utf8-lf",
       "sha256": "ced90e10cc89efa82afbb09846a4544dff0ba97a0485fdfdf9166a54d6cd6d1c"
     },
-    "web/dist/assets/index-BkDmtHds.css": {
-      "component": "build",
-      "version": "0.3.11",
-      "hashMode": "utf8-lf",
-      "sha256": "3b6b54d88f4b160d063d6a199b39ca68d45f7e53aa9fc5c8a5d1cee4f57e0a7b"
-    },
-    "web/dist/assets/index-DUjt__PT.js": {
+    "web/dist/assets/index-CV48YsSW.js": {
       "component": "build",
       "version": "0.3.11",
       "hashMode": "utf8-lf",
       "sha256": "57a19df14f88649d8cb7b8f02697d515f3e3c1673a78478cc680e18f9d8c12bc"
+    },
+    "web/dist/assets/index-btlo2_6E.css": {
+      "component": "build",
+      "version": "0.3.11",
+      "hashMode": "utf8-lf",
+      "sha256": "5d011135d0a3a729886ee87831c0583592e775a467f9cb7d6c604609a0ee8376"
     },
     "web/dist/assets/reika-vw6GPLNw.svg": {
       "component": "build",
@@ -480,19 +480,19 @@
       "component": "build",
       "version": "0.3.11",
       "hashMode": "utf8-lf",
-      "sha256": "3a2829db5ff3401ff5a96ad1e07076cf548b8bb28f25919fcc3d3e31c4c7bc36"
+      "sha256": "70111cfb9ef47b9ec12f7feb0cf35a6adeca1bb6be6aa2a17b6c47cf8fa88bf2"
     },
     "web/dist/index.html": {
       "component": "build",
       "version": "0.3.11",
       "hashMode": "utf8-lf",
-      "sha256": "7b89bfd44343f25f8e95ea3eeb3f181859368ab07e11fe5ecb823c4a2427291a"
+      "sha256": "6afaecfd02f6196abe43f7ba1ad1f56165c4382490f728af676aaabf367fae24"
     },
     "web/index.html": {
       "component": "frontend",
       "version": "0.13.0",
       "hashMode": "utf8-lf",
-      "sha256": "81516f62a123fae0677fa12cfe7247d6595ae6ca0da10a435417a768c2626455"
+      "sha256": "3d829b385d4257abd63fc648f9d72c550ffc6f9d10ec6f95db2b99d2c3605200"
     },
     "web/project.js": {
       "component": "frontend",
@@ -552,7 +552,7 @@
       "component": "updates",
       "version": "0.1.0",
       "hashMode": "utf8-lf",
-      "sha256": "94912692dbdfd5e6f2c52f3b6e3d8655b28ddccfe22a41bfdeb2230c1c595e5b"
+      "sha256": "9cea62ac8ddbef1502263771ef9830be273f0664acb92e17305d0f2b2433da02"
     },
     "web/updates.js": {
       "component": "updates",
