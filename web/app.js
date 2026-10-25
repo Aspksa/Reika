@@ -90,6 +90,7 @@ import { initAppearance, syncTheme } from "./appearance.js";
       syncedAt = performance.now();
       setOnline(true);
       all("[data-version]").forEach((element) => { element.textContent = data.version; });
+      all("[data-nav-version]").forEach(element => {element.textContent = data.components?.[element.dataset.navVersion]?.version || data.version;});
       const components = document.createDocumentFragment();
       for (const [key, item] of Object.entries(data.components || {})) {
         const row = document.createElement("div");

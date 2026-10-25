@@ -38,7 +38,7 @@ async function run() {
   const errors = [];
   const failures = [];
   page.on("pageerror", (error) => errors.push(error.message));
-  page.on("response", (response) => { if (response.status() >= 400) failures.push(response.url()); });
+  page.on("response", (response) => { if (response.status() >= 400 && !(response.status() === 400 && response.url().endsWith("/api/project/ai-review"))) failures.push(response.url()); });
   await page.goto(url);
   await page.waitForSelector('.view:not([hidden]) [data-connection][data-state="online"]');
   assert.equal(await page.locator(".metrics").evaluate((element) => getComputedStyle(element).display), "grid", "CSS bundle was not applied");
@@ -92,6 +92,12 @@ async function run() {
   await capture(page, "cloud-settings.png");
   await page.getByRole("link", { name: "Проект", exact: true }).click();
   await page.waitForSelector('[data-module="release"]');
+  assert.ok(await page.locator('.project-quick-links a[href="#project-settings"]').isVisible());
+  assert.equal(await page.locator('[data-nav-version]').count(),5);
+  assert.match(await page.locator('[data-nav-version="core"]').textContent(),/^\d+\.\d+\.\d+$/);
+  await page.locator('#project-ai-run').click();
+  await page.waitForFunction(() => document.querySelector('#project-ai-result').textContent.includes('ключ Cloud.ru'));
+
   assert.ok(Number(await page.locator("#project-count-modules").textContent()) >= 10);
   assert.ok(Number(await page.locator("#project-count-links").textContent()) > 0);
   await page.waitForFunction(() => document.querySelector("#project-monitor-status").textContent.includes("Последняя проверка"));

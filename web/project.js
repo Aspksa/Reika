@@ -325,3 +325,19 @@ export async function loadProject(force=false){
    $("#project-health-label").textContent="Нет соединения";$("#project-message").textContent="Не удалось получить сведения о проекте. Проверьте соединение и повторите загрузку.";
  }finally{clearTimeout(timeout);}
 }
+
+const aiRun=document.querySelector("#project-ai-run");
+aiRun.addEventListener("click",async()=>{
+ const output=document.querySelector("#project-ai-result");
+ aiRun.disabled=true;output.textContent="Cloud.ru анализирует проект…";
+ try{
+  const response=await fetch("/api/project/ai-review",{method:"POST",headers:{"Origin":location.origin},credentials:"same-origin"});
+  const data=await response.json();
+  if(!response.ok)throw Error(data.error||"Анализ не выполнен.");
+  output.replaceChildren();
+  const summary=document.createElement("p");summary.textContent=`Модель: ${data.model}. Проверено файлов: ${data.files.length}${data.truncated?" (часть файлов не вошла в лимит)":""}.`;
+  const answer=document.createElement("p");answer.className="project-ai-answer";answer.textContent=data.answer;
+  output.append(summary,answer);
+ }catch(error){output.textContent=error.message;}
+ finally{aiRun.disabled=false;}
+});

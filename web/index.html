@@ -19,17 +19,17 @@
     </a>
     <div class="nav-caption">ПРОСТРАНСТВО</div>
     <nav class="navigation" aria-label="Главная навигация">
-      <a class="nav-link active" href="#home" data-view="home" aria-current="page">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/></svg><span>Главная</span>
+      <a class="nav-link active" href="#home" aria-label="Главная" data-view="home" aria-current="page">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/></svg><span>Главная</span><small data-nav-version="frontend">—</small>
       </a>
-      <a class="nav-link" href="#system" data-view="system">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4M6 11h3l2-4 3 7 2-3h2"/></svg><span>Система</span>
+      <a class="nav-link" href="#system" aria-label="Система" data-view="system">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4M6 11h3l2-4 3 7 2-3h2"/></svg><span>Система</span><small data-nav-version="core">—</small>
       </a>
-      <a class="nav-link" href="#about" data-view="about">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v1"/></svg><span>О Reika</span>
+      <a class="nav-link" href="#about" aria-label="О Reika" data-view="about">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v1"/></svg><span>О Reika</span><small data-nav-version="docs">—</small>
       </a>
-      <a class="nav-link" href="#project" data-view="project"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/><path d="m11 7-5 9m7-9 5 9M7 18h10"/></svg><span>Проект</span></a>
-      <a class="nav-link" href="#project-settings" data-view="project-settings"><span aria-hidden="true">⚙</span><span>Настройки проекта</span></a>
+      <a class="nav-link" href="#project" aria-label="Проект" data-view="project"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/><path d="m11 7-5 9m7-9 5 9M7 18h10"/></svg><span>Проект</span><small data-nav-version="config">—</small></a>
+      <a class="nav-link" href="#project-settings" aria-label="Настройки проекта" data-view="project-settings"><span aria-hidden="true">⚙</span><span>Настройки проекта</span><small data-nav-version="frontend">—</small></a>
     </nav>
     <div class="sidebar-bottom">
       <div class="local-note"><span class="tiny-orbit" aria-hidden="true">◌</span><span><strong>Рядом с вами</strong><small>На вашем компьютере</small></span></div>
@@ -96,6 +96,8 @@
       <section class="view" id="view-project" aria-labelledby="project-title" hidden>
         <div class="page-heading"><div><p class="eyebrow">УСТРОЙСТВО И РАЗВИТИЕ</p><h1 id="project-title">Проект</h1></div><span data-version class="outline-label">—</span></div>
         <div class="project-hero"><div><p class="eyebrow">ЦЕНТР АРХИТЕКТУРЫ</p><h2>Устройство <em>Reika</em></h2><p class="project-hero-description">Каждая часть на своём месте.<br>Модули, их связи и история развития.</p><p class="page-intro" id="project-message" role="status">Получаем сведения о модулях…</p></div><div class="project-hero-aside"><div class="project-orbit" aria-hidden="true"><span>◈</span><i>◆</i><i>✦</i><i>⬡</i></div><div class="project-health" aria-label="Состояние реестра"><span class="project-health-dot"></span><span id="project-health-label">Загрузка данных</span></div></div></div>
+        <div class="project-quick-links"><a href="#project-settings">⚙ Настройки проекта <span>Цвет, масштаб и подключение Cloud.ru →</span></a></div>
+        <section class="project-ai-panel" aria-labelledby="project-ai-title"><div><p class="eyebrow">АНАЛИЗ ПРОЕКТА</p><h2 id="project-ai-title">Помощник Cloud.ru</h2><p>Проверяет исходники и состояние модулей, предлагает возможные ошибки, аномалии и идеи развития. Анализ запускается вручную и может быть платным.</p><p class="muted">При запуске в Cloud.ru отправляются до 80 зарегистрированных файлов кода и оформления (не более 120 КБ). Ключ, журналы, сборка и файлы настроек не отправляются.</p></div><button type="button" id="project-ai-run">Анализировать проект</button><div id="project-ai-result" role="status" aria-live="polite"></div></section>
         <div class="project-view-controls"><div class="project-tabs" role="tablist" aria-label="Виды проекта"><button type="button" role="tab" data-project-tab="modules" aria-selected="true">Модули</button><button type="button" role="tab" data-project-tab="links" aria-selected="false">Связи</button><button type="button" role="tab" data-project-tab="history" aria-selected="false">История</button></div><label>Плотность<select id="project-density"><option value="comfortable">Подробная</option><option value="compact">Компактная</option></select></label><label>Вид<select id="project-audience"><option value="user">Для пользователя</option><option value="developer">Для разработчика</option></select></label></div>
         <div class="project-monitor-toolbar"><span id="project-monitor-status" role="status">Диагностика ещё не выполнена</span><label>Автопроверка<select id="project-monitor-interval"><option value="0">Выключена</option><option value="30000" selected>30 секунд</option><option value="300000">5 минут</option><option value="1800000">30 минут</option></select></label><button type="button" id="project-monitor-now">Проверить сейчас</button><button type="button" id="project-monitor-report">Скопировать отчёт</button></div><div class="project-monitor-diagnostics" id="project-monitor-diagnostics" aria-live="polite"></div><div id="project-overview" class="project-metrics" aria-label="Показатели проекта">
           <div><span>Модули</span><strong id="project-count-modules">—</strong></div>
