@@ -813,6 +813,49 @@
         "web/styles/updates.css",
         "web/updates.js"
       ]
+    },
+    {
+      "sha": "7dae0d716a699b854f47cd93b66c9e220e7d49eb",
+      "release": "0.17.0",
+      "task_ids": [
+        "TASK-20261025"
+      ],
+      "attribution": "commit-trailer",
+      "files": [
+        ".changes/project-live-map-timeout.json",
+        ".chronicle/events.jsonl",
+        "reika/project_ai.py",
+        "tests/browser_smoke.cjs",
+        "tests/test_project_ai.py",
+        "versions.lock.json",
+        "web/dist/assets/index-BN_jWZF_.js",
+        "web/dist/assets/index-C89JqyMm.css",
+        "web/dist/assets/index-CdurbfLK.css",
+        "web/dist/assets/index-DHpzgKZx.js",
+        "web/dist/build.json",
+        "web/dist/index.html",
+        "web/index.html",
+        "web/project.js",
+        "web/styles/project.css"
+      ]
+    },
+    {
+      "sha": "9d8e9b9f92a44f1eb9d4df1d25231719aa27de33",
+      "release": "0.17.0",
+      "task_ids": [
+        "TASK-20261025"
+      ],
+      "attribution": "commit-trailer",
+      "files": []
+    },
+    {
+      "sha": "b7dfd24ee386144cce822630b4364d791bbf0f95",
+      "release": "0.17.0",
+      "task_ids": [
+        "TASK-20261025"
+      ],
+      "attribution": "commit-trailer",
+      "files": []
     }
   ]
 }

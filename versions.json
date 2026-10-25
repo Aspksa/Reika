@@ -1,10 +1,10 @@
 {
   "schema": 1,
-  "project": "0.16.0",
+  "project": "0.17.0",
   "components": {
     "core": {
       "name": "Ядро и API",
-      "version": "0.8.0",
+      "version": "0.8.1",
       "paths": [
         "reika/",
         "run.py",
@@ -30,7 +30,7 @@
     },
     "frontend": {
       "name": "Интерфейс",
-      "version": "0.14.0",
+      "version": "0.15.0",
       "paths": [
         "web/index.html",
         "web/app.js",
@@ -64,7 +64,7 @@
     },
     "styles": {
       "name": "Стили и темы",
-      "version": "0.6.3",
+      "version": "0.7.0",
       "paths": [
         "web/app.css",
         "web/styles/"
@@ -116,7 +116,7 @@
     },
     "build": {
       "name": "Сборка Node.js",
-      "version": "0.3.12",
+      "version": "0.3.13",
       "paths": [
         "package.json",
         "package-lock.json",
@@ -150,7 +150,7 @@
     },
     "checks": {
       "name": "Проверки",
-      "version": "0.5.0",
+      "version": "0.5.1",
       "paths": [
         "tests/",
         ".github/"
@@ -212,7 +212,7 @@
     },
     "config": {
       "name": "Конфигурация",
-      "version": "0.5.0",
+      "version": "0.5.1",
       "paths": [
         "versions.json",
         ".gitignore",
