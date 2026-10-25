@@ -1,10 +1,10 @@
 {
   "schema": 1,
-  "project": "0.3.0",
+  "project": "0.4.0",
   "components": {
     "core": {
       "name": "Ядро и API",
-      "version": "0.3.0",
+      "version": "0.4.0",
       "paths": [
         "reika/",
         "run.py"
@@ -22,7 +22,7 @@
     },
     "frontend": {
       "name": "Интерфейс",
-      "version": "0.3.0",
+      "version": "0.4.0",
       "paths": [
         "web/index.html",
         "web/app.js",
@@ -48,7 +48,7 @@
     },
     "styles": {
       "name": "Стили и темы",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "paths": [
         "web/app.css",
         "web/styles/"
@@ -59,7 +59,7 @@
     },
     "launcher": {
       "name": "Запуск Windows",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "paths": [
         "Reika.bat",
         "scripts/start.ps1"
@@ -83,7 +83,7 @@
     },
     "tray": {
       "name": "Трей",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "paths": [
         "scripts/tray.ps1"
       ],
@@ -100,7 +100,7 @@
     },
     "build": {
       "name": "Сборка Node.js",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "paths": [
         "package.json",
         "package-lock.json",
@@ -134,7 +134,7 @@
     },
     "checks": {
       "name": "Проверки",
-      "version": "0.3.0",
+      "version": "0.4.0",
       "paths": [
         "tests/",
         ".github/"
@@ -176,7 +176,7 @@
     },
     "docs": {
       "name": "Документация",
-      "version": "0.3.0",
+      "version": "0.4.0",
       "paths": [
         "README.md",
         "CHANGELOG.md",
@@ -195,7 +195,7 @@
     },
     "config": {
       "name": "Конфигурация",
-      "version": "0.3.0",
+      "version": "0.4.0",
       "paths": [
         "versions.json",
         ".gitignore",

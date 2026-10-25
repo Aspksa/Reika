@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "commits": [
+    {
+      "sha": "97d6bf6223e3ce8be59f7ec47f98e4b9e98d541c",
+      "release": "0.4.0",
+      "change_ids": [
+        "automatic-releases-and-project-map",
+        "portable-script-checkout"
+      ],
+      "files": [
+        ".changes/automatic-releases-and-project-map.json",
+        ".github/workflows/checks.yml",
+        ".github/workflows/release.yml",
+        "AGENTS.md",
+        "README.md",
+        "package.json",
+        "reika/server.py",
+        "reika/versions.py",
+        "releases/history.json",
+        "releases/state.json",
+        "scripts/build-web.mjs",
+        "scripts/project.mjs",
+        "scripts/release.mjs",
+        "scripts/versions.mjs",
+        "tests/browser_smoke.cjs",
+        "tests/release-integration.test.mjs",
+        "tests/release.test.mjs",
+        "tests/test_server.py",
+        "tests/versions.test.mjs",
+        "versions.json",
+        "versions.lock.json",
+        "vite.config.mjs",
+        "web/app.css",
+        "web/app.js",
+        "web/dist/assets/index-BTzOBJrb.css",
+        "web/dist/assets/index-BVcOyMai.css",
+        "web/dist/assets/index-Bkz5eTF-.js",
+        "web/dist/assets/index-CNNP1LUx.js",
+        "web/dist/build.json",
+        "web/dist/index.html",
+        "web/index.html",
+        "web/project.js",
+        "web/styles/project.css"
+      ]
+    },
+    {
+      "sha": "731e386b081d2e5a7fbe585577dfa2c609f4b363",
+      "release": "0.4.0",
+      "change_ids": [
+        "automatic-releases-and-project-map",
+        "portable-script-checkout"
+      ],
+      "files": [
+        ".changes/portable-script-checkout.json",
+        ".gitattributes",
+        ".github/workflows/release.yml",
+        "README.md",
+        "scripts/release.mjs",
+        "tests/release-integration.test.mjs",
+        "versions.lock.json"
+      ]
+    }
+  ]
+}

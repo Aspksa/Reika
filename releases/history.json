@@ -1,1 +1,277 @@
-{"schema":1,"releases":[]}
+{
+  "schema": 1,
+  "releases": [
+    {
+      "version": "0.4.0",
+      "previous": "0.3.0",
+      "source": "731e386b081d2e5a7fbe585577dfa2c609f4b363",
+      "created_at": "2026-10-25T09:39:23.829Z",
+      "components": [
+        {
+          "id": "core",
+          "name": "Ядро и API",
+          "from": "0.3.0",
+          "version": "0.4.0",
+          "reason": "Описано в записи об изменении",
+          "level": "minor"
+        },
+        {
+          "id": "frontend",
+          "name": "Интерфейс",
+          "from": "0.3.0",
+          "version": "0.4.0",
+          "reason": "Описано в записи об изменении",
+          "level": "minor"
+        },
+        {
+          "id": "styles",
+          "name": "Стили и темы",
+          "from": "0.3.0",
+          "version": "0.3.1",
+          "reason": "Описано в записи об изменении",
+          "level": "patch"
+        },
+        {
+          "id": "launcher",
+          "name": "Запуск Windows",
+          "from": "0.3.0",
+          "version": "0.3.1",
+          "reason": "Описано в записи об изменении",
+          "level": "patch"
+        },
+        {
+          "id": "tray",
+          "name": "Трей",
+          "from": "0.3.0",
+          "version": "0.3.1",
+          "reason": "Описано в записи об изменении",
+          "level": "patch"
+        },
+        {
+          "id": "build",
+          "name": "Сборка Node.js",
+          "from": "0.3.0",
+          "version": "0.3.1",
+          "reason": "Описано в записи об изменении",
+          "level": "patch"
+        },
+        {
+          "id": "checks",
+          "name": "Проверки",
+          "from": "0.3.0",
+          "version": "0.4.0",
+          "reason": "Описано в записи об изменении",
+          "level": "minor"
+        },
+        {
+          "id": "docs",
+          "name": "Документация",
+          "from": "0.3.0",
+          "version": "0.4.0",
+          "reason": "Описано в записи об изменении",
+          "level": "minor"
+        },
+        {
+          "id": "config",
+          "name": "Конфигурация",
+          "from": "0.3.0",
+          "version": "0.4.0",
+          "reason": "Описано в записи об изменении",
+          "level": "minor"
+        },
+        {
+          "id": "release",
+          "name": "История и выпуски",
+          "from": null,
+          "version": "0.1.0",
+          "reason": "Описано в записи об изменении",
+          "level": "minor"
+        }
+      ],
+      "changes": [
+        {
+          "id": "automatic-releases-and-project-map",
+          "kind": "feature",
+          "title": "Автоматические выпуски и понятная карта модулей",
+          "description": "Добавлена система подготовки выпусков для всего проекта. Она определяет владельцев изменённых файлов, проверяет русские описания работы, рассчитывает общий номер и номера затронутых модулей, собирает интерфейс и сохраняет подробную историю. В разделе «Проект» видны назначения компонентов, версии, типы связей, причины зависимостей, входящие связи и полные описания изменений. Новые модули регистрируются через общий реестр; более точный путь позволяет выделить часть ядра в самостоятельный компонент. Для новых дизайнов поддерживаются отдельные записи об изменениях, растровые изображения и шрифты в готовой сборке.",
+          "reason": "Проект будет расширяться: появятся новые функции, самостоятельные модули и варианты оформления. Учёт должен охватывать их автоматически и объяснять изменения понятным русским языком.",
+          "userImpact": "Появился раздел «Проект», где можно выбрать модуль и увидеть связанные части. Версии готовятся автоматически после слияния описанных изменений. Готовый выпуск публикуется только после проверок Windows, Linux, Node.js и браузера.",
+          "components": {
+            "core": "minor",
+            "frontend": "minor",
+            "styles": "patch",
+            "launcher": "patch",
+            "tray": "patch",
+            "build": "patch",
+            "checks": "minor",
+            "docs": "minor",
+            "config": "minor",
+            "release": "minor"
+          },
+          "testing": [
+            "Локально пройдены девять проверок планирования и подготовки выпусков, три проверки команд версий и двадцать проверок Python. Два теста Windows запускаются в GitHub Actions.",
+            "В изолированном Git checkout проверены подготовка согласованного кандидата, сохранение русских описаний и повторный запуск без создания ещё одного выпуска.",
+            "Проверены сборка Vite, соответствие готовых файлов исходникам и синтаксис JavaScript. Дополнительная браузерная проверка покрывает страницу проекта, фильтр связей и обновление CSS в режиме разработки."
+          ],
+          "risks": [
+            "Смысл изменения и известные ограничения сообщает автор записи. Автоматика проверяет структуру и тесты, но не может доказать отсутствие всех ошибок.",
+            "Регистрация описывает модуль и его связи; она сама по себе не создаёт его функциональность.",
+            "Для публикации стандартному токену workflow требуется право записи содержимого и возможность обычного продвижения main. Защищённую ветку система не обходит."
+          ],
+          "migration": [
+            "Полностью распакуйте новый архив и запустите Reika.bat. Установка Node.js нужна для разработки сайта, а готовая сборка запускается через Python.",
+            "Другие агенты должны читать AGENTS.md и добавлять отдельную русскую запись в .changes для своей задачи."
+          ]
+        },
+        {
+          "id": "portable-script-checkout",
+          "kind": "fix",
+          "title": "Согласованное получение файлов запуска из Git",
+          "description": "Для BAT и PowerShell отключено автоматическое преобразование переносов строк Git. Эти файлы уже хранятся с нужными байтами CRLF и UTF-8 BOM для PowerShell; повторное преобразование могло заставить Git считать только что полученную папку изменённой. В сообщение проверки чистоты добавлен список отличающихся файлов, чтобы причина остановки была видна сразу.",
+          "reason": "Первый запуск автоматического выпуска остановился на проверке чистоты checkout. Публикация не выполнялась.",
+          "userImpact": "Файлы запуска сохраняют одинаковые байты в архиве и Git checkout, а диагностика подготовки выпуска стала понятнее.",
+          "components": {
+            "config": "patch",
+            "release": "patch",
+            "checks": "patch"
+          },
+          "testing": [
+            "Проверки приложения на Windows, Linux, Node.js и в браузере прошли до исправления; автоматический выпуск будет повторён после этой правки."
+          ],
+          "risks": [
+            "Система по-прежнему останавливает выпуск при действительно изменённых файлах; проверка чистоты не отключается."
+          ],
+          "migration": [
+            "Дополнительные действия пользователя не требуются. Workflow будет запущен после слияния исправления."
+          ]
+        }
+      ],
+      "files": [
+        {
+          "path": ".gitattributes",
+          "action": "modified",
+          "component": "config"
+        },
+        {
+          "path": ".github/workflows/checks.yml",
+          "action": "modified",
+          "component": "checks"
+        },
+        {
+          "path": ".github/workflows/release.yml",
+          "action": "added",
+          "component": "checks"
+        },
+        {
+          "path": "AGENTS.md",
+          "action": "added",
+          "component": "docs"
+        },
+        {
+          "path": "README.md",
+          "action": "modified",
+          "component": "docs"
+        },
+        {
+          "path": "package.json",
+          "action": "modified",
+          "component": "build"
+        },
+        {
+          "path": "reika/server.py",
+          "action": "modified",
+          "component": "core"
+        },
+        {
+          "path": "reika/versions.py",
+          "action": "modified",
+          "component": "core"
+        },
+        {
+          "path": "scripts/build-web.mjs",
+          "action": "modified",
+          "component": "build"
+        },
+        {
+          "path": "scripts/project.mjs",
+          "action": "added",
+          "component": "release"
+        },
+        {
+          "path": "scripts/release.mjs",
+          "action": "added",
+          "component": "release"
+        },
+        {
+          "path": "scripts/versions.mjs",
+          "action": "modified",
+          "component": "build"
+        },
+        {
+          "path": "tests/browser_smoke.cjs",
+          "action": "modified",
+          "component": "checks"
+        },
+        {
+          "path": "tests/release-integration.test.mjs",
+          "action": "added",
+          "component": "checks"
+        },
+        {
+          "path": "tests/release.test.mjs",
+          "action": "added",
+          "component": "checks"
+        },
+        {
+          "path": "tests/test_server.py",
+          "action": "modified",
+          "component": "checks"
+        },
+        {
+          "path": "tests/versions.test.mjs",
+          "action": "modified",
+          "component": "checks"
+        },
+        {
+          "path": "versions.json",
+          "action": "modified",
+          "component": "config"
+        },
+        {
+          "path": "vite.config.mjs",
+          "action": "modified",
+          "component": "build"
+        },
+        {
+          "path": "web/app.css",
+          "action": "modified",
+          "component": "styles"
+        },
+        {
+          "path": "web/app.js",
+          "action": "modified",
+          "component": "frontend"
+        },
+        {
+          "path": "web/index.html",
+          "action": "modified",
+          "component": "frontend"
+        },
+        {
+          "path": "web/project.js",
+          "action": "added",
+          "component": "frontend"
+        },
+        {
+          "path": "web/styles/project.css",
+          "action": "added",
+          "component": "styles"
+        }
+      ],
+      "commits": [
+        "97d6bf6223e3ce8be59f7ec47f98e4b9e98d541c",
+        "731e386b081d2e5a7fbe585577dfa2c609f4b363"
+      ]
+    }
+  ]
+}
