@@ -123,6 +123,13 @@ async function run() {
   await page.waitForFunction(() => document.querySelector("#project-monitor-status").textContent.includes("Последняя проверка"));
   await page.locator("#project-monitor-interval").selectOption("30000");
 
+  await page.locator('#project-open-map').click();
+  assert.equal(await page.locator('[data-project-tab="links"]').getAttribute('aria-selected'),'true');
+  await page.locator('[data-project-tab="modules"]').click();
+  assert.equal(await page.locator('.project-command-bar button').count(),3);
+  await page.locator('#project-command-problems').click();
+  assert.ok(await page.locator('#project-problems').isVisible());
+  assert.match(await page.locator('#project-problems-count').textContent(),/^\d+$/);
   assert.equal(await page.locator('[data-project-tab]').count(),3);
   assert.ok(await page.locator(".project-hero").isVisible());
   await page.locator("#project-toggle-filters").click();
@@ -137,6 +144,10 @@ async function run() {
   await page.locator('[data-project-tab="links"]').click();
   assert.ok(await page.locator("#project-links .project-link-card").count()>0);
   assert.ok(await page.locator("#project-map .project-map-node").count()>=10);
+  await page.locator('#project-map .project-map-node[data-id="core"]').dispatchEvent('click');
+  assert.ok(await page.locator('#project-inspector').isVisible());
+  assert.ok((await page.locator('#project-inspector').textContent()).includes('Ядро'));
+  await page.locator('.project-inspector-close').click();
   await page.locator("#project-map-zoom-in").click();
   assert.match(await page.locator("#project-map-scene").getAttribute("transform"),/scale\(1\.2\)/);
   await page.locator("#project-map-reset").click();
@@ -194,6 +205,7 @@ async function run() {
     }
   }
   await page.evaluate(() => document.documentElement.dataset.theme = "light");
+  await page.evaluate(() => window.scrollTo(0,0));
   await capture(page, "project.png");
   await page.getByRole("link", { name: "Главная", exact: true }).click();
   await page.setViewportSize({ width: 390, height: 844 });

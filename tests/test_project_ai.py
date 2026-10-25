@@ -29,6 +29,19 @@ class ProjectAiTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "лимита"):
             project_ai.answer_text({"choices":[{"message":{"content":None},"finish_reason":"length"}]})
 
+    def test_timeout_has_useful_message(self):
+        class Settings:
+            def has_key(self): return True
+            model = "example/model"
+        with tempfile.TemporaryDirectory() as tmp:
+            settings = Settings()
+            settings.file = Path(tmp) / "settings.json"
+            settings.file.write_text(json.dumps({"secret":"abcd"}))
+            def timed_out(*args, **kwargs): raise TimeoutError("The read operation timed out")
+            with patch.object(project_ai,"_protect",return_value=b"private-key"), patch.object(project_ai,"collect",return_value=([{"path":"safe.py","content":"print(1)"}],{"limit_reached":False})):
+                with self.assertRaisesRegex(ValueError,"150 секунд"):
+                    project_ai.review(Path(tmp),settings,timed_out)
+
     def test_review_requires_key_before_network(self):
         class Settings:
             def has_key(self): return False
@@ -45,7 +58,7 @@ class ProjectAiTests(unittest.TestCase):
             settings.file = Path(tmp) / "settings.json"
             settings.file.write_text(json.dumps({"secret": "abcd"}))
             def transport(request, timeout):
-                self.assertEqual(timeout, 45)
+                self.assertEqual(timeout, 150)
                 self.assertEqual(request.get_header("Authorization"), "Bearer private-key")
                 body = json.loads(request.data)
                 self.assertIn("safe.py", body["messages"][1]["content"])
