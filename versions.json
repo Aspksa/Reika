@@ -200,7 +200,8 @@
       "paths": [
         "versions.json",
         ".gitignore",
-        ".gitattributes"
+        ".gitattributes",
+        ".chronicle/"
       ],
       "description": "Хранит настройки разработки, версии и определения компонентов.",
       "status": "active",
