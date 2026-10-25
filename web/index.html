@@ -95,9 +95,22 @@
       <section class="view" id="view-project" aria-labelledby="project-title" hidden>
         <div class="page-heading"><div><p class="eyebrow">УСТРОЙСТВО И РАЗВИТИЕ</p><h1 id="project-title">Проект</h1></div><span data-version class="outline-label">—</span></div>
         <p class="page-intro" id="project-message" role="status">Получаем сведения о модулях…</p>
-        <div class="project-tools"><label for="module-filter">Показать связи</label><select id="module-filter"><option value="">Все модули</option></select><button id="reload-project" type="button">Обновить сведения</button></div>
+        <div class="project-metrics" aria-label="Показатели проекта">
+          <div><span>Модули</span><strong id="project-count-modules">—</strong></div>
+          <div><span>Связи</span><strong id="project-count-links">—</strong></div>
+          <div><span>Пути файлов</span><strong id="project-count-paths">—</strong></div>
+          <div><span>Выпуски в истории</span><strong id="project-count-releases">—</strong></div>
+        </div>
+        <div class="project-tools">
+          <label>Поиск модулей<input id="module-search" type="search" placeholder="Название, назначение, файл"></label>
+          <label>Категория<select id="module-category"><option value="">Все категории</option><option>Ядро</option><option>Интерфейс</option><option>Запуск</option><option>Разработка</option><option>Документация</option><option>Обновления</option><option>Другие модули</option></select></label>
+          <label>Состояние<select id="module-status"><option value="">Все состояния</option><option value="active">Действующий</option><option value="experimental">Разрабатывается</option><option value="deprecated">Устаревает</option></select></label>
+          <label>Показать связи<select id="module-filter"><option value="">Все модули</option></select></label>
+          <button id="reload-project" type="button">Обновить сведения</button>
+        </div>
+        <p class="project-counter" id="module-results" role="status"></p>
         <div class="module-grid" id="project-modules"></div>
-        <div class="section-heading"><h2>История изменений</h2></div>
+        <div class="section-heading"><h2>История изменений</h2></div><div class="project-tools project-history-tools"><label>Поиск обновлений<input id="history-search" type="search" placeholder="Версия или описание"></label><label>Тип изменения<select id="history-kind"><option value="">Все типы</option><option value="fix">Исправления</option><option value="feature">Новые возможности</option><option value="design">Дизайн</option><option value="refactor">Внутренние изменения</option><option value="security">Безопасность</option><option value="docs">Документация</option><option value="test">Проверки</option><option value="maintenance">Обслуживание</option><option value="new-module">Новый модуль</option><option value="breaking">Несовместимые изменения</option></select></label></div><p class="project-counter" id="history-results" role="status"></p>
         <div class="project-history" id="project-history"></div>
       </section>
       <footer class="page-footer"><span>Рэйка Амацухара</span><span>С вашего компьютера. Для вас.</span><a href="https://github.com/Aspksa/Reika" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></footer>
