@@ -1,3 +1,4 @@
+import { loadUpdates, verifyArchive } from "./updates.js";
 import { loadProject } from "./project.js";
 import { loadCloudSettings } from "./cloud_settings.js";
 import { initAppearance, syncTheme } from "./appearance.js";
@@ -6,7 +7,7 @@ import { initAppearance, syncTheme } from "./appearance.js";
 (() => {
   const $ = (selector) => document.querySelector(selector);
   const all = (selector) => document.querySelectorAll(selector);
-  const viewNames = {home: "Главная", system: "Система", about: "О Reika", project: "Проект", "project-settings": "Настройки проекта"};
+  const viewNames = {home: "Главная", system: "Система", about: "О Reika", project: "Проект", updates: "Обновления проекта", "project-settings": "Настройки проекта"};
   let state = null;
   let busy = false;
   let online = false;
@@ -33,6 +34,7 @@ import { initAppearance, syncTheme } from "./appearance.js";
     $("#view-title").textContent = viewNames[name];
     document.title = `${viewNames[name]} · Reika`;
     if (name === "project") loadProject();
+    if (name === "updates") loadUpdates();
     if (name === "project-settings") loadCloudSettings();
     if (focus) {
       $("#main").focus({preventScroll: true});
@@ -126,6 +128,8 @@ import { initAppearance, syncTheme } from "./appearance.js";
     }
   }
 
+  $("#check-updates").addEventListener("click", loadUpdates);
+  $("#update-file").addEventListener("change", (event) => verifyArchive(event.target.files[0]));
   $("#reload-project").addEventListener("click", () => loadProject(true));
   window.addEventListener("reika:set-theme",(event)=>setTheme(event.detail));
   $("#theme-toggle").addEventListener("click", () => setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark"));

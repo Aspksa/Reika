@@ -80,11 +80,17 @@
       "hashMode": "utf8-lf",
       "sha256": "86247987213b3cd9fed6af223bb4f72b805fb4ddf3f3e752806a714a77f2f03e"
     },
+    ".changes/project-update-view.json": {
+      "component": "release",
+      "version": "0.2.0",
+      "hashMode": "utf8-lf",
+      "sha256": "e23f99d7edf25cf1d0ab5467393dfea4cc398f11a229a08dfea7e407255e5736"
+    },
     ".chronicle/events.jsonl": {
       "component": "config",
       "version": "0.4.5",
       "hashMode": "bytes",
-      "sha256": "93c1df1530a3b00f36f67f98424ddda0b1d2a9de81d7f9f8b30d742a9bb8ab69"
+      "sha256": "2af829f22d41b6975bb87e1b2ade3dabea71425029faf1301e64e8c8fd17f8f0"
     },
     ".gitattributes": {
       "component": "config",
@@ -132,7 +138,7 @@
       "component": "docs",
       "version": "0.4.1",
       "hashMode": "utf8-lf",
-      "sha256": "a94734209d9dfcb399cff758e692cf77d888a962e537bf8bba1f2e78b40fd3fd"
+      "sha256": "b88f5ecbf6ec6be21655bfdbd0500e543f54cddab03a88247ce2ee4ca21fe6b7"
     },
     "Reika.bat": {
       "component": "launcher",
@@ -186,7 +192,13 @@
       "component": "core",
       "version": "0.7.1",
       "hashMode": "utf8-lf",
-      "sha256": "519f592e4a7d6482e48ea5c163a76748e8047fd2a069e80d2912142a19509856"
+      "sha256": "9a1d8b84848e56336d56d27350ad189f92aa03a34c942c8ece41489de522dda5"
+    },
+    "reika/updates.py": {
+      "component": "updates",
+      "version": "0.1.0",
+      "hashMode": "utf8-lf",
+      "sha256": "973e7ee23e8a965f7b5fe3e87ab1ffb4708c706a539c686371848824ddcdc280"
     },
     "reika/versions.py": {
       "component": "core",
@@ -336,7 +348,7 @@
       "component": "checks",
       "version": "0.4.11",
       "hashMode": "utf8-lf",
-      "sha256": "f37bc49351893502114d5870bd390b5c7f0e8c2324d6e2f3bdff3a810b5a2d7c"
+      "sha256": "680632f9248c22890c04acaaef02b1e9097909c4f65225ec1b8082ac4eb74da6"
     },
     "tests/release-integration.test.mjs": {
       "component": "checks",
@@ -384,7 +396,13 @@
       "component": "checks",
       "version": "0.4.11",
       "hashMode": "utf8-lf",
-      "sha256": "d63038282e2f9d9884c89eff7c91fd3783dba74d51994fc1307ca7fec847f97d"
+      "sha256": "bb7ba07104907cd3e1aca3b5336efe4d2b12667a7d6031c2cd84221e51cdaa0a"
+    },
+    "tests/test_updates.py": {
+      "component": "checks",
+      "version": "0.4.11",
+      "hashMode": "utf8-lf",
+      "sha256": "8d1e09c0a0d29716489e19560ff34258ac2d198cf93e8bc12ac6d108ba9d19cb"
     },
     "tests/test_web_build.py": {
       "component": "checks",
@@ -408,25 +426,25 @@
       "component": "config",
       "version": "0.4.5",
       "hashMode": "utf8-lf",
-      "sha256": "0d7ae554fb6daf69f60cc8d087c9bef0cfd290201e27ea2bec7cd0842ca65451"
+      "sha256": "3ba0d0ec9936ed011a5c87bb549146a6eb21d01de6fbac648483d421649e1582"
     },
     "vite.config.mjs": {
       "component": "build",
       "version": "0.3.11",
       "hashMode": "utf8-lf",
-      "sha256": "2d8046ff4e08e285bd7e89e33949a4a0165635cbd7bf59f5b3e8dd4c6c976e45"
+      "sha256": "d1111c0049f4af4078ce0495633011204893d8d8b25f0e2d3be0447be8aa406a"
     },
     "web/app.css": {
       "component": "styles",
       "version": "0.6.2",
       "hashMode": "utf8-lf",
-      "sha256": "e18ba15af062cbf9b5ac0e05b27204f6aef5be36e60ba483c3135e99cc2f19bc"
+      "sha256": "44e5e24d485fa92cb410d5305ab1f9d317982b33e6b6819f0254ba901e69bbce"
     },
     "web/app.js": {
       "component": "frontend",
       "version": "0.13.0",
       "hashMode": "utf8-lf",
-      "sha256": "428e879bda298cea5eecc4dc00cffb5bb2c8faa1eb0d5db6ebdd64318bebe802"
+      "sha256": "542f4eb109fc9922d8122ef1a538dd6d62a6dcfdd3a92a4da6e742efbacf0998"
     },
     "web/appearance.js": {
       "component": "frontend",
@@ -440,17 +458,17 @@
       "hashMode": "utf8-lf",
       "sha256": "ced90e10cc89efa82afbb09846a4544dff0ba97a0485fdfdf9166a54d6cd6d1c"
     },
-    "web/dist/assets/index-BN_jWZF_.js": {
+    "web/dist/assets/index-CV48YsSW.js": {
       "component": "build",
       "version": "0.3.11",
       "hashMode": "utf8-lf",
-      "sha256": "66f97e5c4295e74ce11aeb83140615ee0119f7de9e4715c282a2a60c0860a235"
+      "sha256": "57a19df14f88649d8cb7b8f02697d515f3e3c1673a78478cc680e18f9d8c12bc"
     },
-    "web/dist/assets/index-C89JqyMm.css": {
+    "web/dist/assets/index-btlo2_6E.css": {
       "component": "build",
       "version": "0.3.11",
       "hashMode": "utf8-lf",
-      "sha256": "fd2c110b431d990ba9fc8842990f1ec947bc286be1bc8abc2c0667d07ea5a617"
+      "sha256": "5d011135d0a3a729886ee87831c0583592e775a467f9cb7d6c604609a0ee8376"
     },
     "web/dist/assets/reika-vw6GPLNw.svg": {
       "component": "build",
@@ -462,19 +480,19 @@
       "component": "build",
       "version": "0.3.11",
       "hashMode": "utf8-lf",
-      "sha256": "ddbc3d559b8cf04e174a61ca533c7ba6883fabf55d3f0084acc7a20c9c2fc540"
+      "sha256": "70111cfb9ef47b9ec12f7feb0cf35a6adeca1bb6be6aa2a17b6c47cf8fa88bf2"
     },
     "web/dist/index.html": {
       "component": "build",
       "version": "0.3.11",
       "hashMode": "utf8-lf",
-      "sha256": "c3a03f7e96df9d12d0d9fdd2ff9594515f1e8fe6316af167f22a9745f9fd68e7"
+      "sha256": "6afaecfd02f6196abe43f7ba1ad1f56165c4382490f728af676aaabf367fae24"
     },
     "web/index.html": {
       "component": "frontend",
       "version": "0.13.0",
       "hashMode": "utf8-lf",
-      "sha256": "9da80ed2d9bc51819825cf3b2512794717babc5d8cba85dac2ebc00ef121d214"
+      "sha256": "3d829b385d4257abd63fc648f9d72c550ffc6f9d10ec6f95db2b99d2c3605200"
     },
     "web/project.js": {
       "component": "frontend",
@@ -529,6 +547,18 @@
       "version": "0.6.2",
       "hashMode": "utf8-lf",
       "sha256": "7dcc650fd9fceb1e00b666390f655dabc8922035dca5bfcccd961b454d44be8f"
+    },
+    "web/styles/updates.css": {
+      "component": "updates",
+      "version": "0.1.0",
+      "hashMode": "utf8-lf",
+      "sha256": "9cea62ac8ddbef1502263771ef9830be273f0664acb92e17305d0f2b2433da02"
+    },
+    "web/updates.js": {
+      "component": "updates",
+      "version": "0.1.0",
+      "hashMode": "utf8-lf",
+      "sha256": "461f3791fcde1530f6114df11e4e7a108d5ab95b232e56e0d157df441815a96b"
     }
   }
 }

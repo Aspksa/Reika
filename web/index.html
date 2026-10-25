@@ -30,6 +30,7 @@
       </a>
       <a class="nav-link" href="#project" aria-label="Проект" data-view="project"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/><path d="m11 7-5 9m7-9 5 9M7 18h10"/></svg><span>Проект</span><small data-nav-version="config">—</small></a>
       <a class="nav-link" href="#project-settings" aria-label="Настройки проекта" data-view="project-settings"><span aria-hidden="true">⚙</span><span>Настройки проекта</span><small data-nav-version="frontend">—</small></a>
+      <a class="nav-link" href="#updates" aria-label="Обновления проекта" data-view="updates"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 17v4h14v-4"/></svg><span>Обновления проекта</span><small data-nav-version="updates">—</small></a>
     </nav>
     <div class="sidebar-bottom">
       <div class="local-note"><span class="tiny-orbit" aria-hidden="true">◌</span><span><strong>Рядом с вами</strong><small>На вашем компьютере</small></span></div>
@@ -142,6 +143,18 @@
         <div class="section-heading" id="catalog-section"><h2>Каталог моделей и стоимость</h2></div>
         <p class="page-intro">Цены ориентировочные, за миллион входных и выходных токенов. Они могут измениться. Перед использованием проверяйте тарифы на <a href="https://cloud.ru/products/evolution-ai-factory/catalog-foundation-models" target="_blank" rel="noopener noreferrer">Cloud.ru</a>.</p>
         <div id="cloud-model-cards" class="cloud-model-grid"></div>
+      </section>
+      <section class="view" id="view-updates" aria-labelledby="updates-title" hidden>
+        <div class="page-heading"><div><p class="eyebrow">РАЗВИТИЕ REIKA</p><h1 id="updates-title">Обновления проекта</h1></div></div>
+        <p id="updates-message" role="status" class="page-intro">Проверяем выпуск…</p>
+        <div class="module-grid">
+          <article class="module-card"><h2>Текущая версия</h2><strong id="update-current" data-version>—</strong><p>Версия запущенной Reika.</p></article>
+          <article class="module-card"><h2>Доступная версия</h2><strong id="update-available">—</strong><p>Последний стабильный выпуск на GitHub.</p></article>
+        </div>
+        <div class="project-tools update-actions"><button id="check-updates" type="button">Проверить обновления</button><a id="update-download" target="_blank" rel="noopener noreferrer" hidden>Скачать архив</a></div>
+        <p id="updates-checked" class="page-intro"></p>
+        <article class="release-card"><h2>Полное описание обновления</h2><pre id="update-notes" class="update-notes"></pre></article>
+        <article class="release-card update-actions"><h2>Проверка скачанных файлов</h2><p>Выберите ZIP последнего выпуска. Файл проверяется на вашем компьютере и никуда не отправляется. Сравнение с SHA-256 GitHub подтверждает целостность архива, но не заменяет цифровую подпись.</p><label for="update-file">Скачанный архив Reika (до 256 МБ)</label><input id="update-file" type="file" accept=".zip,application/zip" disabled><p id="verify-result" role="status"></p></article>
       </section>
       <footer class="page-footer"><span>Рэйка Амацухара</span><span>С вашего компьютера. Для вас.</span><a href="https://github.com/Aspksa/Reika" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></footer>
       <noscript><p class="noscript-message">Включите JavaScript, чтобы видеть состояние Reika и переключать разделы.</p></noscript>

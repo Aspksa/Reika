@@ -16,6 +16,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import urlsplit, unquote
 
+from .updates import Updates
 from . import __version__
 from .versions import COMPONENTS, COMPONENT_VERSIONS
 from .project_monitor import ProjectMonitor
@@ -83,6 +84,7 @@ class ReikaServer(ThreadingHTTPServer):
         }
         self.project_monitor = ProjectMonitor(project_root)
         self.cloud_settings = CloudSettings(project_root)
+        self.updates = Updates()
         self.instance_id = instance_id
         self.control_token = control_token
         self.stop_requested = threading.Event()
@@ -188,6 +190,8 @@ class ReikaHandler(BaseHTTPRequestHandler):
             self._json(200, self.server.cloud_settings.public())
         elif route == "/api/project/monitor":
             self._json(200, self.server.project_monitor.status())
+        elif route == "/api/updates":
+            self._json(200, self.server.updates.get())
         elif route == "/api/project":
             self._json(200, self.server.project)
         elif route in self.server.assets:

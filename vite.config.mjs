@@ -15,7 +15,7 @@ export default defineConfig(({ command }) => {
       throw new Error("Сначала запустите Reika.bat или python run.py --no-browser --no-tray, затем npm run dev.");
     }
     proxy = {
-      "^/api/(status|project(?:/.*)?)(?:\\?.*)?$": {
+      "^/api/(status|updates|project(?:/.*)?)(?:\\?.*)?$": {
         target,
         changeOrigin: true,
         configure(server) {

@@ -1,0 +1,10 @@
+.update-actions { margin-top: 22px; }
+.update-notes { white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; font-size: 13px; line-height: 1.9; }
+#view-updates h2 { font-size: 17px; }
+#update-file { display: block; max-width: 100%; margin-top: 12px; }
+#update-download { color: var(--accent); overflow-wrap: anywhere; }
+#view-updates label { font-size: 12px; }
+@media (max-width:780px) { .nav-link { min-width: 0; text-align: center; } .nav-link span { white-space: normal; } }
+
+#view-updates .release-card::before { display: none; }
+#view-updates .module-card { min-height: auto; }
