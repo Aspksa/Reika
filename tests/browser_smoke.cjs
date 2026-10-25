@@ -76,8 +76,10 @@ async function run() {
   await page.locator("#module-status").selectOption("active");
   assert.ok(await page.locator('[data-module="release"]').isVisible());
   await page.locator("#module-status").selectOption("");
-  await page.locator('[data-module="release"] .module-details summary').click();
-  assert.ok(await page.locator('[data-module="release"] .module-paths').isVisible());
+  const details = page.locator('[data-module="release"] .module-details');
+  if ((await details.getAttribute("open")) === null) await details.locator("summary").click();
+  assert.notEqual(await details.getAttribute("open"), null);
+  assert.ok((await details.locator(".module-paths").textContent()).includes("scripts/"));
   await page.locator("#history-search").fill("несуществующее-обновление");
   assert.equal(await page.locator(".project-history .release-card").count(),0);
   await page.locator("#history-search").fill("");
