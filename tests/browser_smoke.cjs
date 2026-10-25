@@ -64,7 +64,17 @@ async function run() {
   await page.waitForSelector('[data-module="release"]');
   assert.ok(Number(await page.locator("#project-count-modules").textContent()) >= 10);
   assert.ok(Number(await page.locator("#project-count-links").textContent()) > 0);
-  assert.equal(await page.locator(".project-jump a").count(),3);
+  assert.equal(await page.locator('[data-project-tab]').count(),3);
+  await page.locator('[data-project-tab="links"]').click();
+  assert.ok(await page.locator("#project-links .project-link-card").count()>0);
+  assert.equal(await page.locator('#project-architecture').isVisible(),false);
+  await page.locator('[data-project-tab="history"]').click();
+  assert.ok(await page.locator("#compare-result .project-compare-card").count()===2);
+  await page.locator("#project-density").selectOption("compact");
+  assert.equal(await page.locator("#view-project").getAttribute("data-density"),"compact");
+  await page.locator("#project-audience").selectOption("developer");
+  assert.equal(await page.locator("#view-project").getAttribute("data-audience"),"developer");
+  await page.locator('[data-project-tab="modules"]').click();
   await page.locator("#module-search").fill("несуществующий-запрос");
   assert.equal(await page.locator(".module-card").count(),0);
   await page.locator("#reset-project-filters").click();
