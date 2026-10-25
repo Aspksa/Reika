@@ -96,11 +96,13 @@ async function run() {
   if ((await details.getAttribute("open")) === null) await details.locator("summary").click();
   assert.notEqual(await details.getAttribute("open"), null);
   assert.ok((await details.locator(".module-paths").textContent()).includes("scripts/"));
+  await page.locator('[data-project-tab="history"]').click();
   await page.locator("#history-search").fill("несуществующее-обновление");
   assert.equal(await page.locator(".project-history .release-card").count(),0);
   await page.locator("#history-search").fill("");
   await page.locator("#history-kind").selectOption("fix");
   await page.locator("#history-kind").selectOption("");
+  await page.locator('[data-project-tab="modules"]').click();
   await page.locator("#module-filter").selectOption("frontend");
   assert.ok(await page.locator('[data-module="styles"]').isVisible());
   assert.equal(await page.locator('[data-module="launcher"]').count(), 0);
