@@ -2,6 +2,139 @@
   "schema": 1,
   "releases": [
     {
+      "version": "0.13.0",
+      "previous": "0.12.0",
+      "source": "54704aa1eb9ba03f5d29b3d0962250b7a3293792",
+      "created_at": "2026-10-25T11:50:53.404Z",
+      "components": [
+        {
+          "id": "frontend",
+          "name": "Интерфейс",
+          "from": "0.10.1",
+          "version": "0.11.0",
+          "reason": "Описано в записи об изменении",
+          "level": "minor"
+        },
+        {
+          "id": "styles",
+          "name": "Стили и темы",
+          "from": "0.5.0",
+          "version": "0.6.0",
+          "reason": "Описано в записи об изменении",
+          "level": "minor"
+        },
+        {
+          "id": "checks",
+          "name": "Проверки",
+          "from": "0.4.8",
+          "version": "0.4.9",
+          "reason": "Описано в записи об изменении",
+          "level": "patch"
+        },
+        {
+          "id": "config",
+          "name": "Конфигурация",
+          "from": "0.4.2",
+          "version": "0.4.3",
+          "reason": "Описано в записи об изменении",
+          "level": "patch"
+        },
+        {
+          "id": "build",
+          "name": "Сборка Node.js",
+          "from": "0.3.8",
+          "version": "0.3.9",
+          "reason": "Связь с Интерфейс: Обрабатывает HTML и JavaScript интерфейса.",
+          "level": "patch"
+        }
+      ],
+      "changes": [
+        {
+          "id": "project-appearance-settings",
+          "kind": "feature",
+          "title": "Настройки внешнего вида и подробный каталог моделей",
+          "description": "В настройках проекта появился раздел внешнего вида с выбором светлой или тёмной темы, акцентного цвета (четыре готовых варианта и свой цвет), скругления и масштаба всего интерфейса. Изменения применяются сразу и сохраняются в браузере. Настройки Cloud.ru и каталог моделей оформлены как отдельные части страницы; карточки моделей дополнены описанием типовых задач. Браузерная проверка проверяет сохранение настроек после перезагрузки и отсутствие горизонтального переполнения.",
+          "reason": "Пользователю нужны доступные в одном месте настройки интерфейса и понятный выбор модели по задачам.",
+          "userImpact": "Можно настроить внешний вид Reika под себя и сравнить назначение семи моделей перед выбором. Сохранение API-ключа на Windows по-прежнему защищено DPAPI.",
+          "components": {
+            "frontend": "minor",
+            "styles": "minor",
+            "checks": "patch",
+            "config": "patch"
+          },
+          "testing": [
+            "npm run build — успешно.",
+            "npm run check — успешно.",
+            "Браузерный smoke-тест прошёл: темы и внешний вид применяются сразу, сохраняются после перезагрузки; 390, 768 и 1440 px без горизонтального переполнения.",
+            "Проверены карточки семи моделей, навигация, Vite и базовые действия интерфейса.",
+            "npm run test:versions — 3 теста пройдены; npm run test:release — 10 тестов пройдены.",
+            "npm run check:build — готовая сборка соответствует исходникам.",
+            "Python unittest discover — 30 тестов пройдены, 3 проверки Windows пропущены на Linux.",
+            "python scripts/chronicle.py validate и npm run release:check — успешно."
+          ],
+          "risks": [
+            "Описания моделей показывают типовые задачи и не гарантируют доступность конкретной возможности через выбранный API.",
+            "Цены ориентировочные; перед использованием нужно сверить текущий тариф Cloud.ru.",
+            "Защищённое хранение API-ключа проверяется в Windows CI."
+          ],
+          "migration": [
+            "Дополнительных действий не требуется. После обновления перезапустите Reika для загрузки новой сборки."
+          ]
+        }
+      ],
+      "files": [
+        {
+          "path": ".chronicle/events.jsonl",
+          "action": "modified",
+          "component": "config"
+        },
+        {
+          "path": "tests/browser_smoke.cjs",
+          "action": "modified",
+          "component": "checks"
+        },
+        {
+          "path": "versions.json",
+          "action": "modified",
+          "component": "config"
+        },
+        {
+          "path": "web/app.js",
+          "action": "modified",
+          "component": "frontend"
+        },
+        {
+          "path": "web/appearance.js",
+          "action": "added",
+          "component": "frontend"
+        },
+        {
+          "path": "web/cloud_settings.js",
+          "action": "modified",
+          "component": "frontend"
+        },
+        {
+          "path": "web/index.html",
+          "action": "modified",
+          "component": "frontend"
+        },
+        {
+          "path": "web/styles/project.css",
+          "action": "modified",
+          "component": "styles"
+        },
+        {
+          "path": "web/styles/theme.css",
+          "action": "modified",
+          "component": "styles"
+        }
+      ],
+      "commits": [
+        "47130aa32aef23f08919715465c9037559e5456b",
+        "54704aa1eb9ba03f5d29b3d0962250b7a3293792"
+      ]
+    },
+    {
       "version": "0.12.0",
       "previous": "0.11.0",
       "source": "0a6edbbd89345dff40a2198b75c49da5d987d72a",
