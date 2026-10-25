@@ -886,6 +886,49 @@
       "task_ids": [],
       "attribution": "unlinked",
       "files": []
+    },
+    {
+      "sha": "077e5b1a5ba836170922b227540aa9b2195222af",
+      "release": "0.19.0",
+      "task_ids": [
+        "TASK-20261028"
+      ],
+      "attribution": "commit-trailer",
+      "files": [
+        ".changes/project-updates-unified.json",
+        ".chronicle/events.jsonl",
+        "README.md",
+        "tests/browser_smoke.cjs",
+        "versions.lock.json",
+        "web/app.js",
+        "web/dist/assets/index-CX-7lGBG.js",
+        "web/dist/assets/index-D80iuGtr.css",
+        "web/dist/assets/index-DFC3JCt8.css",
+        "web/dist/assets/index-DsvzcU-2.js",
+        "web/dist/build.json",
+        "web/dist/index.html",
+        "web/index.html",
+        "web/project.js",
+        "web/styles/project.css",
+        "web/styles/updates.css",
+        "web/updates.js"
+      ]
+    },
+    {
+      "sha": "17457d28e0b8a44a005b16d85601d4dfaebd37da",
+      "release": "0.19.0",
+      "task_ids": [
+        "TASK-20261028"
+      ],
+      "attribution": "commit-trailer",
+      "files": []
+    },
+    {
+      "sha": "9095755236f7607f2a9408ace9aed35569e6bebc",
+      "release": "0.19.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": []
     }
   ]
 }

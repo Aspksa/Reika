@@ -1,17 +1,17 @@
 {
-  "version": "0.18.0",
+  "version": "0.19.0",
   "components": {
     "core": "0.8.1",
-    "frontend": "0.15.1",
-    "styles": "0.8.0",
+    "frontend": "0.16.0",
+    "styles": "0.8.1",
     "launcher": "0.3.1",
     "tray": "0.3.1",
-    "build": "0.3.14",
-    "checks": "0.5.2",
-    "docs": "0.5.0",
-    "config": "0.5.2",
+    "build": "0.3.15",
+    "checks": "0.5.3",
+    "docs": "0.5.1",
+    "config": "0.5.3",
     "release": "0.2.0",
-    "updates": "0.2.0"
+    "updates": "0.3.0"
   },
   "files": {
     "assets/index-D80iuGtr.css": "99f12c341a3175456e836a9964866dd68cdcf9521880156fe93569029eced180",
