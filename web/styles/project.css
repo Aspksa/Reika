@@ -87,3 +87,34 @@
  .project-section {margin-top:22px}
 }
 @media (prefers-reduced-motion:reduce) {.project-jump a,.module-card {transition:none}}
+
+
+/* Режимы раздела «Проект»: минимальная визуальная нагрузка и доступные вкладки. */
+#view-project [hidden] {display:none!important}
+.project-view-controls {display:flex;align-items:end;gap:12px;flex-wrap:wrap;margin:10px 0 20px}
+.project-tabs {display:flex;flex:1 1 320px;gap:5px;border-radius:12px;background:var(--surface);border:1px solid var(--border);padding:5px}
+.project-tabs button {border:0;background:transparent;color:var(--muted);border-radius:8px;min-height:40px;flex:1;font:inherit;font-weight:600;cursor:pointer}
+.project-tabs button[aria-selected="true"] {color:var(--accent);background:var(--surface);box-shadow:inset 0 0 0 1px var(--gold)}
+.project-tabs button:focus-visible {outline:2px solid var(--accent);outline-offset:2px}
+.project-view-controls label,.project-compare-controls label {display:flex;flex-direction:column;gap:5px;color:var(--muted);font-size:12px}
+.project-view-controls select,.project-compare-controls select,#project-link-filter {background:var(--surface);color:var(--ink);border:1px solid var(--border);border-radius:8px;min-height:40px;padding:7px 10px;font:inherit}
+.project-link-card,.project-compare-card {padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--surface);overflow-wrap:anywhere}
+.project-links {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:16px}
+.project-link-card h3 {margin:0 0 12px;font-size:15px}
+.project-link-row {display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;padding:10px 0;border-top:1px solid var(--border);font-size:12px}
+.project-link-row span {color:var(--muted)}
+.project-link-row small {flex-basis:100%;color:var(--muted)}
+.project-compare {margin-top:26px}
+.project-compare h3 {font-size:18px}
+.project-compare-controls {display:flex;gap:12px;flex-wrap:wrap;margin:0 0 14px}
+.project-compare-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.project-compare-card h4 {margin:0 0 10px}
+.project-compare-card p {font-size:13px;line-height:1.55}
+#view-project[data-density="compact"] .module-card {padding:12px}
+#view-project[data-density="compact"] .module-grid {gap:8px}
+#view-project[data-density="compact"] .module-card>p {margin:5px 0;font-size:12px}
+#view-project[data-density="compact"] .release-card {padding:12px}
+#view-project[data-density="compact"] .project-history {gap:7px}
+#view-project[data-audience="user"] .module-paths {display:none}
+@media(max-width:750px){.project-links,.project-compare-grid {grid-template-columns:1fr}.project-view-controls label {flex:1 1 140px}.project-tabs {flex-basis:100%}}
+@media(max-width:440px){.project-tabs button {font-size:12px}.project-compare-controls label {width:100%}}
