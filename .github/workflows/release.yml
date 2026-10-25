@@ -51,6 +51,7 @@ jobs:
         id: candidate
         run: |
           source=$(git rev-parse HEAD)
+          git status --short
           branch="automation/release-${source:0:12}"
           if git ls-remote --exit-code --heads origin "$branch" >/dev/null 2>&1; then
             git fetch origin "$branch"

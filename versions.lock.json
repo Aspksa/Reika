@@ -8,11 +8,17 @@
       "hashMode": "utf8-lf",
       "sha256": "10cb77b5b5c170d858b7f3ad48513afbb6a0752a499ee47e514d0d276864df4f"
     },
+    ".changes/portable-script-checkout.json": {
+      "component": "release",
+      "version": "0.1.0",
+      "hashMode": "utf8-lf",
+      "sha256": "99dfefd677b7ef97bdcc68eec7a16e4cd3c1885218c1bec4da902dea79cda13e"
+    },
     ".gitattributes": {
       "component": "config",
       "version": "0.3.0",
       "hashMode": "utf8-lf",
-      "sha256": "d6f47b958be71cac4c2e3220910db968047641b7269311a287c940e0744c7f6b"
+      "sha256": "956efab56e80d96e3e52db3f0f0879c4fac51428660c99e5f7a3d642ca13b9c3"
     },
     ".github/workflows/checks.yml": {
       "component": "checks",
@@ -24,7 +30,7 @@
       "component": "checks",
       "version": "0.3.0",
       "hashMode": "utf8-lf",
-      "sha256": "34cf00df0a04547a4d8366ae43087648b5eee27e9a76b0ca484e5347dfd4d25c"
+      "sha256": "a57af34c79e08d79f5473440ffaf9ca979d7116bb600c897509bcede4549c203"
     },
     ".gitignore": {
       "component": "config",
@@ -48,7 +54,7 @@
       "component": "docs",
       "version": "0.3.0",
       "hashMode": "utf8-lf",
-      "sha256": "26318d1c2b791bc3863e83ed6210d89dc1e8b7c9dd3e5e6a2ff07852e2ebcee5"
+      "sha256": "a94734209d9dfcb399cff758e692cf77d888a962e537bf8bba1f2e78b40fd3fd"
     },
     "Reika.bat": {
       "component": "launcher",
@@ -126,7 +132,7 @@
       "component": "release",
       "version": "0.1.0",
       "hashMode": "utf8-lf",
-      "sha256": "002793bf88409b17a603db083eebed0b640696796f967791701af2870c6fb72e"
+      "sha256": "ed2d579438a801e8674e7385f2c2dfb5355bb847ce89d942ee27a64a6a29b83e"
     },
     "scripts/start.ps1": {
       "component": "launcher",
@@ -156,7 +162,7 @@
       "component": "checks",
       "version": "0.3.0",
       "hashMode": "utf8-lf",
-      "sha256": "ac384b83fc0c4e55c9b94728948a9bf697786406919b824a6d1bee629b42c9d7"
+      "sha256": "bddaa2ad46b23dd209f65367f16551789ccbc3fd1e6880b836ac37b0694c336a"
     },
     "tests/release.test.mjs": {
       "component": "checks",

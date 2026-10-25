@@ -67,7 +67,8 @@ if (mode === "register") {
   if (mode === "check") console.log(plan ? `✓ Изменения описаны: ${notes.length}; следующий выпуск ${plan.version}.` : "✓ Неописанных изменений нет; новый выпуск не требуется.");
   if (mode === "plan") console.log(JSON.stringify(result, null, 2));
   if (mode === "prepare") {
-    if ((await git("status", "--porcelain")).trim()) throw new Error("Подготовка выпуска требует чистого Git checkout");
+    const dirty = (await git("status", "--porcelain")).trim();
+    if (dirty) throw new Error("Подготовка выпуска требует чистого Git checkout. Отличающиеся файлы:\n" + dirty);
     await mkdir(join(root, ".runtime/release"), {recursive: true});
     await write(".runtime/release/plan.json", result);
     if (!plan) { console.log("Нет накопленных изменений для выпуска."); process.exit(0); }
