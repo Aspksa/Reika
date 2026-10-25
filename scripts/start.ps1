@@ -67,7 +67,8 @@ function Test-Python([string]$Executable, [string[]]$Prefix) {
 
 try {
     Set-Location -LiteralPath $ProjectRoot
-    Write-Host '✦ Рэйка Амацухара · Подготовка' -ForegroundColor Magenta
+    $VersionRegistry = [IO.File]::ReadAllText((Join-Path $ProjectRoot 'versions.json'), $Utf8) | ConvertFrom-Json
+    Write-Host ('✦ Рэйка Амацухара · v' + $VersionRegistry.project + ' · Подготовка') -ForegroundColor Magenta
     Write-StartupLog 'Подготовка запуска Reika.'
     $Candidates = @()
     foreach ($RelativePath in @('.runtime\python\python.exe', '.venv\Scripts\python.exe')) {

@@ -47,6 +47,8 @@ async function run() {
   assert.equal(await page.evaluate(() => navigator.clipboard.readText()), url);
   await page.getByRole("link", { name: "Система", exact: true }).click();
   await page.waitForSelector("#view-system:not([hidden])");
+  await page.waitForSelector('#component-versions [data-component="styles"] dd');
+  assert.match(await page.locator('#component-versions [data-component="styles"] dd').textContent(), /^\d+\.\d+\.\d+$/);
   await page.getByRole("button", { name: "Включить тёмную тему" }).click();
   // A fresh server port has a new localStorage, but shares host-scoped cookies.
   await page.evaluate(() => localStorage.removeItem("reika.theme"));

@@ -17,6 +17,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 from . import __version__
+from .versions import COMPONENTS, COMPONENT_VERSIONS
 
 
 LOGGER = logging.getLogger("reika.http")
@@ -34,6 +35,8 @@ def load_assets(web_root: Path) -> dict:
         manifest = json.loads((directory / "build.json").read_text(encoding="utf-8"))
         if manifest.get("version") != __version__:
             raise ValueError("Версия сборки интерфейса не совпадает с версией Reika.")
+        if manifest.get("components") != COMPONENT_VERSIONS:
+            raise ValueError("Версии компонентов сборки не совпадают с versions.json.")
         entries = manifest["files"]
         if not isinstance(entries, dict) or "index.html" not in entries:
             raise ValueError("Неверный список файлов интерфейса.")
@@ -80,6 +83,7 @@ class ReikaServer(ThreadingHTTPServer):
             "app": "Reika",
             "full_name": "Рэйка Амацухара",
             "version": __version__,
+            "components": COMPONENTS,
             "status": "ready",
             "instance_id": self.instance_id,
             "url": self.url,

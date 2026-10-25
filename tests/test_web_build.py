@@ -42,3 +42,10 @@ class BuildTests(unittest.TestCase):
         self.manifest.unlink()
         with self.assertRaisesRegex(RuntimeError, "npm run build"):
             load_assets(self.web)
+
+    def test_mixed_component_versions_are_rejected(self):
+        manifest = json.loads(self.manifest.read_text())
+        manifest["components"]["frontend"] = "0.0.0"
+        self.manifest.write_text(json.dumps(manifest))
+        with self.assertRaisesRegex(RuntimeError, "Версии компонентов"):
+            load_assets(self.web)
