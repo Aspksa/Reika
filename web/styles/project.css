@@ -19,3 +19,30 @@
 .change-entry h4 { font-size: 12px; margin: 18px 0 6px; }
 .release-card > ul { font-size: 12px; padding-left: 18px; line-height: 1.8; }
 @media (max-width: 780px) { .module-grid { grid-template-columns: 1fr; } .nav-link { padding-left: 4px; padding-right: 4px; } }
+
+/* Улучшенная панель устройства проекта. Все цвета наследуются от темы Reika. */
+.project-metrics {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0 0 24px}
+.project-metrics>div {padding:18px;border:1px solid var(--border);background:var(--surface);border-radius:12px;display:flex;flex-direction:column;gap:8px}
+.project-metrics span {color:var(--muted);font-size:12px}
+.project-metrics strong {font-size:26px;line-height:1.2;color:var(--ink);font-variant-numeric:tabular-nums}
+.project-tools {align-items:flex-end}
+.project-tools label {display:flex;flex-direction:column;gap:7px;min-width:140px}
+.project-tools input {padding:9px 12px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--ink);font:inherit;min-width:0;width:100%}
+.project-tools button {min-height:38px;cursor:pointer}
+.project-tools input:focus-visible,.project-tools select:focus-visible,.project-tools button:focus-visible,.module-details summary:focus-visible,.release-card>summary:focus-visible {outline:2px solid var(--accent);outline-offset:3px}
+.project-counter {font-size:12px;color:var(--muted);margin:0 0 15px}
+.module-meta {display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:12px 0}
+.module-status,.module-category-label {display:inline-flex;align-items:center;padding:5px 9px;border-radius:99px;font-size:11px;border:1px solid var(--border)}
+.module-status[data-status="active"] {color:#236d4f;border-color:#72b39a;background:rgba(75,151,117,.09)}
+.module-status[data-status="experimental"] {color:#94631b;border-color:#d4b46c;background:rgba(194,147,53,.1)}
+.module-status[data-status="deprecated"] {color:#a14343;border-color:#cb9191;background:rgba(184,90,90,.1)}
+.module-category-label {color:var(--muted)}
+.module-details {margin-top:16px;padding-top:12px;border-top:1px solid var(--border)}
+.module-details summary {color:var(--accent);font-size:13px;cursor:pointer}
+.module-details h4 {font-size:12px;margin:16px 0 7px}
+.module-paths {font-size:12px;line-height:1.8;overflow-wrap:anywhere;padding-left:18px}
+.release-card>summary {font-weight:600;font-size:16px}
+.release-card[open]>summary {margin-bottom:13px}
+.project-empty {padding:20px;border:1px dashed var(--border);border-radius:12px;color:var(--muted);grid-column:1/-1}
+@media (max-width:960px) {.project-metrics {grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px) {.project-tools label {width:100%}.project-tools button {width:100%}.project-metrics>div {padding:13px}}
