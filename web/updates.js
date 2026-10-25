@@ -29,7 +29,7 @@ export async function loadUpdates() {
       document.querySelector(".updates-hero").dataset.state = "error";
       $("updates-message").textContent = data.error;
       $("update-notes").textContent = "Описание станет доступно после успешной проверки выпуска.";
-      return;
+      return data;
     }
     release = data.release;
     document.querySelector(".updates-hero").dataset.state = release.newer ? "new" : "current";
@@ -45,10 +45,12 @@ export async function loadUpdates() {
     }
     $("update-file").disabled = !archive?.sha256;
     $("verify-result").textContent = archive?.sha256 ? "Выберите скачанный ZIP, чтобы сравнить размер и SHA-256 с данными официального выпуска." : "Проверка недоступна: у выпуска отсутствует архив или контрольная сумма SHA-256.";
+    return data;
   } catch {
     document.querySelector(".updates-hero").dataset.state = "error";
     $("updates-message").textContent = "Нет ответа от Reika. Проверьте соединение и повторите проверку.";
     $("update-notes").textContent = "Описание станет доступно после успешной проверки выпуска.";
+    return {error:"Нет ответа от Reika"};
   } finally {
     busy = false;
     $("check-updates").disabled = false;

@@ -1,5 +1,21 @@
-#view-updates { --updates-muted:color-mix(in srgb,var(--ink) 62%,var(--surface)); }
-#view-updates .page-heading { margin-bottom:22px; }
+#project-release { --updates-muted:color-mix(in srgb,var(--ink) 62%,var(--surface)); }
+#project-release>.section-heading { margin:0 0 18px; }
+#project-release>.section-heading h2 { font-size:21px; letter-spacing:-.5px; }
+.project-release-teaser { display:flex; align-items:center; gap:15px; margin:22px 0 0; padding:16px 20px; border:1px solid var(--border); border-radius:14px; background:var(--surface); }
+.project-release-teaser[data-state="new"] { border-color:color-mix(in srgb,var(--accent) 35%,var(--border)); background:linear-gradient(110deg,var(--accent-soft),var(--surface)); }
+.project-release-teaser-mark { display:grid; place-items:center; flex:none; width:42px; height:42px; border-radius:12px; color:var(--accent); background:var(--accent-soft); font-size:22px; }
+.project-release-teaser strong { font-size:13px; }
+.project-release-teaser p { color:var(--muted); font-size:11px; margin-top:3px; }
+.project-release-teaser button { margin-left:auto; padding:9px 13px; flex:none; border:1px solid var(--border); border-radius:9px; background:var(--surface); color:var(--accent); font:inherit; font-size:11px; font-weight:600; }
+.project-release-teaser button:hover { border-color:var(--accent); }
+.updates-release-summary { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; margin:0 0 18px; padding:18px 22px; border:1px solid var(--border); border-radius:14px; background:var(--surface); color:var(--updates-muted); font-size:12px; }
+.updates-release-summary strong { color:var(--ink); font-size:14px; }
+.updates-release-summary p { margin-top:4px; }
+.project-release-modules { display:flex; flex-wrap:wrap; gap:7px; }
+.project-release-modules button,.project-module-update { border:1px solid color-mix(in srgb,var(--accent) 22%,var(--border)); border-radius:8px; padding:7px 10px; background:var(--accent-soft); color:var(--accent); font:inherit; font-size:11px; text-align:left; }
+.project-release-modules button:hover,.project-module-update:hover { border-color:var(--accent); }
+.project-module-update { margin:8px 0 0; max-width:100%; }
+.release-card>.project-release-modules { margin:9px 0 14px; }
 .updates-hero { position:relative; isolation:isolate; display:grid; grid-template-columns:minmax(0,1fr) 260px; align-items:center; min-height:350px; overflow:hidden; padding:40px 44px; border:1px solid color-mix(in srgb,var(--accent) 19%,var(--border)); border-radius:22px; background:linear-gradient(122deg,var(--hero),var(--surface-soft) 72%); }
 .updates-hero::before { content:""; position:absolute; z-index:-1; inset:0; background:radial-gradient(circle at 79% 42%,color-mix(in srgb,var(--accent) 15%,transparent),transparent 34%),repeating-linear-gradient(90deg,transparent 0 53px,color-mix(in srgb,var(--accent) 4%,transparent) 54px 55px); pointer-events:none; }
 .updates-hero-copy { position:relative; z-index:1; max-width:610px; }
@@ -63,5 +79,6 @@
 @keyframes updates-float { 50% { transform:translateY(-7px) rotate(-9deg); } }
 @media (max-width:950px) { .updates-hero { grid-template-columns:minmax(0,1fr) 180px; padding:32px; } .updates-hero-art { width:170px; height:170px; } .updates-orbit-inner { inset:22px; } .updates-orbit-core { width:78px; height:78px; border-radius:20px; font-size:43px; } .updates-orbit-core span { right:12px; bottom:11px; } .updates-content-grid { grid-template-columns:1fr; } }
 @media (max-width:650px) { .updates-hero { grid-template-columns:1fr; padding:28px 24px; } .updates-hero-art { position:absolute; right:-35px; top:-60px; opacity:.18; pointer-events:none; } .updates-hero h2 { font-size:38px; } .updates-version-row { grid-template-columns:1fr 20px 1fr; gap:5px; } .updates-version { padding:16px; } .updates-version strong { font-size:25px; } .updates-version p { font-size:10px; } .updates-version-arrow { font-size:16px; } .updates-paper,.updates-verify { padding:20px; } }
+@media (max-width:650px) { .project-release-teaser { align-items:flex-start; flex-wrap:wrap; } .project-release-teaser button { margin-left:57px; } }
 @media (max-width:390px) { .updates-version-row { grid-template-columns:1fr; } .updates-version-arrow { transform:rotate(90deg); } .updates-actions :is(button,a) { width:100%; } }
 @media (prefers-reduced-motion:reduce) { .updates-orbit,.updates-orbit-core { animation:none; } .updates-actions :is(button,a),.updates-version,.updates-file-zone { transition:none; } }

@@ -1,5 +1,5 @@
 import { loadUpdates, verifyArchive } from "./updates.js";
-import { loadProject } from "./project.js";
+import { loadProject, showProjectTab, setReleaseData } from "./project.js";
 import { loadCloudSettings } from "./cloud_settings.js";
 import { initAppearance, syncTheme } from "./appearance.js";
 "use strict";
@@ -7,7 +7,7 @@ import { initAppearance, syncTheme } from "./appearance.js";
 (() => {
   const $ = (selector) => document.querySelector(selector);
   const all = (selector) => document.querySelectorAll(selector);
-  const viewNames = {home: "Главная", system: "Система", about: "О Reika", project: "Проект", updates: "Обновления проекта", "project-settings": "Настройки проекта"};
+  const viewNames = {home: "Главная", system: "Система", about: "О Reika", project: "Проект", "project-settings": "Настройки проекта"};
   let state = null;
   let busy = false;
   let online = false;
@@ -23,7 +23,7 @@ import { initAppearance, syncTheme } from "./appearance.js";
 
   function route(focus = false) {
     const requested = location.hash.slice(1);
-    const name = Object.hasOwn(viewNames, requested) ? requested : "home";
+    const name = requested === "updates" ? "project" : Object.hasOwn(viewNames, requested) ? requested : "home";
     all(".view").forEach((view) => { view.hidden = view.id !== `view-${name}`; });
     all("[data-view]").forEach((link) => {
       const active = link.dataset.view === name;
@@ -33,8 +33,11 @@ import { initAppearance, syncTheme } from "./appearance.js";
     });
     $("#view-title").textContent = viewNames[name];
     document.title = `${viewNames[name]} · Reika`;
-    if (name === "project") loadProject();
-    if (name === "updates") loadUpdates();
+    if (name === "project") {
+      if (requested === "updates") showProjectTab("updates");
+      loadProject();
+      loadUpdates().then(setReleaseData);
+    }
     if (name === "project-settings") loadCloudSettings();
     if (focus) {
       $("#main").focus({preventScroll: true});
@@ -128,7 +131,7 @@ import { initAppearance, syncTheme } from "./appearance.js";
     }
   }
 
-  $("#check-updates").addEventListener("click", loadUpdates);
+  $("#check-updates").addEventListener("click", () => loadUpdates().then(setReleaseData));
   $("#update-file").addEventListener("change", (event) => verifyArchive(event.target.files[0]));
   $("#reload-project").addEventListener("click", () => loadProject(true));
   window.addEventListener("reika:set-theme",(event)=>setTheme(event.detail));

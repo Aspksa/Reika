@@ -95,7 +95,7 @@ async function run() {
   await page.getByRole("link", { name: "Проект", exact: true }).click();
   await page.waitForSelector('[data-module="release"]');
   assert.ok(await page.locator('.project-quick-links a[href="#project-settings"]').isVisible());
-  assert.equal(await page.locator('[data-nav-version]').count(),6);
+  assert.equal(await page.locator('[data-nav-version]').count(),5);
   assert.match(await page.locator('[data-nav-version="core"]').textContent(),/^\d+\.\d+\.\d+$/);
   await page.locator('#project-ai-run').click();
   await page.waitForFunction(() => document.querySelector('#project-ai-result').textContent.includes('ключ Cloud.ru'));
@@ -130,7 +130,7 @@ async function run() {
   await page.locator('#project-command-problems').click();
   assert.ok(await page.locator('#project-problems').isVisible());
   assert.match(await page.locator('#project-problems-count').textContent(),/^\d+$/);
-  assert.equal(await page.locator('[data-project-tab]').count(),3);
+  assert.equal(await page.locator('[data-project-tab]').count(),4);
   assert.ok(await page.locator(".project-hero").isVisible());
   await page.locator("#project-toggle-filters").click();
   assert.ok(await page.locator("#project-filter-fields").isVisible());
@@ -216,8 +216,12 @@ async function run() {
       archive: {name: "Reika-99.0.0.zip", size: archiveBytes.length, sha256: digest,
         url: "https://github.com/Aspksa/Reika/releases/download/v99.0.0/Reika-99.0.0.zip"} }
   }}));
-  await page.getByRole("link", { name: "Обновления проекта", exact: true }).click();
+  await page.locator('[data-project-tab="updates"]').click();
+  await page.locator("#check-updates").click();
   await page.waitForFunction(() => document.querySelector("#update-available").textContent === "99.0.0");
+  assert.equal(await page.locator('[data-project-tab="updates"]').getAttribute("aria-selected"), "true");
+  assert.ok((await page.locator("#project-release-teaser-title").textContent()).includes("99.0.0"));
+  assert.ok((await page.locator("#updates-release-summary").textContent()).includes("ещё не добавлен"));
   assert.equal(await page.locator(".updates-hero").getAttribute("data-state"), "new");
   assert.ok(await page.locator(".updates-hero-art").isVisible());
   assert.equal(await page.locator("#update-notes img").count(), 0);
@@ -241,6 +245,14 @@ async function run() {
   await page.locator("#check-updates").click();
   await page.waitForFunction(() => document.querySelector(".updates-hero").dataset.state === "current");
   assert.equal(await page.locator("#update-download").isVisible(), false);
+  assert.ok(await page.locator("#updates-release-summary .project-release-modules button").count() > 1);
+  await page.locator("#updates-release-summary .project-release-modules button").first().click();
+  assert.equal(await page.locator('[data-project-tab="modules"]').getAttribute("aria-selected"), "true");
+  assert.ok(await page.locator("#project-inspector").isVisible());
+  await page.locator("#project-inspector .project-module-update").click();
+  assert.equal(await page.locator('[data-project-tab="history"]').getAttribute("aria-selected"), "true");
+  assert.ok(await page.locator('[data-release-version="0.17.0"]').isVisible());
+  await page.locator('[data-project-tab="updates"]').click();
   await page.route("**/api/updates", (route) => route.fulfill({ json: {
     current: "0.17.0", checked_at: new Date().toISOString(), error: "GitHub временно недоступен.", release: null
   }}));
@@ -248,6 +260,9 @@ async function run() {
   await page.waitForFunction(() => document.querySelector(".updates-hero").dataset.state === "error");
   assert.equal(await page.locator("#update-download").isVisible(), false);
   await page.unroute("**/api/updates");
+  await page.goto(url + "/#updates");
+  await page.waitForSelector("#view-project:not([hidden])");
+  assert.equal(await page.locator('[data-project-tab="updates"]').getAttribute("aria-selected"), "true");
   await page.getByRole("link", { name: "Главная", exact: true }).click();
   await page.setViewportSize({ width: 390, height: 844 });
   await page.waitForFunction(() => getComputedStyle(document.querySelector(".navigation")).flexDirection === "row");
