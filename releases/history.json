@@ -2,6 +2,185 @@
   "schema": 1,
   "releases": [
     {
+      "version": "0.16.0",
+      "previous": "0.15.0",
+      "source": "1c481f578ff80c62d41bc9982d0ea31c357cca06",
+      "created_at": "2026-10-25T21:14:02.704Z",
+      "components": [
+        {
+          "id": "updates",
+          "name": "Обновления проекта",
+          "from": null,
+          "version": "0.1.0",
+          "reason": "Описано в записи об изменении",
+          "level": "minor"
+        },
+        {
+          "id": "core",
+          "name": "Ядро и API",
+          "from": "0.7.1",
+          "version": "0.8.0",
+          "reason": "Описано в записи об изменении",
+          "level": "minor"
+        },
+        {
+          "id": "frontend",
+          "name": "Интерфейс",
+          "from": "0.13.0",
+          "version": "0.14.0",
+          "reason": "Описано в записи об изменении",
+          "level": "minor"
+        },
+        {
+          "id": "styles",
+          "name": "Стили и темы",
+          "from": "0.6.2",
+          "version": "0.6.3",
+          "reason": "Описано в записи об изменении",
+          "level": "patch"
+        },
+        {
+          "id": "build",
+          "name": "Сборка Node.js",
+          "from": "0.3.11",
+          "version": "0.3.12",
+          "reason": "Описано в записи об изменении",
+          "level": "patch"
+        },
+        {
+          "id": "checks",
+          "name": "Проверки",
+          "from": "0.4.11",
+          "version": "0.5.0",
+          "reason": "Описано в записи об изменении",
+          "level": "minor"
+        },
+        {
+          "id": "docs",
+          "name": "Документация",
+          "from": "0.4.1",
+          "version": "0.5.0",
+          "reason": "Описано в записи об изменении",
+          "level": "minor"
+        },
+        {
+          "id": "config",
+          "name": "Конфигурация",
+          "from": "0.4.5",
+          "version": "0.5.0",
+          "reason": "Описано в записи об изменении",
+          "level": "minor"
+        }
+      ],
+      "changes": [
+        {
+          "id": "project-update-view",
+          "kind": "new-module",
+          "title": "Обновления проекта и проверка целостности архива",
+          "description": "Добавлен отдельный модуль обновлений и пункт меню. Страница сравнивает текущую версию с последним стабильным выпуском Aspksa/Reika, показывает полное русское описание и ссылку на официальный архив. Выбранный скачанный ZIP проверяется локально по размеру и SHA-256 из GitHub. Обработаны отсутствие интернета, ограничение запросов, отсутствие архива и контрольной суммы, повреждение файла. Ответы кэшируются на минуту, текст выпуска выводится безопасно без исполнения разметки.",
+          "reason": "Нужен понятный первый этап обновлений: сведения о выпуске и проверка полученных файлов перед дальнейшим развитием системы.",
+          "userImpact": "В меню появился раздел «Обновления проекта». Пользователь видит версии, читает полный отчёт и получает отдельный результат проверки скачанного архива. Новый модуль и его связи отражаются в разделе «Проект».",
+          "components": {
+            "updates": "minor",
+            "core": "minor",
+            "frontend": "minor",
+            "styles": "patch",
+            "build": "patch",
+            "checks": "minor",
+            "docs": "minor",
+            "config": "minor"
+          },
+          "testing": [
+            "Проверены получение метаданных, кэширование, ограничение размера ответа, ошибки сети и неверные сведения выпуска тестами Python.",
+            "Добавлены браузерные проверки русской страницы, безопасного отображения текста, совпадения SHA-256, повреждённого файла, неверного размера и мобильной ширины; выполнение в GitHub Actions."
+          ],
+          "risks": [
+            "Требуется доступ к GitHub; при ограничении запросов нужно повторить проверку позже.",
+            "Проверка файлов до 256 МБ использует память браузера. Контрольная сумма подтверждает совпадение с архивом GitHub и не заменяет цифровую подпись.",
+            "Установка обновлений, резервные копии и откат в этот этап не входят."
+          ],
+          "migration": [
+            "Распакуйте готовый выпуск и запустите Reika.bat. Откройте новый раздел меню; для проверки скачанного ZIP выберите его на странице."
+          ]
+        }
+      ],
+      "files": [
+        {
+          "path": ".chronicle/events.jsonl",
+          "action": "modified",
+          "component": "config"
+        },
+        {
+          "path": "README.md",
+          "action": "modified",
+          "component": "docs"
+        },
+        {
+          "path": "reika/server.py",
+          "action": "modified",
+          "component": "core"
+        },
+        {
+          "path": "reika/updates.py",
+          "action": "added",
+          "component": "updates"
+        },
+        {
+          "path": "tests/browser_smoke.cjs",
+          "action": "modified",
+          "component": "checks"
+        },
+        {
+          "path": "tests/test_server.py",
+          "action": "modified",
+          "component": "checks"
+        },
+        {
+          "path": "tests/test_updates.py",
+          "action": "added",
+          "component": "checks"
+        },
+        {
+          "path": "versions.json",
+          "action": "modified",
+          "component": "config"
+        },
+        {
+          "path": "vite.config.mjs",
+          "action": "modified",
+          "component": "build"
+        },
+        {
+          "path": "web/app.css",
+          "action": "modified",
+          "component": "styles"
+        },
+        {
+          "path": "web/app.js",
+          "action": "modified",
+          "component": "frontend"
+        },
+        {
+          "path": "web/index.html",
+          "action": "modified",
+          "component": "frontend"
+        },
+        {
+          "path": "web/styles/updates.css",
+          "action": "added",
+          "component": "updates"
+        },
+        {
+          "path": "web/updates.js",
+          "action": "added",
+          "component": "updates"
+        }
+      ],
+      "commits": [
+        "1c481f578ff80c62d41bc9982d0ea31c357cca06"
+      ]
+    },
+    {
       "version": "0.15.0",
       "previous": "0.14.0",
       "source": "804b6e188aa2e321a7d38c9d5317c66fd51a5034",

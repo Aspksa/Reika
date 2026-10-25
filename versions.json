@@ -1,10 +1,10 @@
 {
   "schema": 1,
-  "project": "0.15.0",
+  "project": "0.16.0",
   "components": {
     "core": {
       "name": "Ядро и API",
-      "version": "0.7.1",
+      "version": "0.8.0",
       "paths": [
         "reika/",
         "run.py",
@@ -19,12 +19,18 @@
           "kind": "runtime",
           "reason": "Получает из реестра версии и описания модулей.",
           "propagate": "none"
+        },
+        {
+          "target": "updates",
+          "kind": "runtime",
+          "reason": "Предоставляет локальный маршрут сведений об обновлении.",
+          "propagate": "none"
         }
       ]
     },
     "frontend": {
       "name": "Интерфейс",
-      "version": "0.13.0",
+      "version": "0.14.0",
       "paths": [
         "web/index.html",
         "web/app.js",
@@ -47,12 +53,18 @@
           "kind": "design",
           "reason": "Использует темы и оформление всех страниц.",
           "propagate": "patch"
+        },
+        {
+          "target": "updates",
+          "kind": "runtime",
+          "reason": "Открывает страницу обновлений и проверку скачанного файла.",
+          "propagate": "none"
         }
       ]
     },
     "styles": {
       "name": "Стили и темы",
-      "version": "0.6.2",
+      "version": "0.6.3",
       "paths": [
         "web/app.css",
         "web/styles/"
@@ -104,7 +116,7 @@
     },
     "build": {
       "name": "Сборка Node.js",
-      "version": "0.3.11",
+      "version": "0.3.12",
       "paths": [
         "package.json",
         "package-lock.json",
@@ -138,7 +150,7 @@
     },
     "checks": {
       "name": "Проверки",
-      "version": "0.4.11",
+      "version": "0.5.0",
       "paths": [
         "tests/",
         ".github/"
@@ -180,7 +192,7 @@
     },
     "docs": {
       "name": "Документация",
-      "version": "0.4.1",
+      "version": "0.5.0",
       "paths": [
         "README.md",
         "CHANGELOG.md",
@@ -200,7 +212,7 @@
     },
     "config": {
       "name": "Конфигурация",
-      "version": "0.4.5",
+      "version": "0.5.0",
       "paths": [
         "versions.json",
         ".gitignore",
@@ -240,6 +252,31 @@
           "target": "checks",
           "kind": "verification",
           "reason": "Публикует выпуск только после успешных проверок.",
+          "propagate": "none"
+        }
+      ]
+    },
+    "updates": {
+      "name": "Обновления проекта",
+      "version": "0.1.0",
+      "description": "Проверяет доступный официальный выпуск, показывает полное описание и сверяет целостность скачанного архива.",
+      "status": "active",
+      "paths": [
+        "reika/updates.py",
+        "web/updates.js",
+        "web/styles/updates.css"
+      ],
+      "dependencies": [
+        {
+          "target": "config",
+          "kind": "runtime",
+          "reason": "Читает текущую версию проекта для сравнения с выпуском.",
+          "propagate": "none"
+        },
+        {
+          "target": "release",
+          "kind": "documentation",
+          "reason": "Показывает полное русское описание опубликованного выпуска.",
           "propagate": "none"
         }
       ]

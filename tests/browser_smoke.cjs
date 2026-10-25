@@ -95,7 +95,7 @@ async function run() {
   await page.getByRole("link", { name: "Проект", exact: true }).click();
   await page.waitForSelector('[data-module="release"]');
   assert.ok(await page.locator('.project-quick-links a[href="#project-settings"]').isVisible());
-  assert.equal(await page.locator('[data-nav-version]').count(),5);
+  assert.equal(await page.locator('[data-nav-version]').count(),6);
   assert.match(await page.locator('[data-nav-version="core"]').textContent(),/^\d+\.\d+\.\d+$/);
   await page.locator('#project-ai-run').click();
   await page.waitForFunction(() => document.querySelector('#project-ai-result').textContent.includes('ключ Cloud.ru'));
@@ -161,14 +161,14 @@ async function run() {
   assert.equal(await page.locator("#view-project").getAttribute("data-audience"),"developer");
   await page.locator('[data-project-tab="modules"]').click();
   await page.locator("#module-search").fill("несуществующий-запрос");
-  assert.equal(await page.locator(".module-card").count(),0);
+  assert.equal(await page.locator("#project-modules .module-card").count(),0);
   await page.locator("#reset-project-filters").click();
   assert.equal(await page.locator("#module-search").inputValue(),"");
-  assert.ok(await page.locator(".module-card").count()>0);
+  assert.ok(await page.locator("#project-modules .module-card").count()>0);
   await page.locator("#module-search").fill("Запуск Windows");
-  assert.equal(await page.locator(".module-card").count(),1);
+  assert.equal(await page.locator("#project-modules .module-card").count(),1);
   await page.locator("#module-search").fill("несуществующий-запрос");
-  assert.equal(await page.locator(".module-card").count(),0);
+  assert.equal(await page.locator("#project-modules .module-card").count(),0);
   await page.locator("#module-search").fill("");
   await page.locator("#module-category").selectOption("Интерфейс");
   assert.ok(await page.locator('[data-module="styles"]').isVisible());
@@ -194,7 +194,7 @@ async function run() {
   await page.locator("#module-filter").selectOption("");
   await page.locator("#project-audience").selectOption("user");
   await page.locator("#project-density").selectOption("comfortable");
-  const moduleCount = await page.locator(".module-card").count();
+  const moduleCount = await page.locator("#project-modules .module-card").count();
   assert.equal(await page.locator(".module-counts").count(), moduleCount);
   for (const theme of ["light", "dark"]) {
     await page.evaluate(theme => document.documentElement.dataset.theme = theme, theme);
@@ -207,6 +207,30 @@ async function run() {
   await page.evaluate(() => document.documentElement.dataset.theme = "light");
   await page.evaluate(() => window.scrollTo(0,0));
   await capture(page, "project.png");
+  const archiveBytes = Buffer.from("test official archive");
+  const { createHash } = require("node:crypto");
+  const digest = createHash("sha256").update(archiveBytes).digest("hex");
+  await page.route("**/api/updates", (route) => route.fulfill({ json: {
+    current: "0.4.0", checked_at: new Date().toISOString(), error: null,
+    release: { version: "99.0.0", newer: true, notes: "Полное описание обновления\n<img src=x onerror=alert(1)>",
+      archive: {name: "Reika-99.0.0.zip", size: archiveBytes.length, sha256: digest,
+        url: "https://github.com/Aspksa/Reika/releases/download/v99.0.0/Reika-99.0.0.zip"} }
+  }}));
+  await page.getByRole("link", { name: "Обновления проекта", exact: true }).click();
+  await page.waitForFunction(() => document.querySelector("#update-available").textContent === "99.0.0");
+  assert.equal(await page.locator("#update-notes img").count(), 0);
+  await page.locator("#update-file").setInputFiles({name: "release.zip", mimeType: "application/zip", buffer: archiveBytes});
+  await page.waitForFunction(() => document.querySelector("#verify-result").textContent.startsWith("Проверка пройдена"));
+  await capture(page, "updates.png");
+  await page.locator("#update-file").setInputFiles({name: "bad.zip", mimeType: "application/zip", buffer: Buffer.alloc(archiveBytes.length)});
+  await page.waitForFunction(() => document.querySelector("#verify-result").textContent.includes("SHA-256 не совпадает"));
+  await page.locator("#update-file").setInputFiles({name: "short.zip", mimeType: "application/zip", buffer: Buffer.from("x")});
+  await page.waitForFunction(() => document.querySelector("#verify-result").textContent.includes("размер файла отличается"));
+  for (const width of [360, 390, 768, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `Updates overflow at ${width}px`);
+  }
+  await page.unroute("**/api/updates");
   await page.getByRole("link", { name: "Главная", exact: true }).click();
   await page.setViewportSize({ width: 390, height: 844 });
   await page.waitForFunction(() => getComputedStyle(document.querySelector(".navigation")).flexDirection === "row");
