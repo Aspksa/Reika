@@ -2,6 +2,154 @@
   "schema": 1,
   "releases": [
     {
+      "version": "0.11.0",
+      "previous": "0.10.0",
+      "source": "69e91ec6b56c991bb4b7a46146e251fb2c665ed3",
+      "created_at": "2026-10-25T11:12:01.454Z",
+      "components": [
+        {
+          "id": "core",
+          "name": "Ядро и API",
+          "from": "0.5.0",
+          "version": "0.6.0",
+          "reason": "Описано в записи об изменении",
+          "level": "minor"
+        },
+        {
+          "id": "frontend",
+          "name": "Интерфейс",
+          "from": "0.9.0",
+          "version": "0.10.0",
+          "reason": "Описано в записи об изменении",
+          "level": "minor"
+        },
+        {
+          "id": "styles",
+          "name": "Стили и темы",
+          "from": "0.4.1",
+          "version": "0.4.2",
+          "reason": "Описано в записи об изменении",
+          "level": "patch"
+        },
+        {
+          "id": "checks",
+          "name": "Проверки",
+          "from": "0.4.6",
+          "version": "0.4.7",
+          "reason": "Описано в записи об изменении",
+          "level": "patch"
+        },
+        {
+          "id": "build",
+          "name": "Сборка Node.js",
+          "from": "0.3.6",
+          "version": "0.3.7",
+          "reason": "Связь с Интерфейс: Обрабатывает HTML и JavaScript интерфейса.",
+          "level": "patch"
+        }
+      ],
+      "changes": [
+        {
+          "id": "cloud-project-settings",
+          "kind": "feature",
+          "title": "Настройки проекта: Cloud.ru, безопасное сохранение ключа и выбор модели",
+          "description": "В боковое меню добавлен раздел «Настройки проекта». В нём можно выбрать модель Evolution Foundation Models, увидеть назначение каждой модели и ориентировочную стоимость одного миллиона входных и выходных токенов в рублях. API-ключ сохраняется локально для текущего пользователя Windows с помощью DPAPI, в API обратно не выдаётся. Сохранённый ключ можно удалить. На других ОС запись ключа отключена до появления поддерживаемого защищённого хранилища.",
+          "reason": "Для дальнейших функций анализа проекта нужна явная настройка облачной модели, без помещения ключа в исходники, браузерное хранилище, Git или журнал.",
+          "userImpact": "Появилась страница Cloud.ru с полем ключа, выбором модели, каталогом описаний и ценами. Выбор модели и сохранение настроек сами по себе не отправляют платных запросов к Cloud.ru.",
+          "components": {
+            "core": "minor",
+            "frontend": "minor",
+            "styles": "patch",
+            "checks": "patch"
+          },
+          "testing": [
+            "Браузерные проверки доступности страницы, списка моделей и описаний.",
+            "Серверные проверки закрытости ключа и отклонения запросов с постороннего Origin.",
+            "GitHub Actions запускает полный набор проверок Windows, Linux, Node.js и браузера."
+          ],
+          "risks": [
+            "Стоимость по опубликованному каталогу Cloud.ru может измениться; реальная тарификация определяется действующим тарифом в личном кабинете.",
+            "Ключ защищён средствами профиля Windows DPAPI. На других операционных системах сохранение ключа отключено.",
+            "Подключение модели для чата и отправка запросов пока не реализованы: это настройки будущего подключения. Проверка доступности модели также пока не выполняется.",
+            "В каталог включены семь проверенных текстовых моделей; прочие услуги Foundation Models будут добавляться отдельным обновлением."
+          ],
+          "migration": [
+            "Откройте «Настройки проекта» в боковом меню Reika.",
+            "Выберите модель и сохраните API-ключ в Windows. Не добавляйте ключ в репозиторий.",
+            "Сведения о тарифах: https://cloud.ru/products/evolution-ai-factory/catalog-foundation-models"
+          ]
+        }
+      ],
+      "files": [
+        {
+          "path": "reika/cloud_settings.py",
+          "action": "added",
+          "component": "core"
+        },
+        {
+          "path": "reika/server.py",
+          "action": "modified",
+          "component": "core"
+        },
+        {
+          "path": "tests/browser_smoke.cjs",
+          "action": "modified",
+          "component": "checks"
+        },
+        {
+          "path": "tests/test_cloud_settings.py",
+          "action": "added",
+          "component": "checks"
+        },
+        {
+          "path": "tests/test_server.py",
+          "action": "modified",
+          "component": "checks"
+        },
+        {
+          "path": "versions.json",
+          "action": "modified",
+          "component": "config"
+        },
+        {
+          "path": "web/app.js",
+          "action": "modified",
+          "component": "frontend"
+        },
+        {
+          "path": "web/cloud_settings.js",
+          "action": "added",
+          "component": "frontend"
+        },
+        {
+          "path": "web/index.html",
+          "action": "modified",
+          "component": "frontend"
+        },
+        {
+          "path": "web/styles/project.css",
+          "action": "modified",
+          "component": "styles"
+        }
+      ],
+      "commits": [
+        "024731035168e369c4f202c986d7a41ed10a5bfe",
+        "306cbdab83a405d3be4ba7c2c5e4f7bd435fe962",
+        "3f2bad1883d4f190e6fe73d66f94e80d4a5e5a17",
+        "7cafbf9019aa0ba8a3471f620f0511d4349da754",
+        "7d6253e99c26c9aba5b5f80b6f400cc588707c6e",
+        "7cfec3410c05615ad1775437b487de475d80763b",
+        "f461496935185894f91e6abfeed53f28ee920512",
+        "b6854cbf129311bee7e5073f8ef7b70bef0d488f",
+        "69ab9b75cfdffd5fc9976787f0f86b6984eb55c5",
+        "0bff6cb13266c6e9de0c77f6d383521bd814d817",
+        "2e32b55874ebf531ecf3d44c9a6f865d45a84d1e",
+        "ae0a004e02850d4bd8b091c4a6c40f634221f056",
+        "232a912e108e816288924a66f62dda4eef6f3402",
+        "69e91ec6b56c991bb4b7a46146e251fb2c665ed3"
+      ]
+    },
+    {
       "version": "0.10.0",
       "previous": "0.9.0",
       "source": "566ee73b9824e2660d7edceca8c2a6810900fcc7",

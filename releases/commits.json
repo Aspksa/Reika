@@ -507,6 +507,130 @@
       "task_ids": [],
       "attribution": "unlinked",
       "files": []
+    },
+    {
+      "sha": "024731035168e369c4f202c986d7a41ed10a5bfe",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "reika/cloud_settings.py"
+      ]
+    },
+    {
+      "sha": "306cbdab83a405d3be4ba7c2c5e4f7bd435fe962",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "reika/server.py"
+      ]
+    },
+    {
+      "sha": "3f2bad1883d4f190e6fe73d66f94e80d4a5e5a17",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "reika/server.py"
+      ]
+    },
+    {
+      "sha": "7cafbf9019aa0ba8a3471f620f0511d4349da754",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/index.html"
+      ]
+    },
+    {
+      "sha": "7d6253e99c26c9aba5b5f80b6f400cc588707c6e",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/app.js"
+      ]
+    },
+    {
+      "sha": "7cfec3410c05615ad1775437b487de475d80763b",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/cloud_settings.js"
+      ]
+    },
+    {
+      "sha": "f461496935185894f91e6abfeed53f28ee920512",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "web/styles/project.css"
+      ]
+    },
+    {
+      "sha": "b6854cbf129311bee7e5073f8ef7b70bef0d488f",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "reika/cloud_settings.py"
+      ]
+    },
+    {
+      "sha": "69ab9b75cfdffd5fc9976787f0f86b6984eb55c5",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "tests/browser_smoke.cjs"
+      ]
+    },
+    {
+      "sha": "0bff6cb13266c6e9de0c77f6d383521bd814d817",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "tests/test_server.py"
+      ]
+    },
+    {
+      "sha": "2e32b55874ebf531ecf3d44c9a6f865d45a84d1e",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        ".changes/cloud-project-settings.json"
+      ]
+    },
+    {
+      "sha": "ae0a004e02850d4bd8b091c4a6c40f634221f056",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "versions.json"
+      ]
+    },
+    {
+      "sha": "232a912e108e816288924a66f62dda4eef6f3402",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": [
+        "tests/test_cloud_settings.py"
+      ]
+    },
+    {
+      "sha": "69e91ec6b56c991bb4b7a46146e251fb2c665ed3",
+      "release": "0.11.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": []
     }
   ]
 }
