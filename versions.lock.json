@@ -198,7 +198,7 @@
       "component": "docs",
       "version": "0.5.6",
       "hashMode": "utf8-lf",
-      "sha256": "a8737ab15561705f40297c8b47b5d8240f92827f987ebeffd0f8b8c20e586001"
+      "sha256": "f59cc36e3f607f796f85eeedea82d6ce9275e367f779cdfb0dcebd924bb67a6a"
     },
     "Reika.bat": {
       "component": "launcher",
@@ -564,7 +564,7 @@
       "component": "config",
       "version": "0.5.7",
       "hashMode": "utf8-lf",
-      "sha256": "27ebca13d7bd936b6b15de510b6822a736659c284a8b77e444a44384365e2bb0"
+      "sha256": "b430c6edb8aa0c030edca672b637e620267c7b2fc7dc9637947b0ba45dabcbf0"
     },
     "vite.config.mjs": {
       "component": "build",
