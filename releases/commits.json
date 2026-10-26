@@ -1107,6 +1107,35 @@
         "tests/validate_windows.ps1",
         "tests/verify_bootstrap_windows.ps1"
       ]
+    },
+    {
+      "sha": "6b1a55c22f78f5c992311453080d3f40b766aea9",
+      "release": "0.23.0",
+      "task_ids": [
+        "TASK-0003"
+      ],
+      "attribution": "commit-trailer",
+      "files": [
+        ".changes/clarity-navigation-and-visual-system-20261026.json",
+        ".github/workflows/clarity-preview.yml",
+        "README.md",
+        "tests/browser_smoke.cjs",
+        "versions.json",
+        "versions.lock.json",
+        "web/app.css",
+        "web/app.js",
+        "web/clarity.js",
+        "web/dist/assets/index-CwtXIENZ.js",
+        "web/dist/assets/index-Dsd5YQP2.css",
+        "web/dist/assets/index-Dw6M9rMs.js",
+        "web/dist/assets/index-FfBMr4_0.css",
+        "web/dist/build.json",
+        "web/dist/index.html",
+        "web/index.html",
+        "web/project.js",
+        "web/project_preferences.js",
+        "web/styles/clarity.css"
+      ]
     }
   ]
 }
