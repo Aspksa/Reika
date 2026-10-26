@@ -130,6 +130,7 @@ async function run() {
   assert.equal(await page.locator("#view-project").getAttribute("data-audience"),"developer");
   assert.equal(await page.locator("#project-monitor-interval").inputValue(),"0");
   await page.getByRole("link", { name: "Настройки проекта", exact: true }).click();
+  await page.locator('[data-settings-target="project-behavior-section"]').click();
   await page.locator("#settings-project-reset").click();
   assert.equal(await page.locator("#settings-project-tab").inputValue(),"overview");
   await page.getByRole("link", { name: "Проект", exact: true }).click();
