@@ -69,7 +69,8 @@
       "version": "0.9.0",
       "paths": [
         "web/app.css",
-        "web/styles/"
+        "web/styles/",
+        "web/styles/clarity-refinements.css"
       ],
       "description": "Задаёт цвета, темы, внешний вид компонентов и поведение на разных экранах.",
       "status": "active",

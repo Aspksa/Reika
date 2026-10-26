@@ -26,7 +26,8 @@ import { initProjectPreferenceSettings, readProjectPreference } from "./project_
 
   function route(focus = false) {
     const requested = location.hash.slice(1);
-    const name = requested === "updates" ? "project" : Object.hasOwn(viewNames, requested) ? requested : "home";
+    const projectSubtab = /^project\/(overview|modules|links|analysis|history|updates)$/.exec(requested)?.[1];
+    const name = requested === "updates" || projectSubtab ? "project" : Object.hasOwn(viewNames, requested) ? requested : "home";
     all(".view").forEach((view) => { view.hidden = view.id !== `view-${name}`; });
     all("[data-view]").forEach((link) => {
       const active = link.dataset.view === name;
@@ -37,7 +38,7 @@ import { initProjectPreferenceSettings, readProjectPreference } from "./project_
     $("#view-title").textContent = viewNames[name];
     document.title = `${viewNames[name]} · Reika`;
     if (name === "project") {
-      showProjectTab(requested === "updates" ? "updates" : readProjectPreference("tab"));
+      showProjectTab(requested === "updates" ? "updates" : projectSubtab || readProjectPreference("tab"));
       loadProject();
       loadUpdates().then(setReleaseData);
     }

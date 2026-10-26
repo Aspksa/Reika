@@ -62,23 +62,37 @@ async function run() {
   await page.getByRole("button", { name: "Включить светлую тему" }).click();
   await page.getByRole("link", { name: "Настройки проекта", exact: true }).click();
   await page.waitForSelector("#view-project-settings:not([hidden])");
-  await page.waitForSelector(".cloud-model-card");
+  await page.waitForSelector(".cloud-model-card", {state:"attached"});
+  assert.equal(await page.locator('[data-settings-target="project-behavior-section"]').getAttribute("aria-selected"),"true");
+  assert.equal(await page.locator("#appearance-section").isVisible(),false);
+  assert.equal(await page.locator("#cloud-section").isVisible(),false);
+  assert.equal(await page.locator("#clarity-catalog-pane").isVisible(),false);
   await page.locator("#notify-problems").check();
   await page.locator("#notify-changes").check();
+  await page.locator('[data-settings-target="catalog-section"]').click();
+  assert.ok(await page.locator("#clarity-catalog-pane").isVisible());
+  assert.equal(await page.locator("#project-behavior-section").isVisible(),false);
   assert.ok(await page.locator(".cloud-model-card").count() >= 7);
   assert.ok(await page.locator(".cloud-model-card:visible").count() <= 6);
   await page.locator("#clarity-model-search").fill("несуществующая-модель");
   assert.equal(await page.locator(".cloud-model-card:visible").count(), 0);
   await page.locator("#clarity-model-search").fill("");
+  await page.locator('[data-settings-target="cloud-section"]').click();
+  assert.ok(await page.locator("#cloud-section").isVisible());
+  assert.equal(await page.locator("#clarity-catalog-pane").isVisible(),false);
   assert.ok((await page.locator("#cloud-key-status").textContent()).length>0);
   assert.ok(await page.locator("#cloud-model option").count()>=7);
   assert.equal(await page.locator(".cloud-capabilities").count(), await page.locator(".cloud-model-card").count());
+  await page.locator('[data-settings-target="appearance-section"]').click();
+  assert.ok(await page.locator("#appearance-section").isVisible());
+  assert.equal(await page.locator("#cloud-section").isVisible(),false);
   await page.locator('[data-appearance-theme="dark"]').click();
   assert.equal(await page.locator("html").getAttribute("data-theme"),"dark");
   await page.locator('[data-appearance-theme="light"]').click();
   await page.locator('[data-appearance-accent="jade"]').click();
   await page.locator('[data-appearance-rounding="round"]').click();
   await page.locator('[data-appearance-scale="large"]').click();
+  await page.locator('[data-settings-target="project-behavior-section"]').click();
   await page.locator("#settings-project-tab").selectOption("history");
   await page.locator("#settings-project-layout").selectOption("list");
   await page.locator("#settings-project-density").selectOption("compact");
@@ -91,18 +105,25 @@ async function run() {
     assert.equal(await page.locator("#settings-project-"+key).inputValue(),value);
   }
   await page.reload();
-  await page.waitForSelector(".cloud-model-card");
+  await page.waitForSelector(".cloud-model-card", {state:"attached"});
   assert.equal(await page.locator("html").getAttribute("data-accent"),"jade");
   assert.equal(await page.locator("html").getAttribute("data-rounding"),"round");
   assert.equal(await page.locator("html").getAttribute("data-scale"),"large");
   for (const width of [390,768,1440]) {
     await page.setViewportSize({width,height:900});
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth),false,`Settings overflow at ${width}px`);
+    if(width===390) {
+      assert.ok(await page.evaluate(() => document.documentElement.scrollHeight < 3500),"Mobile settings should not be one huge page");
+      assert.equal(await page.locator(".settings-jump [data-settings-target]:visible").count(),4);
+      assert.equal(await page.locator(".settings-jump").evaluate(el => getComputedStyle(el).gridTemplateColumns.split(" ").length),2);
+    }
     if(width===390||width===1440)await capture(page,`settings-${width}.png`);
   }
+  await page.locator('[data-settings-target="appearance-section"]').click();
   await page.locator('[data-appearance-scale="normal"]').click();
   await page.locator('[data-appearance-rounding="normal"]').click();
   await page.locator('[data-appearance-accent="sakura"]').click();
+  await page.locator('[data-settings-target="cloud-section"]').click();
   await capture(page, "cloud-settings.png");
   await page.getByRole("link", { name: "Проект", exact: true }).click();
   await page.waitForFunction(() => document.querySelector('[data-project-tab="history"]').getAttribute("aria-selected") === "true");
@@ -113,6 +134,7 @@ async function run() {
   assert.equal(await page.locator("#view-project").getAttribute("data-audience"),"developer");
   assert.equal(await page.locator("#project-monitor-interval").inputValue(),"0");
   await page.getByRole("link", { name: "Настройки проекта", exact: true }).click();
+  await page.locator('[data-settings-target="project-behavior-section"]').click();
   await page.locator("#settings-project-reset").click();
   assert.equal(await page.locator("#settings-project-tab").inputValue(),"overview");
   await page.getByRole("link", { name: "Проект", exact: true }).click();
@@ -166,7 +188,11 @@ async function run() {
   assert.match(await page.locator('#project-problems-count').textContent(),/^\d+$/);
   assert.equal(await page.locator('[data-project-tab]').count(),6);
   await page.locator('[data-project-tab="modules"]').click();
+  assert.equal(await page.locator(".project-hero").isVisible(),false);
+  assert.equal(await page.locator(".project-release-teaser").isVisible(),false);
+  await page.locator('[data-project-tab="overview"]').click();
   assert.ok(await page.locator(".project-hero").isVisible());
+  await page.locator('[data-project-tab="modules"]').click();
   await page.locator("#project-toggle-filters").click();
   assert.ok(await page.locator("#project-filter-fields").isVisible());
   await page.locator('[data-project-layout="list"]').click();
@@ -237,6 +263,11 @@ async function run() {
     for (const width of [360, 390, 768, 1024, 1440]) {
       await page.setViewportSize({ width, height: 1080 });
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `Project overflow: ${theme}, ${width}px`);
+      if (width <= 768) {
+        assert.equal(await page.locator(".project-tabs").evaluate(el => getComputedStyle(el).flexWrap),"nowrap");
+        const positions = await page.locator(".project-tabs button").evaluateAll(els => els.map(el => el.getBoundingClientRect().top));
+        assert.ok(positions.every(y => Math.abs(y - positions[0]) < 3),"Project tabs should occupy one row");
+      }
       if (width === 390 || width === 1440) await capture(page, `project-${theme}-${width}.png`);
     }
   }
@@ -301,6 +332,12 @@ async function run() {
   await page.goto(url + "/#updates");
   await page.waitForSelector("#view-project:not([hidden])");
   assert.equal(await page.locator('[data-project-tab="updates"]').getAttribute("aria-selected"), "true");
+  await page.getByRole("link", { name: "Главная", exact: true }).click();
+  await page.locator('.clarity-quick-links a[href="#project/modules"]').click();
+  await page.waitForFunction(() => document.querySelector('[data-project-tab="modules"]').getAttribute("aria-selected") === "true");
+  assert.ok(page.url().endsWith("#project/modules"));
+  await page.reload();
+  await page.waitForFunction(() => document.querySelector('[data-project-tab="modules"]').getAttribute("aria-selected") === "true");
   await page.getByRole("link", { name: "Главная", exact: true }).click();
   await page.setViewportSize({ width: 390, height: 844 });
   await page.waitForFunction(() => getComputedStyle(document.querySelector(".navigation")).flexDirection === "row");
