@@ -120,7 +120,7 @@
       "component": "config",
       "version": "0.5.4",
       "hashMode": "bytes",
-      "sha256": "55b7907a8811f8ca956296b63747fadc98a961e2a2d106724adabc1e75bf6248"
+      "sha256": "6125d3d01cc6321a8623c97dedfcdb143ed39da1c41b0c7d597d690954e9ac48"
     },
     ".gitattributes": {
       "component": "config",
@@ -492,7 +492,7 @@
       "component": "checks",
       "version": "0.5.4",
       "hashMode": "utf8-lf",
-      "sha256": "13a416599044322cf78061b08f57ddade438674d671021f4ac9173f4f50f0db3"
+      "sha256": "e53368e6512f4fdf55d4f92c2bc80a49e5326cbcb94874cdffb4b3cac18be67d"
     },
     "tests/versions.test.mjs": {
       "component": "checks",

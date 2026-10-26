@@ -31,7 +31,9 @@ def main(archive_path):
         assert result.returncode == 0, output
         assert "Проверка запуска пройдена" in output, output
         log = (project / "logs" / "startup.log").read_text(encoding="utf-8-sig")
-        assert str(python).lower() in log.lower(), log
+        selected = [line.partition("Python 3.12.10: ")[2] for line in log.splitlines()
+                    if "Python 3.12.10: " in line]
+        assert len(selected) == 1 and Path(selected[0]).samefile(python), log
         print("Portable release started with embedded Python.")
 
 
