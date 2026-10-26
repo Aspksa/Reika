@@ -1,12 +1,12 @@
 const defaults = {
-  tab: "modules",
+  tab: "overview",
   density: "comfortable",
   audience: "user",
   layout: "grid",
   interval: "30000"
 };
 const allowed = {
-  tab: ["modules", "links", "history", "updates"],
+  tab: ["overview", "modules", "links", "analysis", "history", "updates"],
   density: ["comfortable", "compact"],
   audience: ["user", "developer"],
   layout: ["grid", "list"],
