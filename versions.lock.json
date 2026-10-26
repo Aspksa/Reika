@@ -114,13 +114,13 @@
       "component": "release",
       "version": "0.2.0",
       "hashMode": "utf8-lf",
-      "sha256": "427cdb4a8188ca482ba51a51cf81172699388250d0b52e605379022eb40a338a"
+      "sha256": "498e566f64c6fe5e7ad13203e0f6469da63bbcbe055445b3e1c0b1b4832eb894"
     },
     ".chronicle/events.jsonl": {
       "component": "config",
       "version": "0.5.4",
       "hashMode": "bytes",
-      "sha256": "6125d3d01cc6321a8623c97dedfcdb143ed39da1c41b0c7d597d690954e9ac48"
+      "sha256": "ac5582396e7851ac8bd676d8825f4b6804a3b723075cd7003e5da008d9026e2d"
     },
     ".gitattributes": {
       "component": "config",

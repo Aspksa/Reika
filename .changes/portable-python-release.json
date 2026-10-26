@@ -18,7 +18,8 @@
     "npm run build — успешно.",
     "Python unittest: 42 теста пройдены, 3 Windows-проверки пропущены на Linux.",
     "npm run test:versions: 3 теста пройдены; npm run test:release: 10 тестов пройдены.",
-    "npm run check, npm run check:build, npm run release:check и python scripts/chronicle.py validate — успешно."
+    "npm run check, npm run check:build, npm run release:check и python scripts/chronicle.py validate — успешно.",
+    "Windows CI распаковал готовый архив в путь с кириллицей, запустил Reika.bat --check и подтвердил выбор встроенного Python 3.12.10; браузер, Node.js и Linux-проверки тоже прошли: https://github.com/Aspksa/Reika/actions/runs/40262358383."
   ],
   "risks": [
     "Автономный архив рассчитан на Windows x64; исходный ZIP репозитория и старые выпуски не меняются.",
