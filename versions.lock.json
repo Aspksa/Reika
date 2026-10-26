@@ -474,7 +474,7 @@
       "component": "checks",
       "version": "0.7.2",
       "hashMode": "utf8-lf",
-      "sha256": "56d74cb1872912460de604bf021a25ee15c7f685749ba95a1e6d81f7eb166cb2"
+      "sha256": "7c14409b8f60054d9081be7070750f3f538782afa44dbcea9a0cadb526e2871e"
     },
     "tests/release-integration.test.mjs": {
       "component": "checks",
