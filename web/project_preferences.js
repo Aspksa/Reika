@@ -1,8 +1,8 @@
 const defaults = {
   tab: "overview",
-  density: "comfortable",
+  density: "compact",
   audience: "user",
-  layout: "grid",
+  layout: "list",
   interval: "30000"
 };
 const allowed = {
