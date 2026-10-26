@@ -214,3 +214,44 @@
 @media(prefers-reduced-motion:reduce) {
   #view-project .project-tabs { scroll-behavior:auto }
 }
+
+/* Main landing page: useful destinations, no redundant decorative status card. */
+#view-home .quiet-card {
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  padding:20px 22px;
+}
+#view-home .quiet-card .eyebrow {
+  letter-spacing:1.2px;
+  color:var(--gold);
+  margin:0 0 5px;
+}
+#view-home .quiet-card h2 {
+  font-family:"Segoe UI",sans-serif;
+  font-size:20px;
+  margin:0 0 10px;
+  font-weight:700;
+}
+.clarity-quick-links { display:grid; gap:0 }
+#view-home .clarity-quick-links a {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  min-height:41px;
+  padding:9px 0;
+  font-size:12px;
+  font-weight:640;
+  color:var(--ink);
+  margin:0;
+  border-bottom:1px solid var(--border);
+}
+#view-home .clarity-quick-links a::after {
+  content:"↗";
+  color:var(--accent);
+  font-size:16px;
+}
+#view-home .clarity-quick-links a:hover { color:var(--accent) }
+.clarity-home-help { margin-top:auto; padding:12px 0 0 }
+.clarity-home-help summary { font-size:11px; color:var(--muted); cursor:pointer }
+.clarity-home-help #tray-note { font-size:11px; margin-top:9px; line-height:1.6 }
