@@ -62,7 +62,7 @@ async function run() {
   await page.getByRole("button", { name: "Включить светлую тему" }).click();
   await page.getByRole("link", { name: "Настройки проекта", exact: true }).click();
   await page.waitForSelector("#view-project-settings:not([hidden])");
-  await page.waitForSelector(".cloud-model-card");
+  await page.waitForSelector(".cloud-model-card", {state:"attached"});
   assert.equal(await page.locator('[data-settings-target="project-behavior-section"]').getAttribute("aria-selected"),"true");
   assert.equal(await page.locator("#appearance-section").isVisible(),false);
   assert.equal(await page.locator("#cloud-section").isVisible(),false);
@@ -105,7 +105,7 @@ async function run() {
     assert.equal(await page.locator("#settings-project-"+key).inputValue(),value);
   }
   await page.reload();
-  await page.waitForSelector(".cloud-model-card");
+  await page.waitForSelector(".cloud-model-card", {state:"attached"});
   assert.equal(await page.locator("html").getAttribute("data-accent"),"jade");
   assert.equal(await page.locator("html").getAttribute("data-rounding"),"round");
   assert.equal(await page.locator("html").getAttribute("data-scale"),"large");
