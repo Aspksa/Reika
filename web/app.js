@@ -1,4 +1,5 @@
 import { loadUpdates, verifyArchive } from "./updates.js";
+import { initClarity } from "./clarity.js";
 import { loadProject, showProjectTab, setReleaseData } from "./project.js";
 import { loadCloudSettings } from "./cloud_settings.js";
 import { initAppearance, syncTheme } from "./appearance.js";
@@ -6,9 +7,10 @@ import { initProjectPreferenceSettings, readProjectPreference } from "./project_
 "use strict";
 
 (() => {
+  initClarity();
   const $ = (selector) => document.querySelector(selector);
   const all = (selector) => document.querySelectorAll(selector);
-  const viewNames = {home: "Главная", system: "Система", about: "О Reika", project: "Проект", "project-settings": "Настройки проекта"};
+  const viewNames = {home: "Главная", system: "Система", about: "О Reika", project: "Проект", "project-settings": "Настройки"};
   let state = null;
   let busy = false;
   let online = false;
