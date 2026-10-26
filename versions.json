@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "project": "0.23.0",
+  "project": "0.24.0",
   "components": {
     "core": {
       "name": "Ядро и API",
@@ -30,7 +30,7 @@
     },
     "frontend": {
       "name": "Интерфейс",
-      "version": "0.19.0",
+      "version": "0.20.0",
       "paths": [
         "web/index.html",
         "web/app.js",
@@ -66,7 +66,7 @@
     },
     "styles": {
       "name": "Стили и темы",
-      "version": "0.9.0",
+      "version": "0.10.0",
       "paths": [
         "web/app.css",
         "web/styles/",
@@ -119,7 +119,7 @@
     },
     "build": {
       "name": "Сборка Node.js",
-      "version": "0.3.19",
+      "version": "0.3.20",
       "paths": [
         "package.json",
         "package-lock.json",
@@ -153,7 +153,7 @@
     },
     "checks": {
       "name": "Проверки",
-      "version": "0.7.2",
+      "version": "0.7.3",
       "paths": [
         "tests/",
         ".github/"
@@ -195,7 +195,7 @@
     },
     "docs": {
       "name": "Документация",
-      "version": "0.5.6",
+      "version": "0.5.7",
       "paths": [
         "README.md",
         "CHANGELOG.md",
@@ -215,7 +215,7 @@
     },
     "config": {
       "name": "Конфигурация",
-      "version": "0.5.7",
+      "version": "0.5.8",
       "paths": [
         "versions.json",
         ".gitignore",

@@ -1,15 +1,15 @@
 {
-  "version": "0.23.0",
+  "version": "0.24.0",
   "components": {
     "core": "0.9.0",
-    "frontend": "0.19.0",
-    "styles": "0.9.0",
+    "frontend": "0.20.0",
+    "styles": "0.10.0",
     "launcher": "0.3.2",
     "tray": "0.3.1",
-    "build": "0.3.19",
-    "checks": "0.7.2",
-    "docs": "0.5.6",
-    "config": "0.5.7",
+    "build": "0.3.20",
+    "checks": "0.7.3",
+    "docs": "0.5.7",
+    "config": "0.5.8",
     "release": "0.3.0",
     "updates": "0.3.0"
   },

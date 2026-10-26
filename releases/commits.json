@@ -1136,6 +1136,33 @@
         "web/project_preferences.js",
         "web/styles/clarity.css"
       ]
+    },
+    {
+      "sha": "d43b469cb17655f141acc555624d5e96bef0c566",
+      "release": "0.24.0",
+      "task_ids": [
+        "TASK-0004"
+      ],
+      "attribution": "commit-trailer",
+      "files": [
+        ".changes/clarity-usability-round2-20261026.json",
+        "README.md",
+        "tests/browser_smoke.cjs",
+        "versions.json",
+        "versions.lock.json",
+        "web/app.css",
+        "web/app.js",
+        "web/clarity.js",
+        "web/dist/assets/index-C5Ay5WGY.css",
+        "web/dist/assets/index-CtuxYUWR.js",
+        "web/dist/assets/index-CwtXIENZ.js",
+        "web/dist/assets/index-FfBMr4_0.css",
+        "web/dist/build.json",
+        "web/dist/index.html",
+        "web/project.js",
+        "web/project_preferences.js",
+        "web/styles/clarity-refinements.css"
+      ]
     }
   ]
 }
