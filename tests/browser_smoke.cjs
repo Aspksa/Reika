@@ -116,7 +116,7 @@ async function run() {
   await page.locator("#settings-project-reset").click();
   assert.equal(await page.locator("#settings-project-tab").inputValue(),"overview");
   await page.getByRole("link", { name: "Проект", exact: true }).click();
-  assert.equal(await page.locator('[data-project-tab="overview"]').getAttribute("aria-selected"),"true");
+  await page.waitForFunction(() => document.querySelector('[data-project-tab="overview"]').getAttribute("aria-selected") === "true");
   await page.locator('[data-project-tab="modules"]').click();
   await page.waitForSelector('[data-module="release"]');
   await page.locator('[data-project-tab="overview"]').click();
