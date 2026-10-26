@@ -64,19 +64,28 @@ async function run() {
   await page.waitForSelector("#view-project-settings:not([hidden])");
   await page.waitForSelector(".cloud-model-card");
   assert.equal(await page.locator('[data-settings-target="project-behavior-section"]').getAttribute("aria-selected"),"true");
+  assert.equal(await page.locator("#appearance-section").isVisible(),false);
+  assert.equal(await page.locator("#cloud-section").isVisible(),false);
+  assert.equal(await page.locator("#clarity-catalog-pane").isVisible(),false);
   await page.locator("#notify-problems").check();
   await page.locator("#notify-changes").check();
   await page.locator('[data-settings-target="catalog-section"]').click();
+  assert.ok(await page.locator("#clarity-catalog-pane").isVisible());
+  assert.equal(await page.locator("#project-behavior-section").isVisible(),false);
   assert.ok(await page.locator(".cloud-model-card").count() >= 7);
   assert.ok(await page.locator(".cloud-model-card:visible").count() <= 6);
   await page.locator("#clarity-model-search").fill("несуществующая-модель");
   assert.equal(await page.locator(".cloud-model-card:visible").count(), 0);
   await page.locator("#clarity-model-search").fill("");
   await page.locator('[data-settings-target="cloud-section"]').click();
+  assert.ok(await page.locator("#cloud-section").isVisible());
+  assert.equal(await page.locator("#clarity-catalog-pane").isVisible(),false);
   assert.ok((await page.locator("#cloud-key-status").textContent()).length>0);
   assert.ok(await page.locator("#cloud-model option").count()>=7);
   assert.equal(await page.locator(".cloud-capabilities").count(), await page.locator(".cloud-model-card").count());
   await page.locator('[data-settings-target="appearance-section"]').click();
+  assert.ok(await page.locator("#appearance-section").isVisible());
+  assert.equal(await page.locator("#cloud-section").isVisible(),false);
   await page.locator('[data-appearance-theme="dark"]').click();
   assert.equal(await page.locator("html").getAttribute("data-theme"),"dark");
   await page.locator('[data-appearance-theme="light"]').click();
@@ -103,6 +112,7 @@ async function run() {
   for (const width of [390,768,1440]) {
     await page.setViewportSize({width,height:900});
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth),false,`Settings overflow at ${width}px`);
+    if(width===390) assert.ok(await page.evaluate(() => document.documentElement.scrollHeight < 3500),"Mobile settings should not be one huge page");
     if(width===390||width===1440)await capture(page,`settings-${width}.png`);
   }
   await page.locator('[data-settings-target="appearance-section"]').click();
@@ -174,6 +184,7 @@ async function run() {
   assert.equal(await page.locator('[data-project-tab]').count(),6);
   await page.locator('[data-project-tab="modules"]').click();
   assert.equal(await page.locator(".project-hero").isVisible(),false);
+  assert.equal(await page.locator(".project-release-teaser").isVisible(),false);
   await page.locator('[data-project-tab="overview"]').click();
   assert.ok(await page.locator(".project-hero").isVisible());
   await page.locator('[data-project-tab="modules"]').click();
@@ -247,6 +258,11 @@ async function run() {
     for (const width of [360, 390, 768, 1024, 1440]) {
       await page.setViewportSize({ width, height: 1080 });
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `Project overflow: ${theme}, ${width}px`);
+      if (width <= 768) {
+        assert.equal(await page.locator(".project-tabs").evaluate(el => getComputedStyle(el).flexWrap),"nowrap");
+        const positions = await page.locator(".project-tabs button").evaluateAll(els => els.map(el => el.getBoundingClientRect().top));
+        assert.ok(positions.every(y => Math.abs(y - positions[0]) < 3),"Project tabs should occupy one row");
+      }
       if (width === 390 || width === 1440) await capture(page, `project-${theme}-${width}.png`);
     }
   }
