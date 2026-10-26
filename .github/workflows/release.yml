@@ -43,7 +43,7 @@ jobs:
             if ! gh release view "$tag" >/dev/null 2>&1; then
               mkdir -p .runtime/release
               git show "$tag:releases/$version.md" > .runtime/release/recovery.md
-              git archive --format=zip --prefix="Reika-$version/" "$tag" > ".runtime/release/Reika-$version.zip"
+              python3 scripts/package_release.py --ref "$tag" --version "$version" --output ".runtime/release/Reika-$version.zip"
               gh release create "$tag" ".runtime/release/Reika-$version.zip" --verify-tag --title "Рэйка Амацухара $version" --notes-file .runtime/release/recovery.md
             fi
           fi
@@ -99,6 +99,10 @@ jobs:
         with:
           ref: ${{ needs.prepare.outputs.sha }}
           fetch-depth: 0
+      - name: Собрать автономный архив Windows
+        env:
+          RELEASE_VERSION: ${{ needs.prepare.outputs.version }}
+        run: python3 scripts/package_release.py --ref HEAD --version "$RELEASE_VERSION" --output ".runtime/release/Reika-$RELEASE_VERSION.zip"
       - name: Сохранить выпуск и тег атомарно
         env:
           SOURCE_SHA: ${{ needs.prepare.outputs.source }}
@@ -117,7 +121,6 @@ jobs:
           mkdir -p .runtime/release
           cp "releases/$RELEASE_VERSION.md" .runtime/release/notes.md
           printf '\nАвтоматические проверки Windows, Linux, Node.js и браузера прошли: %s/%s/actions/runs/%s\n' "$GITHUB_SERVER_URL" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" >> .runtime/release/notes.md
-          git archive --format=zip --prefix="Reika-$RELEASE_VERSION/" HEAD > ".runtime/release/Reika-$RELEASE_VERSION.zip"
           if ! gh release view "v$RELEASE_VERSION" >/dev/null 2>&1; then
             gh release create "v$RELEASE_VERSION" ".runtime/release/Reika-$RELEASE_VERSION.zip" --verify-tag --title "Рэйка Амацухара $RELEASE_VERSION" --notes-file .runtime/release/notes.md
           fi

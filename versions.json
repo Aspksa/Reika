@@ -232,6 +232,7 @@
       "paths": [
         "scripts/project.mjs",
         "scripts/release.mjs",
+        "scripts/package_release.py",
         "scripts/chronicle.py",
         ".changes/",
         "releases/"

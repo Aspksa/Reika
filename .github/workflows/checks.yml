@@ -65,6 +65,16 @@ jobs:
         run: python scripts/chronicle.py validate
       - name: Test HTTP security, lifecycle and Windows launcher
         run: python -X utf8 -B -m unittest discover -s tests -v
+      - name: Проверить автономный ZIP со встроенным Python
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $version = python -c "import json; print(json.load(open('versions.json', encoding='utf-8'))['project'])"
+          $archive = Join-Path $env:RUNNER_TEMP "Reika-$version.zip"
+          python scripts/package_release.py --ref HEAD --version $version --output $archive
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python tests/verify_portable_release.py $archive
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
   browser:
     name: Browser interface
