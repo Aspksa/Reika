@@ -1,8 +1,8 @@
 ﻿# Saved as UTF-8 with BOM for Windows PowerShell 5.1.
 $ErrorActionPreference = 'Stop'
 $ProjectRoot = Split-Path -Parent $PSScriptRoot
-foreach ($Name in @('start.ps1', 'tray.ps1')) {
-    $ScriptFile = Join-Path $ProjectRoot ('scripts\' + $Name)
+foreach ($Name in @('scripts\start.ps1', 'scripts\tray.ps1', 'tests\verify_bootstrap_windows.ps1')) {
+    $ScriptFile = Join-Path $ProjectRoot $Name
     $Tokens = $null
     $ParseErrors = $null
     [Management.Automation.Language.Parser]::ParseFile($ScriptFile, [ref]$Tokens, [ref]$ParseErrors) | Out-Null
