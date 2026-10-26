@@ -69,6 +69,35 @@ function simplifyHome() {
   }
   const heading = $("#view-home .section-heading h2");
   if (heading) heading.textContent = "Состояние системы";
+  const quick = $("#view-home .quiet-card");
+  const note = $("#tray-note");
+  if (quick && note) {
+    quick.replaceChildren();
+    const label = document.createElement("p");
+    label.className = "eyebrow";
+    label.textContent = "БЫСТРЫЙ ДОСТУП";
+    const name = document.createElement("h2");
+    name.textContent = "Открыть нужное";
+    const links = document.createElement("div");
+    links.className = "clarity-quick-links";
+    for (const [title, target, description] of [
+      ["Модули", "#project/modules", "Все части Reika"],
+      ["Карта связей", "#project/links", "Как устроен проект"],
+      ["Обновления", "#project/updates", "Версии и проверка файлов"]
+    ]) {
+      const link = document.createElement("a");
+      link.href = target;
+      link.textContent = title;
+      link.title = description;
+      links.append(link);
+    }
+    const details = document.createElement("details");
+    details.className = "clarity-home-help";
+    const summary = document.createElement("summary");
+    summary.textContent = "Как управлять приложением";
+    details.append(summary, note);
+    quick.append(label, name, links, details);
+  }
 }
 
 function projectSections() {
