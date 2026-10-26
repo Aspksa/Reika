@@ -84,7 +84,7 @@ function Install-EmbeddedPython {
     } finally {
         $Sha256.Dispose()
     }
-    $Mutex = New-Object System.Threading.Mutex($false, ('Local\ReikaPython-' + $RootHash))
+    $Mutex = [System.Threading.Mutex]::new($false, ('Local\ReikaPython-' + $RootHash))
     $HasLock = $false
     try {
         try {
