@@ -206,6 +206,15 @@ class ReikaHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         if not self._allowed_request():
             return
+        if self._route() == "/api/project/monitor/check":
+            if self.headers.get("Origin") != self.server.url:
+                self._json(403, {"error": "Недопустимый источник."})
+                return
+            if self.headers.get("Content-Length") not in (None, "0") or self.headers.get("Transfer-Encoding"):
+                self._json(400, {"error": "Для проверки не требуется тело запроса."})
+                return
+            self._json(200, self.server.project_monitor.status(force=True))
+            return
         if self._route() == "/api/project/ai-review":
             if self.headers.get("Origin") != self.server.url:
                 self._json(403, {"error": "Недопустимый источник."})

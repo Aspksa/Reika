@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import json
 import os
+import tempfile
 import threading
 import time
 from datetime import datetime, timezone
@@ -18,6 +19,8 @@ IGNORED = {".git", ".venv", "node_modules", "__pycache__", ".pytest_cache", "log
 SKIP_NAMES = {".env", ".env.local", ".env.production", "credentials.json", "token.json"}
 LIMIT = 2500
 INTERVAL = 30
+HISTORY_LIMIT = 20
+FINDING_LIMIT = 80
 
 
 def owner_for(path: str, components: dict) -> list[str]:
@@ -86,6 +89,31 @@ def inspect(root: Path, registry: dict = REGISTRY) -> dict:
             "version_problem": version_problem, "limit_reached": ignored > 0}
 
 
+def findings_for(snapshot: dict) -> tuple[dict, bool]:
+    """Stable, bounded findings from facts already collected by the local scan."""
+    records = []
+    for item in snapshot["missing"]:
+        records.append({"id": f"missing:{item['module']}:{item['path']}", "kind": "missing",
+                        "module": item["module"], "title": f"Отсутствует путь: {item['path']}"})
+    for item in snapshot["invalid_links"]:
+        records.append({"id": f"link:{item['source']}:{item['target']}", "kind": "link",
+                        "module": item["source"], "title": f"Ошибочная связь: {item['source']} → {item['target']}"})
+    for path in snapshot["ambiguous"]:
+        records.append({"id": f"ambiguous:{path}", "kind": "ambiguous",
+                        "module": None, "title": f"Неоднозначный владелец: {path}"})
+    for path in snapshot["unowned"]:
+        records.append({"id": f"unowned:{path}", "kind": "unowned",
+                        "module": None, "title": f"Файл без владельца: {path}"})
+    if snapshot["version_problem"]:
+        records.append({"id": "build", "kind": "build", "module": None,
+                        "title": snapshot["version_problem"]})
+    if snapshot["limit_reached"]:
+        records.append({"id": "limit", "kind": "limit", "module": None,
+                        "title": "Проверка ограничена; часть файлов не просмотрена."})
+    records.sort(key=lambda item: item["id"])
+    return {item["id"]: item for item in records[:FINDING_LIMIT]}, len(records) > FINDING_LIMIT
+
+
 class ProjectMonitor:
     def __init__(self, root: Path, interval: int = INTERVAL):
         self.root = root
@@ -95,6 +123,62 @@ class ProjectMonitor:
         self.checked_monotonic = 0
         self.events = []
         self.journal = root / "logs" / "project-monitor.jsonl"
+        self.history_file = root / "logs" / "project-health.json"
+        self.history = self._read_history()
+        previous = self.history[0].get("active_findings", []) if self.history else []
+        self.previous_findings = {item["id"]: item for item in previous}
+        self.finding_changes = {"new": [], "ongoing": [], "resolved": []}
+        self.findings_truncated = False
+
+    def _read_history(self):
+        try:
+            if self.history_file.parent.is_symlink() or self.history_file.is_symlink() or self.history_file.stat().st_size > 1024 * 1024:
+                return []
+            data = json.loads(self.history_file.read_text(encoding="utf-8"))
+            if not isinstance(data, list):
+                return []
+            history = []
+            for item in data[:HISTORY_LIMIT]:
+                if not isinstance(item, dict) or not isinstance(item.get("at"), str):
+                    continue
+                active = item.get("active_findings")
+                if not isinstance(active, list) or len(active) > FINDING_LIMIT:
+                    continue
+                if not all(isinstance(record, dict)
+                           and isinstance(record.get("id"), str) and len(record["id"]) <= 500
+                           and isinstance(record.get("title"), str) and len(record["title"]) <= 500
+                           and isinstance(record.get("kind"), str) and len(record["kind"]) <= 30
+                           and (record.get("module") is None or
+                                isinstance(record["module"], str) and len(record["module"]) <= 100)
+                           for record in active):
+                    continue
+                safe = [{key: record.get(key) for key in ("id", "kind", "module", "title")}
+                        for record in active]
+                history.append({"at": item["at"][:40], "active_findings": safe,
+                                "new": int(item.get("new", 0)), "resolved": int(item.get("resolved", 0))})
+            return history
+        except (OSError, ValueError, TypeError, KeyError):
+            return []
+
+    def _save_history(self):
+        temporary = None
+        try:
+            if self.history_file.parent.is_symlink():
+                return
+            self.history_file.parent.mkdir(exist_ok=True)
+            with tempfile.NamedTemporaryFile("w", encoding="utf-8", delete=False,
+                                             dir=self.history_file.parent, prefix=".project-health-") as file:
+                temporary = Path(file.name)
+                json.dump(self.history, file, ensure_ascii=False)
+            os.replace(temporary, self.history_file)
+        except OSError:
+            pass
+        finally:
+            if temporary:
+                try:
+                    temporary.unlink(missing_ok=True)
+                except OSError:
+                    pass
 
     def status(self, force: bool = False) -> dict:
         with self.lock:
@@ -109,6 +193,19 @@ class ProjectMonitor:
                             changed.append({"path": path, "action": "created" if not a else "deleted" if not b else "modified",
                                             "modules": (b or a)["module"]})
                 now = datetime.now(timezone.utc).isoformat()
+                found, self.findings_truncated = findings_for(current)
+                previous_findings = self.previous_findings
+                self.finding_changes = {
+                    "new": [item for key, item in found.items() if key not in previous_findings],
+                    "ongoing": [item for key, item in found.items() if key in previous_findings],
+                    "resolved": [item for key, item in previous_findings.items() if key not in found],
+                }
+                self.previous_findings = found
+                self.history.insert(0, {"at": now, "active_findings": list(found.values()),
+                                        "new": len(self.finding_changes["new"]),
+                                        "resolved": len(self.finding_changes["resolved"])})
+                self.history = self.history[:HISTORY_LIMIT]
+                self._save_history()
                 self.snapshot = current
                 self.checked_monotonic = time.monotonic()
                 if changed:
@@ -126,6 +223,13 @@ class ProjectMonitor:
             result = {key: value for key, value in self.snapshot.items() if key != "files"}
             result.update({"checked_at": self.last_checked, "file_count": len(self.snapshot["files"]),
                            "events": list(self.events),
+                           "findings": self.finding_changes,
+                           "findings_truncated": self.findings_truncated,
+                           "diagnostic_history": [
+                               {"at": item["at"], "active": len(item["active_findings"]),
+                                "new": item["new"], "resolved": item["resolved"]}
+                               for item in self.history
+                           ],
                            "module_health": {
                                id: "problem" if any(x["module"] == id for x in result["missing"])
                                else "warning" if any(x["source"] == id for x in result["invalid_links"])

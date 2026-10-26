@@ -43,3 +43,26 @@ class ProjectMonitorTests(unittest.TestCase):
             result = monitor.status()
         self.assertEqual(result["events"][0]["changes"][0]["action"], "modified")
         self.assertTrue(monitor.journal.exists())
+
+    def test_findings_track_new_ongoing_resolved_and_survive_restart(self):
+        from unittest.mock import patch
+        base = {"files": {}, "missing": [], "invalid_links": [], "unowned": [],
+                "ambiguous": [], "candidates": [], "version_problem": None, "limit_reached": False}
+        missing = {**base, "missing": [{"module": "core", "path": "src/"}]}
+        link = {**base, "invalid_links": [{"source": "core", "target": "unknown"}]}
+        monitor = ProjectMonitor(self.root, interval=0)
+        with patch("reika.project_monitor.inspect", side_effect=[missing, missing, link]):
+            first = monitor.status()
+            second = monitor.status()
+            third = monitor.status()
+        self.assertEqual(first["findings"]["new"][0]["kind"], "missing")
+        self.assertEqual(second["findings"]["ongoing"][0]["kind"], "missing")
+        self.assertEqual(third["findings"]["resolved"][0]["kind"], "missing")
+        self.assertEqual(third["findings"]["new"][0]["kind"], "link")
+        self.assertEqual(len(third["diagnostic_history"]), 3)
+        self.assertTrue(monitor.history_file.exists())
+        restarted = ProjectMonitor(self.root, interval=0)
+        with patch("reika.project_monitor.inspect", return_value=link):
+            resumed = restarted.status()
+        self.assertFalse(resumed["findings"]["new"])
+        self.assertEqual(resumed["findings"]["ongoing"][0]["kind"], "link")

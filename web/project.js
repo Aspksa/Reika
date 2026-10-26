@@ -362,11 +362,41 @@ function renderReviewHistory(){
  });
 }
 function notifyProject(text){const box=$("#project-notification");box.textContent=text;box.hidden=false;}
+function renderDiagnosticHistory(data){
+ const groups=$("#project-finding-groups");groups.replaceChildren();
+ const findings=data.findings||{new:[],ongoing:[],resolved:[]};
+ for(const [key,label,empty] of [["new","Новые","Новых проблем нет"],["ongoing","Повторяются","Повторяющихся проблем нет"],["resolved","Исправлены","Исправленных проблем пока нет"]]){
+  const card=element("section",undefined,"project-finding-group");card.dataset.state=key;
+  card.append(element("h3",`${label} · ${(findings[key]||[]).length}`));
+  const entries=findings[key]||[];
+  if(!entries.length)card.append(element("p",empty,"muted"));
+  else for(const item of entries.slice(0,6)){
+   const row=element("div",undefined,"project-finding-row");
+   row.append(element("span",item.title));
+   if(item.module&&cached?.modules?.[item.module]){
+    const button=element("button","Открыть модуль ↗");button.type="button";
+    button.onclick=()=>openModuleFromRelease(item.module);row.append(button);
+   }
+   card.append(row);
+  }
+  if(entries.length>6)card.append(element("p",`Показаны первые 6 из ${entries.length}.`,"muted"));
+  groups.append(card);
+ }
+ if(data.findings_truncated)groups.append(element("p","Часть находок не вошла в краткую историю; полная локальная проверка ограничена.","muted"));
+ const timeline=$("#project-diagnostic-history");timeline.replaceChildren();
+ for(const snapshot of (data.diagnostic_history||[]).slice(0,8)){
+  const at=new Date(snapshot.at),item=element("div",undefined,"diagnostic-snapshot");
+  item.append(element("time",Number.isNaN(at.getTime())?snapshot.at:at.toLocaleString("ru-RU")),
+   element("span",`Активных: ${snapshot.active}`),
+   element("span",`Новых: ${snapshot.new}`),
+   element("span",`Исправлено: ${snapshot.resolved}`));timeline.append(item);
+ }
+}
 function applyMonitor(data){
  const previous=projectMonitor;
  projectMonitor=data;
- if(previous){
-  if($("#notify-problems").checked && (data.missing.length>previous.missing.length || data.invalid_links.length>previous.invalid_links.length || data.ambiguous.length>previous.ambiguous.length || (!previous.version_problem && data.version_problem)))notifyProject("Обнаружены новые проблемы проекта. Проверьте показатели ниже.");
+ if(previous && data.checked_at!==previous.checked_at){
+  if($("#notify-problems").checked && data.findings?.new?.length)notifyProject("Обнаружены новые проблемы проекта. Проверьте историю диагностики.");
   else if($("#notify-changes").checked && data.events?.[0]?.at && data.events[0].at!==previous.events?.[0]?.at)notifyProject("Обнаружены изменения файлов или модулей проекта.");
  }
 
@@ -385,6 +415,7 @@ function applyMonitor(data){
  if(data.version_problem)problems.push(data.version_problem);
  if(data.limit_reached)problems.push("Проверка ограничена; часть файлов не просмотрена.");
  $("#project-problems-count").textContent=String(problems.length);
+ renderDiagnosticHistory(data);
  const problemList=$("#project-problems-list");problemList.replaceChildren();
  if(!problems.length)problemList.append(element("p","Локальная проверка не выявила проблем."));
  else for(const message of problems.slice(0,10))problemList.append(element("p",message));
@@ -396,7 +427,10 @@ function applyMonitor(data){
  "Некорректных связей: "+data.invalid_links.length,
  "Неоднозначных владельцев: "+data.ambiguous.length,
  "Кандидатов на регистрацию: "+data.candidates.join(", "),
- "Проблемы сборки: "+(data.version_problem||"нет")];
+ "Проблемы сборки: "+(data.version_problem||"нет"),
+ "Новых находок: "+(data.findings?.new?.length||0),
+ "Повторяются: "+(data.findings?.ongoing?.length||0),
+ "Исправлено: "+(data.findings?.resolved?.length||0)];
  lastReport=lines.join("\n");
  const feed=$("#project-roadmap");
  feed.replaceChildren();
@@ -412,9 +446,10 @@ function applyMonitor(data){
  }
  projectBaseline=Object.keys(cached.modules);
 }
-async function refreshProjectMonitor(){
+async function refreshProjectMonitor(force=false){
  try{
- const response=await fetch("/api/project/monitor",{cache:"no-store"});
+ const response=await fetch(force?"/api/project/monitor/check":"/api/project/monitor",
+   force?{method:"POST",headers:{"Origin":location.origin},credentials:"same-origin"}:{cache:"no-store"});
  if(!response.ok)throw Error("API monitor");
  applyMonitor(await response.json());
  }catch{$("#project-monitor-status").textContent="Мониторинг недоступен; повторите проверку";}
@@ -430,7 +465,7 @@ function scheduleMonitor(){
 }
 function initMonitorControls(){
  $("#project-monitor-interval").value=readProjectPreference("interval");
- $("#project-monitor-now").onclick=async()=>{await loadProject(true);};
+ $("#project-monitor-now").onclick=async()=>{await loadProject(true,true);};
  $("#project-monitor-interval").onchange=event=>saveProjectPreference("interval",event.target.value);
  $("#project-monitor-report").onclick=()=>{if(lastReport)navigator.clipboard?.writeText(lastReport).catch(()=>{});};
  scheduleMonitor();
@@ -451,7 +486,7 @@ window.addEventListener("reika:project-preference",({detail:{key,value}})=>{
  }
 });
 
-export async function loadProject(force=false){
+export async function loadProject(force=false,forceMonitor=false){
  if(cached&&!force)return;
  const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),3500);
  try{
@@ -465,7 +500,7 @@ export async function loadProject(force=false){
    for(const id of ["module-filter","module-search","module-category","module-status"])$("#"+id).oninput=renderModules;
    for(const id of ["history-search","history-kind"])$("#"+id).oninput=renderHistory;
    $("#reset-project-filters").onclick=()=>{for(const id of ["module-search","module-category","module-status","module-filter"])$("#"+id).value="";renderModules();$("#module-search").focus();};
-   renderModules();renderHistory();initProjectControls();initVisualControls();initMonitorControls();await refreshProjectMonitor();renderUpdateConnections();$("#project-health-label").textContent="Реестр доступен";
+   renderModules();renderHistory();initProjectControls();initVisualControls();initMonitorControls();await refreshProjectMonitor(forceMonitor);renderUpdateConnections();$("#project-health-label").textContent="Реестр доступен";
    $("#project-message").textContent=`Зарегистрировано модулей: ${Object.keys(cached.modules).length}. Данные из реестра Reika.`;
  }catch{
    $("#project-health-label").textContent="Нет соединения";$("#project-message").textContent="Не удалось получить сведения о проекте. Проверьте соединение и повторите загрузку.";

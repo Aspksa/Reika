@@ -42,6 +42,19 @@ class ServerTests(unittest.TestCase):
             self.assertEqual(status, 403)
             self.assertEqual(check.call_count, 1)
 
+    def test_manual_project_check_forces_scan_and_requires_same_origin(self):
+        with patch.object(self.server.project_monitor, "status", return_value={"checked_at": "now"}) as scan:
+            status, _, _ = self.request("/api/project/monitor/check", method="POST")
+            self.assertEqual(status, 403)
+            status, _, _ = self.request("/api/project/monitor/check", method="POST",
+                                        headers={"Origin": "https://example.com"})
+            self.assertEqual(status, 403)
+            status, _, body = self.request("/api/project/monitor/check", method="POST",
+                                           headers={"Origin": self.server.url})
+            self.assertEqual(status, 200)
+            self.assertEqual(json.loads(body)["checked_at"], "now")
+            scan.assert_called_once_with(force=True)
+
     def test_only_loopback_is_bound(self):
         self.assertEqual(self.server.server_address[0], "127.0.0.1")
         self.assertGreater(self.server.server_address[1], 0)

@@ -138,9 +138,12 @@ async function run() {
   assert.ok(Number(await page.locator("#project-count-links").textContent()) > 0);
   await page.waitForFunction(() => document.querySelector("#project-monitor-status").textContent.includes("Последняя проверка"));
   assert.ok(Number(await page.locator(".project-monitor-item").count()) >= 5);
+  assert.ok(await page.locator("#project-diagnostic-history .diagnostic-snapshot").count() >= 1);
   await page.locator("#project-monitor-interval").selectOption("0");
+  const forcedCheck = page.waitForResponse(response => response.url().endsWith("/api/project/monitor/check") && response.request().method() === "POST");
   await page.locator("#project-monitor-now").click();
-  await page.waitForFunction(() => document.querySelector("#project-monitor-status").textContent.includes("Последняя проверка"));
+  assert.equal((await forcedCheck).status(), 200);
+  assert.equal(await page.locator("#project-finding-groups .project-finding-group").count(), 3);
   await page.locator("#project-monitor-interval").selectOption("30000");
 
   await page.locator('#project-open-map').click();
