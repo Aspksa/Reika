@@ -163,9 +163,49 @@ function compactSystem() {
   }
 }
 
+function settingsCatalog() {
+  const grid = $("#cloud-model-cards");
+  if (!grid) return;
+  const toolbar = document.createElement("div");
+  toolbar.className = "clarity-catalog-tools";
+  const search = document.createElement("input");
+  search.type = "search";
+  search.id = "clarity-model-search";
+  search.placeholder = "Найти модель по названию или возможностям";
+  search.setAttribute("aria-label", "Поиск моделей Cloud.ru");
+  const count = document.createElement("span");
+  count.setAttribute("role", "status");
+  count.className = "clarity-catalog-count";
+  const expand = document.createElement("button");
+  expand.type = "button";
+  expand.textContent = "Показать все";
+  expand.className = "clarity-catalog-expand";
+  toolbar.append(search, count, expand);
+  grid.before(toolbar);
+  let showAll = false;
+  const filter = () => {
+    const cards = [...grid.querySelectorAll(".cloud-model-card")];
+    const query = search.value.toLocaleLowerCase("ru").trim();
+    let matched = 0;
+    cards.forEach(card => {
+      const matches = card.textContent.toLocaleLowerCase("ru").includes(query);
+      card.hidden = !matches || (!showAll && !query && matched >= 6);
+      if (matches) matched++;
+    });
+    count.textContent = query ? `Найдено: ${matched}` : `Всего моделей: ${cards.length}`;
+    expand.hidden = Boolean(query) || cards.length <= 6;
+    expand.textContent = showAll ? "Показать меньше" : "Показать все";
+  };
+  search.addEventListener("input", filter);
+  expand.addEventListener("click", () => { showAll = !showAll; filter(); });
+  new MutationObserver(filter).observe(grid, {childList:true});
+  filter();
+}
+
 export function initClarity() {
   navLayout();
   simplifyHome();
   projectSections();
   compactSystem();
+  settingsCatalog();
 }
