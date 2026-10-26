@@ -61,6 +61,10 @@ jobs:
         if: runner.os == 'Windows'
         shell: powershell
         run: ./tests/validate_windows.ps1
+      - name: Verify first Windows launch without Python
+        if: runner.os == 'Windows'
+        shell: powershell
+        run: ./tests/verify_bootstrap_windows.ps1
       - name: Validate Project Chronicle events
         run: python scripts/chronicle.py validate
       - name: Test HTTP security, lifecycle and Windows launcher
