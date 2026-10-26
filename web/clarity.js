@@ -103,6 +103,10 @@ function projectSections() {
   intro.className = "clarity-intro";
   intro.innerHTML = '<div><span class="clarity-label">ОБЗОР</span><h2>Проект в одном взгляде</h2><p>Состояние, ключевые показатели и действия. Остальные инструменты — в отдельных разделах выше.</p></div>';
   overview.append(intro);
+  // The large architectural banner and release message belong to the overview,
+  // not above every task. Moving existing DOM keeps all event handlers intact.
+  move(overview, ".project-hero");
+  move(overview, ".project-release-teaser");
   move(overview, "#project-overview");
   move(overview, ".project-command-bar");
   move(overview, ".project-monitor-toolbar");
@@ -202,10 +206,71 @@ function settingsCatalog() {
   filter();
 }
 
+
+function settingsSections() {
+  const nav = $(".settings-jump");
+  const settings = $("#view-project-settings");
+  const catalogTitle = $("#catalog-section");
+  const catalogGrid = $("#cloud-model-cards");
+  if (!nav || !settings || !catalogTitle || !catalogGrid) return;
+
+  const catalogIntro = catalogTitle.nextElementSibling;
+  const catalog = document.createElement("section");
+  catalog.id = "clarity-catalog-pane";
+  catalog.className = "clarity-settings-pane";
+  catalog.setAttribute("aria-label", "Каталог моделей");
+  catalogTitle.before(catalog);
+  catalog.append(catalogTitle);
+  if (catalogIntro?.classList.contains("page-intro")) catalog.append(catalogIntro);
+  catalog.append(catalogGrid);
+
+  const targets = {
+    "project-behavior-section": $("#project-behavior-section"),
+    "appearance-section": $("#appearance-section"),
+    "cloud-section": $("#cloud-section"),
+    "catalog-section": catalog
+  };
+  nav.setAttribute("role", "tablist");
+  nav.setAttribute("aria-label", "Разделы настроек");
+  const buttons = [...nav.querySelectorAll("[data-settings-target]")];
+  const activate = (key, focus = false) => {
+    if (!targets[key]) return;
+    for (const [id, section] of Object.entries(targets)) {
+      const selected = id === key;
+      section.hidden = !selected;
+      section.setAttribute("role", "tabpanel");
+    }
+    for (const button of buttons) {
+      const selected = button.dataset.settingsTarget === key;
+      button.setAttribute("aria-selected", String(selected));
+      button.tabIndex = selected ? 0 : -1;
+    }
+    if (focus) nav.querySelector(`[data-settings-target="${key}"]`)?.focus();
+  };
+  buttons.forEach(button => {
+    button.setAttribute("role", "tab");
+    button.setAttribute("aria-controls", targets[button.dataset.settingsTarget]?.id || "");
+    button.addEventListener("click", () => activate(button.dataset.settingsTarget));
+  });
+  nav.addEventListener("keydown", event => {
+    if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+    const current = buttons.indexOf(document.activeElement);
+    if (current < 0) return;
+    event.preventDefault();
+    const index = event.key === "Home" ? 0 : event.key === "End" ? buttons.length - 1
+      : (current + (event.key === "ArrowRight" ? 1 : -1) + buttons.length) % buttons.length;
+    buttons[index].click();
+    buttons[index].focus();
+    buttons[index].scrollIntoView({block:"nearest",inline:"nearest"});
+  });
+  activate("project-behavior-section");
+}
+
 export function initClarity() {
   navLayout();
   simplifyHome();
   projectSections();
   compactSystem();
+  settingsSections();
   settingsCatalog();
 }
