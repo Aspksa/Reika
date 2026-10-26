@@ -110,11 +110,13 @@ async function run() {
   assert.equal(await page.locator("#project-monitor-interval").inputValue(),"0");
   await page.getByRole("link", { name: "Настройки проекта", exact: true }).click();
   await page.locator("#settings-project-reset").click();
-  assert.equal(await page.locator("#settings-project-tab").inputValue(),"modules");
+  assert.equal(await page.locator("#settings-project-tab").inputValue(),"overview");
   await page.getByRole("link", { name: "Проект", exact: true }).click();
   assert.equal(await page.locator('[data-project-tab="modules"]').getAttribute("aria-selected"),"true");
   await page.waitForSelector('[data-module="release"]');
+  await page.locator('[data-project-tab="overview"]').click();
   assert.ok(await page.locator('.project-quick-links a[href="#project-settings"]').isVisible());
+  await page.locator('[data-project-tab="analysis"]').click();
   assert.equal(await page.locator('[data-nav-version]').count(),5);
   assert.match(await page.locator('[data-nav-version="core"]').textContent(),/^\d+\.\d+\.\d+$/);
   await page.locator('#project-ai-run').click();
@@ -139,6 +141,7 @@ async function run() {
   await page.waitForFunction(() => document.querySelector("#project-monitor-status").textContent.includes("Последняя проверка"));
   assert.ok(Number(await page.locator(".project-monitor-item").count()) >= 5);
   assert.ok(await page.locator("#project-diagnostic-history .diagnostic-snapshot").count() >= 1);
+  await page.locator('[data-project-tab="overview"]').click();
   await page.locator("#project-monitor-interval").selectOption("0");
   const forcedCheck = page.waitForResponse(response => response.url().endsWith("/api/project/monitor/check") && response.request().method() === "POST");
   await page.locator("#project-monitor-now").click();
@@ -150,10 +153,12 @@ async function run() {
   assert.equal(await page.locator('[data-project-tab="links"]').getAttribute('aria-selected'),'true');
   await page.locator('[data-project-tab="modules"]').click();
   assert.equal(await page.locator('.project-command-bar button').count(),3);
+  await page.locator('[data-project-tab="overview"]').click();
   await page.locator('#project-command-problems').click();
   assert.ok(await page.locator('#project-problems').isVisible());
   assert.match(await page.locator('#project-problems-count').textContent(),/^\d+$/);
-  assert.equal(await page.locator('[data-project-tab]').count(),4);
+  assert.equal(await page.locator('[data-project-tab]').count(),6);
+  await page.locator('[data-project-tab="modules"]').click();
   assert.ok(await page.locator(".project-hero").isVisible());
   await page.locator("#project-toggle-filters").click();
   assert.ok(await page.locator("#project-filter-fields").isVisible());
@@ -178,6 +183,7 @@ async function run() {
   assert.equal(await page.locator('#project-architecture').isVisible(),false);
   await page.locator('[data-project-tab="history"]').click();
   assert.ok(await page.locator("#compare-result .project-compare-card").count()===2);
+  await page.locator('[data-project-tab="modules"]').click();
   await page.locator("#project-density").selectOption("compact");
   assert.equal(await page.locator("#view-project").getAttribute("data-density"),"compact");
   await page.locator("#project-audience").selectOption("developer");
@@ -246,7 +252,7 @@ async function run() {
   assert.ok((await page.locator("#project-release-teaser-title").textContent()).includes("99.0.0"));
   assert.ok((await page.locator("#updates-release-summary").textContent()).includes("ещё не добавлен"));
   assert.equal(await page.locator(".updates-hero").getAttribute("data-state"), "new");
-  assert.ok(await page.locator(".updates-hero-art").isVisible());
+  assert.equal(await page.locator(".updates-hero-art").isVisible(), false);
   assert.equal(await page.locator("#update-notes img").count(), 0);
   await page.locator("#update-file").setInputFiles({name: "release.zip", mimeType: "application/zip", buffer: archiveBytes});
   await page.waitForFunction(() => document.querySelector("#verify-result").textContent.startsWith("Проверка пройдена"));
