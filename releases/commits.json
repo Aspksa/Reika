@@ -1034,6 +1034,41 @@
       "task_ids": [],
       "attribution": "unlinked",
       "files": []
+    },
+    {
+      "sha": "c309e83a9ba8a3283360f18f00455fa0a7ee518a",
+      "release": "0.22.0",
+      "task_ids": [
+        "TASK-20261031"
+      ],
+      "attribution": "commit-trailer",
+      "files": [
+        ".changes/project-diagnostic-history.json",
+        ".chronicle/events.jsonl",
+        "README.md",
+        "reika/project_monitor.py",
+        "reika/server.py",
+        "tests/browser_smoke.cjs",
+        "tests/test_project_monitor.py",
+        "tests/test_server.py",
+        "versions.lock.json",
+        "web/dist/assets/index-5W67AXvk.js",
+        "web/dist/assets/index-Dsd5YQP2.css",
+        "web/dist/assets/index-Dw6M9rMs.js",
+        "web/dist/assets/index-Ijsan1UI.css",
+        "web/dist/build.json",
+        "web/dist/index.html",
+        "web/index.html",
+        "web/project.js",
+        "web/styles/project.css"
+      ]
+    },
+    {
+      "sha": "db93abe5027e600e8e08f99ae483ace37448256e",
+      "release": "0.22.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": []
     }
   ]
 }
