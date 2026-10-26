@@ -10,7 +10,7 @@ $PreviousDisable = $env:REIKA_NO_PYTHON_DOWNLOAD
 try {
     [IO.Directory]::CreateDirectory($TempRoot) | Out-Null
     [IO.Directory]::CreateDirectory($TargetRoot) | Out-Null
-    & git -C $ProjectRoot archive --format=zip ('-o=' + $SourceArchive) HEAD
+    & git -C $ProjectRoot archive --format=zip --output=$SourceArchive HEAD
     if ($LASTEXITCODE -ne 0) { throw 'Не удалось создать архив исходников для проверки.' }
     Expand-Archive -LiteralPath $SourceArchive -DestinationPath $TargetRoot -Force
     $env:REIKA_PYTHON_FORCE_BOOTSTRAP = '1'
