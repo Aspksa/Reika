@@ -189,12 +189,14 @@ try {
             $Candidates += [PSCustomObject]@{ Executable = $LocalPython; Prefix = @() }
         }
     }
-    foreach ($CommandName in @('py.exe', 'python.exe', 'python3.exe')) {
-        $Command = Get-Command $CommandName -CommandType Application -ErrorAction SilentlyContinue | Select-Object -First 1
-        if ($null -ne $Command) {
-            $PythonPrefix = @()
-            if ($CommandName -eq 'py.exe') { $PythonPrefix = @('-3') }
-            $Candidates += [PSCustomObject]@{ Executable = $Command.Source; Prefix = $PythonPrefix }
+    if ($env:REIKA_PYTHON_FORCE_BOOTSTRAP -ne '1') {
+        foreach ($CommandName in @('py.exe', 'python.exe', 'python3.exe')) {
+            $Command = Get-Command $CommandName -CommandType Application -ErrorAction SilentlyContinue | Select-Object -First 1
+            if ($null -ne $Command) {
+                $PythonPrefix = @()
+                if ($CommandName -eq 'py.exe') { $PythonPrefix = @('-3') }
+                $Candidates += [PSCustomObject]@{ Executable = $Command.Source; Prefix = $PythonPrefix }
+            }
         }
     }
     $SelectedPython = $null
