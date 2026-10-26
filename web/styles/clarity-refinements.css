@@ -1,0 +1,216 @@
+/* Clarity round 2: task-first layout after checking real browser screenshots. */
+#view-project > .page-heading {
+  margin-bottom:14px;
+}
+#view-project > .project-view-controls {
+  margin-bottom:19px;
+}
+/* Architectural decoration and release banner are now inside Overview only. */
+#view-project [data-project-panel="overview"] > .project-hero {
+  margin:0 0 12px;
+}
+#view-project [data-project-panel="overview"] > .project-release-teaser {
+  margin:0 0 18px;
+}
+#view-project .project-section > .section-heading {
+  margin-top:0;
+}
+#view-project .project-section > .section-heading h2 {
+  font-weight:720;
+  font-size:21px;
+}
+#view-project .project-section > .section-heading .muted {
+  font-size:12px;
+}
+#view-project .module-card {
+  border-radius:13px;
+  box-shadow:none;
+}
+#view-project .module-card > p {
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.6;
+}
+/* Default list is deliberately concise; full history and file relations
+   remain available through the module inspector and developer view. */
+#view-project[data-layout="list"][data-density="compact"][data-audience="user"] .module-card {
+  padding:16px 18px;
+}
+#view-project[data-layout="list"][data-density="compact"][data-audience="user"] .module-card > p {
+  display:-webkit-box;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:2;
+  overflow:hidden;
+  margin-bottom:8px;
+}
+#view-project[data-layout="list"][data-density="compact"][data-audience="user"] .module-counts,
+#view-project[data-layout="list"][data-density="compact"][data-audience="user"] .module-card > .project-module-update {
+  display:none;
+}
+#view-project[data-layout="list"][data-density="compact"][data-audience="user"] .module-details {
+  margin:6px 0;
+}
+#view-project .module-grid {
+  gap:10px;
+}
+#view-project .module-meta,
+#view-project .module-status,
+#view-project .module-category-label {
+  font-size:11px;
+}
+#view-project .project-open-module {
+  min-height:35px;
+  padding:8px 0 0;
+  font-size:12px;
+}
+#view-project .project-module-options {
+  margin:0 0 10px;
+}
+/* Actual settings content replaces the long vertical directory. */
+#view-project-settings > .project-settings-intro {
+  margin:0 0 14px;
+  padding:14px 18px;
+  gap:13px;
+}
+#view-project-settings > .project-settings-intro > span {
+  flex:0 0 38px;
+  height:38px;
+  font-size:20px;
+}
+#view-project-settings > .project-settings-intro strong {
+  font-size:15px;
+}
+#view-project-settings > .project-settings-intro p {
+  font-size:12px;
+  line-height:1.45;
+}
+#view-project-settings .settings-jump {
+  margin:0 0 18px;
+  padding:7px;
+  gap:6px;
+  align-items:center;
+}
+#view-project-settings .settings-jump button {
+  flex:1 1 auto;
+  border-color:transparent;
+  min-height:43px;
+  font-size:12px;
+}
+#view-project-settings .settings-jump button[aria-selected="true"] {
+  background:var(--accent-soft);
+  color:var(--accent);
+  border-color:color-mix(in srgb,var(--accent) 35%,var(--border));
+  font-weight:700;
+}
+#view-project-settings .appearance-panel,
+#view-project-settings .cloud-panel {
+  margin-bottom:18px;
+}
+#clarity-catalog-pane .cloud-model-grid {
+  margin-top:10px;
+}
+#clarity-catalog-pane .section-heading {
+  margin:7px 0 18px;
+}
+#clarity-catalog-pane .section-heading h2 {
+  font-size:23px;
+}
+/* A consistent focus target on content changes, including keyboard users. */
+#view-project [data-project-panel] {
+  scroll-margin-top:90px;
+}
+@media(max-width:780px) {
+  #view-project .project-view-controls {
+    position:sticky;
+    top:0;
+    z-index:6;
+    padding:5px 8px;
+    border-radius:0 0 12px 12px;
+  }
+  #view-project .project-tabs {
+    display:flex;
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    overflow-y:hidden;
+    gap:4px;
+    scroll-snap-type:x proximity;
+    scrollbar-width:thin;
+    overscroll-behavior-x:contain;
+    -webkit-overflow-scrolling:touch;
+  }
+  #view-project .project-tabs button {
+    flex:0 0 auto;
+    min-width:98px;
+    min-height:43px;
+    font-size:12px;
+    font-weight:630;
+    padding:9px 11px;
+    scroll-snap-align:center;
+  }
+  #view-project .project-section > .section-heading {
+    margin:3px 0 12px;
+  }
+  #view-project .project-section > .section-heading h2 { font-size:19px }
+  #view-project-settings .settings-jump {
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    scrollbar-width:thin;
+    -webkit-overflow-scrolling:touch;
+  }
+  #view-project-settings .settings-jump button {
+    flex:0 0 auto;
+    min-width:120px;
+  }
+}
+@media(max-width:600px) {
+  #view-project > .page-heading { margin-bottom:12px }
+  #view-project .project-content-pane,
+  #view-project .project-section {
+    min-width:0;
+  }
+  #view-project .module-grid {
+    gap:9px;
+  }
+  #view-project[data-layout="list"][data-density="compact"] .module-card {
+    padding:13px 15px;
+  }
+  #view-project .module-heading h3 {
+    font-size:15px;
+  }
+  #view-project .module-status { font-size:11px }
+  #view-project .module-meta { gap:7px }
+  #view-project .project-module-options {
+    gap:8px;
+  }
+  #view-project-settings > .project-settings-intro {
+    flex-wrap:nowrap;
+    padding:14px 16px;
+  }
+  #view-project-settings > .project-settings-intro > span {
+    display:none;
+  }
+  #view-project-settings > .project-settings-intro strong { font-size:14px }
+  #view-project-settings > .project-settings-intro p { margin-top:3px }
+  #view-project-settings > .project-settings-intro a {
+    display:none;
+  }
+  #view-project-settings .settings-section-heading {
+    padding-bottom:16px;
+  }
+  #view-project-settings .appearance-panel,
+  #view-project-settings .cloud-panel {
+    padding:17px;
+  }
+  #view-project-settings .appearance-row {
+    padding:13px 0;
+  }
+  #view-project-settings .appearance-row h3 { font-size:13px }
+  #view-project-settings .appearance-row p { font-size:12px }
+  #view-project-settings .settings-jump {
+    top:0;
+    margin-bottom:14px;
+  }
+}
+@media(prefers-reduced-motion:reduce) {
+  #view-project .project-tabs { scroll-behavior:auto }
+}
