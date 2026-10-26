@@ -272,9 +272,11 @@ async function run() {
   await page.locator("#updates-release-summary .project-release-modules button").first().click();
   assert.equal(await page.locator('[data-project-tab="modules"]').getAttribute("aria-selected"), "true");
   assert.ok(await page.locator("#project-inspector").isVisible());
+  const latestModuleVersion = (await page.locator("#project-inspector .project-module-update").textContent()).match(/Reika (\d+\.\d+\.\d+)/)?.[1];
+  assert.ok(latestModuleVersion);
   await page.locator("#project-inspector .project-module-update").click();
   assert.equal(await page.locator('[data-project-tab="history"]').getAttribute("aria-selected"), "true");
-  assert.ok(await page.locator('[data-release-version="0.17.0"]').isVisible());
+  assert.ok(await page.locator(`[data-release-version="${latestModuleVersion}"][open]`).isVisible());
   await page.locator('[data-project-tab="updates"]').click();
   await page.route("**/api/updates", (route) => route.fulfill({ json: {
     current: "0.17.0", checked_at: new Date().toISOString(), error: "GitHub временно недоступен.", release: null

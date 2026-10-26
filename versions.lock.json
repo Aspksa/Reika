@@ -122,11 +122,17 @@
       "hashMode": "utf8-lf",
       "sha256": "d360b901ee0eb2b0bfde76341968137c8f1aa61343e8d9956a5c4e29afb3af6e"
     },
+    ".changes/release-history-browser-check.json": {
+      "component": "release",
+      "version": "0.3.0",
+      "hashMode": "utf8-lf",
+      "sha256": "3e26b204f780a8a76c202748915ce982d05d00cc4b65a49515c6f7b5f0f20aee"
+    },
     ".chronicle/events.jsonl": {
       "component": "config",
       "version": "0.5.5",
       "hashMode": "bytes",
-      "sha256": "f97bbfeab5f8e2013978d74d8d53df80542413f8840d49ff359228b3348dd637"
+      "sha256": "234e40814417592160056122238f1cbfbfb606204a12f7104dc98b31666a1839"
     },
     ".gitattributes": {
       "component": "config",
@@ -426,7 +432,7 @@
       "component": "checks",
       "version": "0.6.0",
       "hashMode": "utf8-lf",
-      "sha256": "b4ebb1fd877c876d8cbbdccfeb7fd3dd0d6d4866be13961edb431eebf1d75bab"
+      "sha256": "6737d8191a5c00f6ac69824d575e72dcb286d58215f32d9ff9ec79950772d873"
     },
     "tests/release-integration.test.mjs": {
       "component": "checks",
