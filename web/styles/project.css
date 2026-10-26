@@ -171,6 +171,18 @@
 @media(max-width:720px){.cloud-model-grid{grid-template-columns:1fr}.cloud-panel{padding:16px}}
 
 /* Настройки проекта */
+.project-settings-intro{display:flex;align-items:center;gap:18px;padding:24px 28px;margin:0 0 20px;border:1px solid color-mix(in srgb,var(--accent) 22%,var(--border));border-radius:var(--ui-radius,18px);background:linear-gradient(115deg,var(--hero),var(--surface-soft));}
+.project-settings-intro>span{display:grid;place-items:center;flex:0 0 54px;height:54px;border-radius:16px;background:var(--surface);color:var(--accent);font-size:29px;box-shadow:var(--shadow)}
+.project-settings-intro strong{font-size:19px;letter-spacing:-.3px}.project-settings-intro p{margin-top:5px;color:var(--muted);font-size:12px;line-height:1.7;max-width:560px}
+.project-settings-intro a{margin-left:auto;flex:none;padding:10px 14px;border:1px solid var(--border);border-radius:9px;background:var(--surface);color:var(--accent);font-size:11px;font-weight:600}
+.project-behavior-panel select{min-width:190px;max-width:100%;min-height:42px;padding:9px 12px;border:1px solid var(--border);border-radius:var(--ui-radius,9px);background:var(--surface-soft);color:var(--ink);font:inherit;font-size:12px}
+.project-behavior-panel select:focus-visible,.project-settings-footer button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.project-settings-notifications{padding:20px 0;border-top:1px solid var(--border)}
+.project-settings-notifications h3{font-size:14px;margin:0 0 5px}.project-settings-notifications>p{color:var(--muted);font-size:12px;margin-bottom:12px}
+.project-settings-notifications .notify-choice{max-width:610px}
+.project-settings-footer{display:flex;align-items:center;flex-wrap:wrap;gap:14px;padding-top:18px;border-top:1px solid var(--border)}
+.project-settings-footer button{padding:10px 14px;border:1px solid var(--border);border-radius:var(--ui-radius,9px);background:var(--surface-soft);color:var(--accent);font:inherit;font-size:12px;cursor:pointer}
+.project-settings-footer button:hover{border-color:var(--accent)}.project-settings-footer p{color:var(--muted);font-size:11px}
 .settings-jump{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px}
 .settings-jump button{border:1px solid var(--border);background:var(--surface);color:var(--ink);padding:10px 16px;border-radius:var(--ui-radius,10px);font:inherit;font-size:12px;cursor:pointer}
 .settings-jump button:hover{color:var(--accent);border-color:var(--accent)}
@@ -198,6 +210,7 @@
 .cloud-model-card:before{content:"";position:absolute;top:0;left:20px;right:20px;height:2px;background:var(--accent);opacity:.5}
 .cloud-model-card .cloud-capabilities{padding-left:18px;margin:0;color:var(--muted);font-size:12px;line-height:1.7}
 @media(max-width:750px){.appearance-panel{padding:18px}.appearance-row{align-items:start;flex-direction:column}.appearance-options{justify-content:start}.appearance-hint{text-align:left}.settings-section-heading{align-items:start}.cloud-panel{margin-top:0}}
+@media(max-width:750px){.project-settings-intro{align-items:flex-start;flex-wrap:wrap;padding:20px}.project-settings-intro a{margin-left:72px}.project-behavior-panel select{width:100%}}
 .project-quick-links{margin:16px 0}.project-quick-links a{display:flex;justify-content:space-between;gap:10px;padding:15px 18px;background:var(--surface);color:var(--accent);border:1px solid var(--border);border-radius:var(--ui-radius,12px);font-weight:600}.project-quick-links span{color:var(--muted);font-size:12px;font-weight:400}
 .project-ai-panel{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:16px;padding:22px;background:var(--surface);border:1px solid var(--border);border-radius:var(--ui-radius,14px);margin:16px 0 22px}.project-ai-panel h2{font-size:19px;margin:0 0 8px}.project-ai-panel p{font-size:12px;line-height:1.7;color:var(--muted)}.project-ai-panel button{border:0;border-radius:var(--ui-radius,9px);background:var(--accent);color:var(--surface);padding:12px 16px;font:inherit;font-size:12px;font-weight:600}.project-ai-panel #project-ai-result{grid-column:1/-1}.project-ai-panel #project-ai-result:empty{display:none}.project-ai-answer{white-space:pre-wrap;color:var(--ink)!important}
 @media(max-width:750px){.project-ai-panel{grid-template-columns:1fr}.project-quick-links a{flex-direction:column}}

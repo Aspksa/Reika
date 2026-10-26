@@ -1,12 +1,13 @@
+import { readProjectPreference, saveProjectPreference } from "./project_preferences.js";
 const $ = selector => document.querySelector(selector);
 const types = {runtime: "Получает данные или запускает", build: "Использует при сборке", design: "Использует оформление", verification: "Проверяет", documentation: "Описывает"};
 const statuses = {active: "Действующий", experimental: "Разрабатывается", deprecated: "Устаревает"};
 const groups = {core:"Ядро",frontend:"Интерфейс",styles:"Интерфейс",launcher:"Запуск",tray:"Запуск",build:"Разработка",checks:"Разработка",docs:"Документация",config:"Разработка",release:"Обновления"};
 let cached;
 let projectTab = "modules";
-let projectDensity = "comfortable";
-let projectAudience = "user";
-let projectLayout = "grid";
+let projectDensity = readProjectPreference("density");
+let projectAudience = readProjectPreference("audience");
+let projectLayout = readProjectPreference("layout");
 let projectMonitor = null;
 let monitorTimer = null;
 let projectBaseline = null;
@@ -236,8 +237,10 @@ function compareVersions(){
 function initProjectControls(){
  document.querySelectorAll("[data-project-tab]").forEach(button=>button.onclick=()=>showProjectTab(button.dataset.projectTab));
  $("#project-open-updates").onclick=()=>{showProjectTab("updates");$("#project-release").scrollIntoView({behavior:"smooth",block:"start"});};
- $("#project-density").onchange=event=>{projectDensity=event.target.value;$("#view-project").dataset.density=projectDensity;};
- $("#project-audience").onchange=event=>{projectAudience=event.target.value;$("#view-project").dataset.audience=projectAudience;renderModules();renderHistory();renderLinks();compareVersions();};
+ $("#project-density").value=projectDensity;
+ $("#project-audience").value=projectAudience;
+ $("#project-density").onchange=event=>saveProjectPreference("density",event.target.value);
+ $("#project-audience").onchange=event=>saveProjectPreference("audience",event.target.value);
  const selector=$("#project-link-filter"),previous=selector.value;selector.replaceChildren(element("option","Все модули"));selector.firstChild.value="";
  for(const [id,item] of Object.entries(cached.modules)){const option=element("option",item.name);option.value=id;selector.append(option);}
  selector.value=cached.modules[previous]?previous:"";selector.onchange=renderLinks;
@@ -317,11 +320,12 @@ function renderChronicle(){
  if(!roadmap.children.length)roadmap.textContent="Зарегистрированных ожидающих изменений нет.";
 }
 function initVisualControls(){
+ $("#view-project").dataset.layout=projectLayout;
+ document.querySelectorAll("[data-project-layout]").forEach(button=>button.setAttribute("aria-pressed",String(button.dataset.projectLayout===projectLayout)));
  const filters=$("#project-filter-fields"),toggle=$("#project-toggle-filters");
  toggle.onclick=()=>{filters.hidden=!filters.hidden;toggle.setAttribute("aria-expanded",String(!filters.hidden));};
  for(const btn of document.querySelectorAll("[data-project-layout]"))btn.onclick=()=>{
- projectLayout=btn.dataset.projectLayout;$("#view-project").dataset.layout=projectLayout;
- document.querySelectorAll("[data-project-layout]").forEach(b=>b.setAttribute("aria-pressed",String(b===btn)));
+ saveProjectPreference("layout",btn.dataset.projectLayout);
  };
  $("#project-link-filter").onchange=()=>{renderLinks();renderMap();};
  $("#project-map-zoom-in").onclick=()=>{mapZoom=Math.min(2.5,mapZoom+.2);applyMapTransform();};
@@ -425,11 +429,27 @@ function scheduleMonitor(){
  },ms);
 }
 function initMonitorControls(){
+ $("#project-monitor-interval").value=readProjectPreference("interval");
  $("#project-monitor-now").onclick=async()=>{await loadProject(true);};
- $("#project-monitor-interval").onchange=scheduleMonitor;
+ $("#project-monitor-interval").onchange=event=>saveProjectPreference("interval",event.target.value);
  $("#project-monitor-report").onclick=()=>{if(lastReport)navigator.clipboard?.writeText(lastReport).catch(()=>{});};
  scheduleMonitor();
 }
+window.addEventListener("reika:project-preference",({detail:{key,value}})=>{
+ const settings=$("#settings-project-"+key);
+ if(settings)settings.value=value;
+ if(key==="density"){
+  projectDensity=value;$("#project-density").value=value;$("#view-project").dataset.density=value;
+ }else if(key==="audience"){
+  projectAudience=value;$("#project-audience").value=value;$("#view-project").dataset.audience=value;
+  if(cached){renderModules();renderHistory();renderLinks();compareVersions();}
+ }else if(key==="layout"){
+  projectLayout=value;$("#view-project").dataset.layout=value;
+  document.querySelectorAll("[data-project-layout]").forEach(button=>button.setAttribute("aria-pressed",String(button.dataset.projectLayout===value)));
+ }else if(key==="interval"){
+  $("#project-monitor-interval").value=value;scheduleMonitor();
+ }
+});
 
 export async function loadProject(force=false){
  if(cached&&!force)return;

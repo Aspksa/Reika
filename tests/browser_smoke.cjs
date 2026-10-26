@@ -75,9 +75,17 @@ async function run() {
   await page.locator('[data-appearance-accent="jade"]').click();
   await page.locator('[data-appearance-rounding="round"]').click();
   await page.locator('[data-appearance-scale="large"]').click();
+  await page.locator("#settings-project-tab").selectOption("history");
+  await page.locator("#settings-project-layout").selectOption("list");
+  await page.locator("#settings-project-density").selectOption("compact");
+  await page.locator("#settings-project-audience").selectOption("developer");
+  await page.locator("#settings-project-interval").selectOption("0");
   assert.equal(await page.locator("html").getAttribute("data-accent"),"jade");
   assert.equal(await page.locator("html").getAttribute("data-rounding"),"round");
   assert.equal(await page.locator("html").getAttribute("data-scale"),"large");
+  for (const [key,value] of [["tab","history"],["layout","list"],["density","compact"],["audience","developer"],["interval","0"]]) {
+    assert.equal(await page.locator("#settings-project-"+key).inputValue(),value);
+  }
   await page.reload();
   await page.waitForSelector(".cloud-model-card");
   assert.equal(await page.locator("html").getAttribute("data-accent"),"jade");
@@ -93,6 +101,18 @@ async function run() {
   await page.locator('[data-appearance-accent="sakura"]').click();
   await capture(page, "cloud-settings.png");
   await page.getByRole("link", { name: "Проект", exact: true }).click();
+  await page.waitForFunction(() => document.querySelector('[data-project-tab="history"]').getAttribute("aria-selected") === "true");
+  assert.equal(await page.locator('[data-project-tab="history"]').getAttribute("aria-selected"),"true");
+  await page.locator('[data-project-tab="modules"]').click();
+  assert.equal(await page.locator("#view-project").getAttribute("data-layout"),"list");
+  assert.equal(await page.locator("#view-project").getAttribute("data-density"),"compact");
+  assert.equal(await page.locator("#view-project").getAttribute("data-audience"),"developer");
+  assert.equal(await page.locator("#project-monitor-interval").inputValue(),"0");
+  await page.getByRole("link", { name: "Настройки проекта", exact: true }).click();
+  await page.locator("#settings-project-reset").click();
+  assert.equal(await page.locator("#settings-project-tab").inputValue(),"modules");
+  await page.getByRole("link", { name: "Проект", exact: true }).click();
+  assert.equal(await page.locator('[data-project-tab="modules"]').getAttribute("aria-selected"),"true");
   await page.waitForSelector('[data-module="release"]');
   assert.ok(await page.locator('.project-quick-links a[href="#project-settings"]').isVisible());
   assert.equal(await page.locator('[data-nav-version]').count(),5);

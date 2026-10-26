@@ -2,6 +2,7 @@ import { loadUpdates, verifyArchive } from "./updates.js";
 import { loadProject, showProjectTab, setReleaseData } from "./project.js";
 import { loadCloudSettings } from "./cloud_settings.js";
 import { initAppearance, syncTheme } from "./appearance.js";
+import { initProjectPreferenceSettings, readProjectPreference } from "./project_preferences.js";
 "use strict";
 
 (() => {
@@ -34,7 +35,7 @@ import { initAppearance, syncTheme } from "./appearance.js";
     $("#view-title").textContent = viewNames[name];
     document.title = `${viewNames[name]} · Reika`;
     if (name === "project") {
-      if (requested === "updates") showProjectTab("updates");
+      showProjectTab(requested === "updates" ? "updates" : readProjectPreference("tab"));
       loadProject();
       loadUpdates().then(setReleaseData);
     }
@@ -155,6 +156,7 @@ import { initAppearance, syncTheme } from "./appearance.js";
   } catch { /* Storage can be disabled in the browser. */ }
   setTheme(initialTheme);
   initAppearance();
+  initProjectPreferenceSettings();
   $("#today").textContent = new Intl.DateTimeFormat("ru-RU", {day: "numeric", month: "long", weekday: "short"}).format(new Date());
   route();
   refresh();

@@ -37,7 +37,8 @@
         "web/reika.svg",
         "web/project.js",
         "web/cloud_settings.js",
-        "web/appearance.js"
+        "web/appearance.js",
+        "web/project_preferences.js"
       ],
       "description": "Показывает страницы Reika, состояние приложения и действия пользователя.",
       "status": "active",
