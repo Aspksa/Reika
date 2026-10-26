@@ -594,7 +594,7 @@
       "component": "frontend",
       "version": "0.19.0",
       "hashMode": "utf8-lf",
-      "sha256": "52fc77cfd4fdad4eb2466bda8f277444e0f54c47292b25f470b29596076df006"
+      "sha256": "7f7b61efea7a8372da373fbc1629ea9b01db5cb1e5294d2e512536bd1bef436e"
     },
     "web/cloud_settings.js": {
       "component": "frontend",
@@ -602,11 +602,11 @@
       "hashMode": "utf8-lf",
       "sha256": "ced90e10cc89efa82afbb09846a4544dff0ba97a0485fdfdf9166a54d6cd6d1c"
     },
-    "web/dist/assets/index-CwtXIENZ.js": {
+    "web/dist/assets/index-BrYx8GeW.js": {
       "component": "build",
       "version": "0.3.19",
       "hashMode": "utf8-lf",
-      "sha256": "00d9fbf35e644d60a6d5753f095ce121fc2980ff4e305607c56d2ef0676bbb33"
+      "sha256": "85d185b612f08e3042baba7b82f52f0036be9330cf046bd0a64e810cba82b661"
     },
     "web/dist/assets/index-FfBMr4_0.css": {
       "component": "build",
@@ -624,13 +624,13 @@
       "component": "build",
       "version": "0.3.19",
       "hashMode": "utf8-lf",
-      "sha256": "5826b4d50eaaeef584acea751f643da8666e9f7f1d81746c8e27b6cccaf5da29"
+      "sha256": "11f92c5baa7071c86e1f945af8b7c4bbe24f91d6a9bd61386f34ff2aac070347"
     },
     "web/dist/index.html": {
       "component": "build",
       "version": "0.3.19",
       "hashMode": "utf8-lf",
-      "sha256": "6e9d107582213dfb7c893eedf16b1867ee1345fa478af6da8a36e3c3f776e4f4"
+      "sha256": "8baa14b86d917f9177375802e02b775373f07dfdcf2047c2a1e95d1415557fae"
     },
     "web/index.html": {
       "component": "frontend",
