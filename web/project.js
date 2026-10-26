@@ -4,7 +4,7 @@ const types = {runtime: "Получает данные или запускает
 const statuses = {active: "Действующий", experimental: "Разрабатывается", deprecated: "Устаревает"};
 const groups = {core:"Ядро",frontend:"Интерфейс",styles:"Интерфейс",launcher:"Запуск",tray:"Запуск",build:"Разработка",checks:"Разработка",docs:"Документация",config:"Разработка",release:"Обновления"};
 let cached;
-let projectTab = "modules";
+let projectTab = "overview";
 let projectDensity = readProjectPreference("density");
 let projectAudience = readProjectPreference("audience");
 let projectLayout = readProjectPreference("layout");
@@ -533,7 +533,7 @@ for(const [id,key] of [["notify-problems","problems"],["notify-changes","changes
 renderReviewHistory();
 
 $("#project-command-check").onclick=()=>{$("#project-monitor-now").click();$("#project-problems").scrollIntoView({behavior:"smooth",block:"start"});};
-$("#project-command-ai").onclick=()=>{$("#project-ai-run").click();$("#project-ai-title").scrollIntoView({behavior:"smooth",block:"start"});};
+$("#project-command-ai").onclick=()=>{showProjectTab("analysis");$("#project-ai-run").click();$("#project-ai-title").scrollIntoView({behavior:"smooth",block:"start"});};
 $("#project-command-problems").onclick=()=>{$("#project-problems").scrollIntoView({behavior:"smooth",block:"start"});};
 
 $("#project-open-map").onclick=()=>{showProjectTab("links");$("#project-map-viewport").scrollIntoView({behavior:"smooth",block:"center"});};
