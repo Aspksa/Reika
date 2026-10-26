@@ -112,7 +112,11 @@ async function run() {
   for (const width of [390,768,1440]) {
     await page.setViewportSize({width,height:900});
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth),false,`Settings overflow at ${width}px`);
-    if(width===390) assert.ok(await page.evaluate(() => document.documentElement.scrollHeight < 3500),"Mobile settings should not be one huge page");
+    if(width===390) {
+      assert.ok(await page.evaluate(() => document.documentElement.scrollHeight < 3500),"Mobile settings should not be one huge page");
+      assert.equal(await page.locator(".settings-jump [data-settings-target]:visible").count(),4);
+      assert.equal(await page.locator(".settings-jump").evaluate(el => getComputedStyle(el).gridTemplateColumns.split(" ").length),2);
+    }
     if(width===390||width===1440)await capture(page,`settings-${width}.png`);
   }
   await page.locator('[data-settings-target="appearance-section"]').click();
@@ -328,6 +332,12 @@ async function run() {
   await page.goto(url + "/#updates");
   await page.waitForSelector("#view-project:not([hidden])");
   assert.equal(await page.locator('[data-project-tab="updates"]').getAttribute("aria-selected"), "true");
+  await page.getByRole("link", { name: "Главная", exact: true }).click();
+  await page.locator('.clarity-quick-links a[href="#project/modules"]').click();
+  await page.waitForFunction(() => document.querySelector('[data-project-tab="modules"]').getAttribute("aria-selected") === "true");
+  assert.ok(page.url().endsWith("#project/modules"));
+  await page.reload();
+  await page.waitForFunction(() => document.querySelector('[data-project-tab="modules"]').getAttribute("aria-selected") === "true");
   await page.getByRole("link", { name: "Главная", exact: true }).click();
   await page.setViewportSize({ width: 390, height: 844 });
   await page.waitForFunction(() => getComputedStyle(document.querySelector(".navigation")).flexDirection === "row");
