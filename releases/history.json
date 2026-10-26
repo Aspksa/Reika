@@ -2,6 +2,145 @@
   "schema": 1,
   "releases": [
     {
+      "version": "0.20.0",
+      "previous": "0.19.0",
+      "source": "5a6309c8276dc53e42ec43871b8d7c5fac7581c8",
+      "created_at": "2026-10-26T02:43:25.910Z",
+      "components": [
+        {
+          "id": "frontend",
+          "name": "Интерфейс",
+          "from": "0.16.0",
+          "version": "0.17.0",
+          "reason": "Описано в записи об изменении",
+          "level": "minor"
+        },
+        {
+          "id": "styles",
+          "name": "Стили и темы",
+          "from": "0.8.1",
+          "version": "0.8.2",
+          "reason": "Описано в записи об изменении",
+          "level": "patch"
+        },
+        {
+          "id": "checks",
+          "name": "Проверки",
+          "from": "0.5.3",
+          "version": "0.5.4",
+          "reason": "Описано в записи об изменении",
+          "level": "patch"
+        },
+        {
+          "id": "docs",
+          "name": "Документация",
+          "from": "0.5.1",
+          "version": "0.5.2",
+          "reason": "Описано в записи об изменении",
+          "level": "patch"
+        },
+        {
+          "id": "config",
+          "name": "Конфигурация",
+          "from": "0.5.3",
+          "version": "0.5.4",
+          "reason": "Описано в записи об изменении",
+          "level": "patch"
+        },
+        {
+          "id": "build",
+          "name": "Сборка Node.js",
+          "from": "0.3.15",
+          "version": "0.3.16",
+          "reason": "Описано в записи об изменении",
+          "level": "patch"
+        }
+      ],
+      "changes": [
+        {
+          "id": "project-workspace-preferences",
+          "kind": "feature",
+          "title": "Настройки рабочего пространства проекта",
+          "description": "В настройках проекта появилась отдельная панель рабочего пространства с начальной вкладкой, видом и плотностью карточек, уровнем подробностей и интервалом локальной автопроверки. Параметры применяются сразу, сохраняются в браузере и синхронизируются с управлением на странице проекта. Уведомления размещены рядом с параметрами проверки. Кнопка возврата восстанавливает исходные значения параметров рабочего пространства, не затрагивая тему, ключ Cloud.ru и выбранные уведомления.",
+          "reason": "Вид проекта и интервал проверки приходилось менять непосредственно на странице, а после перезагрузки выбор терялся.",
+          "userImpact": "Пользователь один раз задаёт удобный вид проекта и частоту проверки. Проект открывается на выбранной вкладке, карточки и мониторинг сохраняют выбранные параметры после перезапуска браузера.",
+          "components": {
+            "frontend": "minor",
+            "styles": "patch",
+            "checks": "patch",
+            "docs": "patch",
+            "config": "patch",
+            "build": "patch"
+          },
+          "testing": [
+            "npm run build — успешно.",
+            "Браузерный smoke-тест: сохранение параметров после перезагрузки, применение в проекте, сброс и адаптивная вёрстка настроек — успешно.",
+            "npm run test:versions: 3 теста пройдены; npm run test:release: 10 тестов пройдены.",
+            "Python unittest: 40 тестов пройдены, 3 Windows-проверки пропущены на Linux.",
+            "npm run check, npm run check:build, npm run release:check и python scripts/chronicle.py validate — успешно."
+          ],
+          "risks": [
+            "Настройки действуют только в текущем браузере и не синхронизируются между компьютерами.",
+            "При запрете хранилища браузера выбор сохраняется только до закрытия вкладки."
+          ],
+          "migration": [
+            "Откройте «Настройки проекта» → «Рабочее пространство» и выберите удобные параметры. Исходные значения повторяют прежнее поведение."
+          ]
+        }
+      ],
+      "files": [
+        {
+          "path": ".chronicle/events.jsonl",
+          "action": "modified",
+          "component": "config"
+        },
+        {
+          "path": "README.md",
+          "action": "modified",
+          "component": "docs"
+        },
+        {
+          "path": "tests/browser_smoke.cjs",
+          "action": "modified",
+          "component": "checks"
+        },
+        {
+          "path": "versions.json",
+          "action": "modified",
+          "component": "config"
+        },
+        {
+          "path": "web/app.js",
+          "action": "modified",
+          "component": "frontend"
+        },
+        {
+          "path": "web/index.html",
+          "action": "modified",
+          "component": "frontend"
+        },
+        {
+          "path": "web/project.js",
+          "action": "modified",
+          "component": "frontend"
+        },
+        {
+          "path": "web/project_preferences.js",
+          "action": "added",
+          "component": "frontend"
+        },
+        {
+          "path": "web/styles/project.css",
+          "action": "modified",
+          "component": "styles"
+        }
+      ],
+      "commits": [
+        "9ad24ead305e9c25fc6886712c8c52e0e2c7a276",
+        "5a6309c8276dc53e42ec43871b8d7c5fac7581c8"
+      ]
+    },
+    {
       "version": "0.19.0",
       "previous": "0.18.0",
       "source": "9095755236f7607f2a9408ace9aed35569e6bebc",

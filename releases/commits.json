@@ -929,6 +929,40 @@
       "task_ids": [],
       "attribution": "unlinked",
       "files": []
+    },
+    {
+      "sha": "9ad24ead305e9c25fc6886712c8c52e0e2c7a276",
+      "release": "0.20.0",
+      "task_ids": [
+        "TASK-20261029"
+      ],
+      "attribution": "commit-trailer",
+      "files": [
+        ".changes/project-workspace-preferences.json",
+        ".chronicle/events.jsonl",
+        "README.md",
+        "tests/browser_smoke.cjs",
+        "versions.json",
+        "versions.lock.json",
+        "web/app.js",
+        "web/dist/assets/index-5W67AXvk.js",
+        "web/dist/assets/index-D80iuGtr.css",
+        "web/dist/assets/index-DsvzcU-2.js",
+        "web/dist/assets/index-Ijsan1UI.css",
+        "web/dist/build.json",
+        "web/dist/index.html",
+        "web/index.html",
+        "web/project.js",
+        "web/project_preferences.js",
+        "web/styles/project.css"
+      ]
+    },
+    {
+      "sha": "5a6309c8276dc53e42ec43871b8d7c5fac7581c8",
+      "release": "0.20.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": []
     }
   ]
 }
