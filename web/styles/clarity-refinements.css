@@ -255,3 +255,42 @@
 .clarity-home-help { margin-top:auto; padding:12px 0 0 }
 .clarity-home-help summary { font-size:11px; color:var(--muted); cursor:pointer }
 .clarity-home-help #tray-note { font-size:11px; margin-top:9px; line-height:1.6 }
+
+/* All four settings destinations must be discoverable without a hidden swipe. */
+@media(max-width:600px) {
+  #view-project-settings .settings-jump {
+    position:static;
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    overflow:visible;
+    gap:6px;
+  }
+  #view-project-settings .settings-jump button {
+    flex:auto;
+    min-width:0;
+    width:100%;
+    white-space:normal;
+    text-align:center;
+    line-height:1.25;
+    min-height:45px;
+  }
+  #view-project .project-view-controls::after {
+    content:"›";
+    position:absolute;
+    right:5px;
+    top:9px;
+    display:grid;
+    place-items:center;
+    width:19px;
+    height:29px;
+    border-radius:5px;
+    font-size:18px;
+    font-weight:700;
+    color:var(--accent);
+    pointer-events:none;
+    background:linear-gradient(90deg,transparent,var(--surface) 35%);
+  }
+  #view-project .project-tabs {
+    padding-right:20px;
+  }
+}
