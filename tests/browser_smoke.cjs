@@ -66,6 +66,10 @@ async function run() {
   await page.locator("#notify-problems").check();
   await page.locator("#notify-changes").check();
   assert.ok(await page.locator(".cloud-model-card").count() >= 7);
+  assert.ok(await page.locator(".cloud-model-card:visible").count() <= 6);
+  await page.locator("#clarity-model-search").fill("несуществующая-модель");
+  assert.equal(await page.locator(".cloud-model-card:visible").count(), 0);
+  await page.locator("#clarity-model-search").fill("");
   assert.ok((await page.locator("#cloud-key-status").textContent()).length>0);
   assert.ok(await page.locator("#cloud-model option").count()>=7);
   assert.equal(await page.locator(".cloud-capabilities").count(), await page.locator(".cloud-model-card").count());
@@ -128,6 +132,7 @@ async function run() {
   await page.locator('.project-review-entry button').click();
   assert.ok((await page.locator('.project-review-entry summary').textContent()).includes('исправлено'));
   await page.reload();
+  await page.locator('[data-project-tab="analysis"]').click();
   await page.waitForSelector('.project-review-entry');
   assert.ok((await page.locator('.project-review-entry summary').textContent()).includes('исправлено'));
   await page.getByRole('link',{name:'Настройки проекта',exact:true}).click();
@@ -297,6 +302,13 @@ async function run() {
   await page.getByRole("link", { name: "Главная", exact: true }).click();
   await page.setViewportSize({ width: 390, height: 844 });
   await page.waitForFunction(() => getComputedStyle(document.querySelector(".navigation")).flexDirection === "row");
+  assert.ok(await page.locator("#mobile-more").isVisible());
+  assert.equal(await page.locator('[data-view="project-settings"]').isVisible(), false);
+  await page.locator("#mobile-more").click();
+  assert.equal(await page.locator("#mobile-more").getAttribute("aria-expanded"),"true");
+  assert.ok(await page.locator('[data-view="project-settings"]').isVisible());
+  await page.keyboard.press("Escape");
+  assert.equal(await page.locator("#mobile-more").getAttribute("aria-expanded"),"false");
   await capture(page, "mobile.png");
   for (const width of [360, 390, 768, 1024, 1440]) {
     await page.setViewportSize({ width, height: 900 });
