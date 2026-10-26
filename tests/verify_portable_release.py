@@ -32,7 +32,7 @@ def main(archive_path):
         assert "Проверка запуска пройдена" in output, output
         log = (project / "logs" / "startup.log").read_text(encoding="utf-8-sig")
         assert str(python).lower() in log.lower(), log
-        print("Автономный архив запущен со встроенным Python.")
+        print("Portable release started with embedded Python.")
 
 
 if __name__ == "__main__":

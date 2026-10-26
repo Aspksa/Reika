@@ -67,7 +67,7 @@ def package_release(ref, version, output, runtime=None):
     except Exception:
         output.unlink(missing_ok=True)
         raise
-    print(f"Готов автономный архив Windows: {output}")
+    print(f"Portable Windows release: {output}")
 
 
 if __name__ == "__main__":

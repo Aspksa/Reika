@@ -120,7 +120,7 @@
       "component": "config",
       "version": "0.5.4",
       "hashMode": "bytes",
-      "sha256": "48092b39da03b1c8509803c90df911ed1deb300d65699227bbe29534459958c8"
+      "sha256": "55b7907a8811f8ca956296b63747fadc98a961e2a2d106724adabc1e75bf6248"
     },
     ".gitattributes": {
       "component": "config",
@@ -378,7 +378,7 @@
       "component": "release",
       "version": "0.2.0",
       "hashMode": "utf8-lf",
-      "sha256": "7c682c51953f7ca12c1a6911aa0458654266b4409b76b6253c3a97b108c62149"
+      "sha256": "b7633547b0942c8923f03c998ac7fe9f46543aeaa2aa0dbe1f3fe3239209d302"
     },
     "scripts/project.mjs": {
       "component": "release",
@@ -492,7 +492,7 @@
       "component": "checks",
       "version": "0.5.4",
       "hashMode": "utf8-lf",
-      "sha256": "df1dfb431d184e40df18cb0cf1cffcee09081090affd864bf833235e10a642cc"
+      "sha256": "13a416599044322cf78061b08f57ddade438674d671021f4ac9173f4f50f0db3"
     },
     "tests/versions.test.mjs": {
       "component": "checks",
