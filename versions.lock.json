@@ -140,6 +140,12 @@
       "hashMode": "utf8-lf",
       "sha256": "86247987213b3cd9fed6af223bb4f72b805fb4ddf3f3e752806a714a77f2f03e"
     },
+    ".changes/clarity-usability-round2-20261026.json": {
+      "component": "release",
+      "version": "0.3.0",
+      "hashMode": "utf8-lf",
+      "sha256": "8d0bd4fb806cdccc3d87424dc07d2a0fd0f805ae07375b5923a7114eb3154bf8"
+    },
     ".chronicle/events.jsonl": {
       "component": "config",
       "version": "0.5.7",
