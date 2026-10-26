@@ -116,7 +116,8 @@ async function run() {
   await page.locator("#settings-project-reset").click();
   assert.equal(await page.locator("#settings-project-tab").inputValue(),"overview");
   await page.getByRole("link", { name: "Проект", exact: true }).click();
-  assert.equal(await page.locator('[data-project-tab="modules"]').getAttribute("aria-selected"),"true");
+  assert.equal(await page.locator('[data-project-tab="overview"]').getAttribute("aria-selected"),"true");
+  await page.locator('[data-project-tab="modules"]').click();
   await page.waitForSelector('[data-module="release"]');
   await page.locator('[data-project-tab="overview"]').click();
   assert.ok(await page.locator('.project-quick-links a[href="#project-settings"]').isVisible());
@@ -139,6 +140,7 @@ async function run() {
   assert.equal(await page.locator('#notify-problems').isChecked(),true);
   assert.equal(await page.locator('#notify-changes').isChecked(),true);
   await page.getByRole('link',{name:'Проект',exact:true}).click();
+  await page.locator('[data-project-tab="modules"]').click();
   await page.waitForSelector('[data-module="release"]');
 
   assert.ok(Number(await page.locator("#project-count-modules").textContent()) >= 10);
