@@ -1,0 +1,42 @@
+name: Clarity — синхронизация готовой сборки
+
+on:
+  push:
+    branches:
+      - 'design/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: reika-preview-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Сборка и запись проверяемых файлов
+    if: github.repository == 'Aspksa/Reika'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Подготовить production-сборку и каталог версий
+        run: npm run build
+      - name: Зафиксировать воспроизводимую сборку
+        run: |
+          git add --all web/dist versions.lock.json
+          if ! git diff --cached --quiet; then
+            git config user.name 'Reika Build Bot'
+            git config user.email 'reika-build@users.noreply.github.com'
+            git commit -m 'Собрать интерфейс Clarity и обновить хеши файлов'
+            git push origin HEAD:refs/heads/${{ github.ref_name }}
+          fi
