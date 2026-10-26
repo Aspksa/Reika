@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "project": "0.22.0",
+  "project": "0.22.1",
   "components": {
     "core": {
       "name": "Ядро и API",
@@ -76,7 +76,7 @@
     },
     "launcher": {
       "name": "Запуск Windows",
-      "version": "0.3.1",
+      "version": "0.3.2",
       "paths": [
         "Reika.bat",
         "scripts/start.ps1"
@@ -151,7 +151,7 @@
     },
     "checks": {
       "name": "Проверки",
-      "version": "0.7.0",
+      "version": "0.7.1",
       "paths": [
         "tests/",
         ".github/"
@@ -193,7 +193,7 @@
     },
     "docs": {
       "name": "Документация",
-      "version": "0.5.4",
+      "version": "0.5.5",
       "paths": [
         "README.md",
         "CHANGELOG.md",

@@ -1090,6 +1090,23 @@
       "task_ids": [],
       "attribution": "unlinked",
       "files": []
+    },
+    {
+      "sha": "d5054c69d08f0dc61f387628e7cfceb78e8ac9b6",
+      "release": "0.22.1",
+      "task_ids": [
+        "BUG-0002",
+        "TASK-0002"
+      ],
+      "attribution": "commit-trailer",
+      "files": [
+        ".changes/windows-python-autobootstrap-20261026.json",
+        ".github/workflows/checks.yml",
+        "README.md",
+        "scripts/start.ps1",
+        "tests/validate_windows.ps1",
+        "tests/verify_bootstrap_windows.ps1"
+      ]
     }
   ]
 }
