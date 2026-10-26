@@ -162,7 +162,7 @@
       "component": "checks",
       "version": "0.7.1",
       "hashMode": "utf8-lf",
-      "sha256": "01f1447f118dff3a646d881990143012fc233542112401a66444a7659fb0f40b"
+      "sha256": "8348dac73621a312bd851c4c48a7dae30af7541c4b024d11921cb5d6a2cabc30"
     },
     ".github/workflows/release.yml": {
       "component": "checks",
