@@ -963,6 +963,77 @@
       "task_ids": [],
       "attribution": "unlinked",
       "files": []
+    },
+    {
+      "sha": "e3128f25b881326f6c02e65a039db0423c5e7d61",
+      "release": "0.21.0",
+      "task_ids": [
+        "BUG-20261026",
+        "TASK-20261030"
+      ],
+      "attribution": "commit-trailer",
+      "files": [
+        ".changes/portable-python-release.json",
+        ".chronicle/events.jsonl",
+        ".github/workflows/checks.yml",
+        ".github/workflows/release.yml",
+        "README.md",
+        "scripts/package_release.py",
+        "tests/test_package_release.py",
+        "tests/verify_portable_release.py",
+        "versions.json",
+        "versions.lock.json"
+      ]
+    },
+    {
+      "sha": "b6c91f2e5a2af00ba192ddae01358c53412e6584",
+      "release": "0.21.0",
+      "task_ids": [
+        "BUG-20261026",
+        "TASK-20261030"
+      ],
+      "attribution": "commit-trailer",
+      "files": [
+        ".chronicle/events.jsonl",
+        "scripts/package_release.py",
+        "tests/verify_portable_release.py",
+        "versions.lock.json"
+      ]
+    },
+    {
+      "sha": "5cbb4b74d890c9517272444dbe434f165bfa37f7",
+      "release": "0.21.0",
+      "task_ids": [
+        "BUG-20261026",
+        "TASK-20261030"
+      ],
+      "attribution": "commit-trailer",
+      "files": [
+        ".chronicle/events.jsonl",
+        "tests/verify_portable_release.py",
+        "versions.lock.json"
+      ]
+    },
+    {
+      "sha": "01fc3a92589075eed2d1321dcc14235e71655441",
+      "release": "0.21.0",
+      "task_ids": [
+        "BUG-20261026",
+        "TASK-20261030"
+      ],
+      "attribution": "commit-trailer",
+      "files": [
+        ".changes/portable-python-release.json",
+        ".chronicle/events.jsonl",
+        "versions.lock.json"
+      ]
+    },
+    {
+      "sha": "f7622a109bffd11497c65e9419423a91ab65837d",
+      "release": "0.21.0",
+      "task_ids": [],
+      "attribution": "unlinked",
+      "files": []
     }
   ]
 }

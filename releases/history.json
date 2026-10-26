@@ -2,6 +2,136 @@
   "schema": 1,
   "releases": [
     {
+      "version": "0.21.0",
+      "previous": "0.20.0",
+      "source": "f7622a109bffd11497c65e9419423a91ab65837d",
+      "created_at": "2026-10-26T03:08:44.915Z",
+      "components": [
+        {
+          "id": "release",
+          "name": "История и выпуски",
+          "from": "0.2.0",
+          "version": "0.3.0",
+          "reason": "Описано в записи об изменении",
+          "level": "minor"
+        },
+        {
+          "id": "checks",
+          "name": "Проверки",
+          "from": "0.5.4",
+          "version": "0.6.0",
+          "reason": "Описано в записи об изменении",
+          "level": "minor"
+        },
+        {
+          "id": "docs",
+          "name": "Документация",
+          "from": "0.5.2",
+          "version": "0.5.3",
+          "reason": "Описано в записи об изменении",
+          "level": "patch"
+        },
+        {
+          "id": "config",
+          "name": "Конфигурация",
+          "from": "0.5.4",
+          "version": "0.5.5",
+          "reason": "Описано в записи об изменении",
+          "level": "patch"
+        },
+        {
+          "id": "build",
+          "name": "Сборка Node.js",
+          "from": "0.3.16",
+          "version": "0.3.17",
+          "reason": "Описано в записи об изменении",
+          "level": "patch"
+        }
+      ],
+      "changes": [
+        {
+          "id": "portable-python-release",
+          "kind": "fix",
+          "title": "Добавить Python в готовый архив Windows",
+          "description": "Автоматический выпуск теперь добавляет в ZIP официальный встроенный Python 3.12.10 для Windows x64. Архив Python загружается при сборке выпуска, проверяется по закреплённой SHA-256 и помещается в .runtime/python с путём к корню Reika в python312._pth. Сборка архива выполняется до публикации тега; восстановление прерванной публикации использует тот же упаковщик. Windows CI распаковывает архив в путь с кириллицей, запускает Reika.bat и подтверждает, что выбран встроенный Python.",
+          "reason": "Архив v0.20.0 собирался через git archive и не включал Python, поэтому на Windows без установленного Python Reika.bat завершался сообщением «Не найден рабочий Python 3.10 или новее».",
+          "userImpact": "Начиная со следующего выпуска готовый архив Windows x64 запускается без отдельной установки Python. Запуск из исходников остаётся доступен с установленным Python.",
+          "components": {
+            "release": "minor",
+            "checks": "minor",
+            "docs": "patch",
+            "config": "patch",
+            "build": "patch"
+          },
+          "testing": [
+            "Локальная упаковка архива с официальным Python: SHA-256 проверена, исполняемый файл, лицензия и python312._pth присутствуют — успешно.",
+            "Python unit-тесты упаковщика: структура ZIP, путь к Reika и отказ при неподходящем архиве — успешно.",
+            "npm run build — успешно.",
+            "Python unittest: 42 теста пройдены, 3 Windows-проверки пропущены на Linux.",
+            "npm run test:versions: 3 теста пройдены; npm run test:release: 10 тестов пройдены.",
+            "npm run check, npm run check:build, npm run release:check и python scripts/chronicle.py validate — успешно.",
+            "Windows CI распаковал готовый архив в путь с кириллицей, запустил Reika.bat --check и подтвердил выбор встроенного Python 3.12.10; браузер, Node.js и Linux-проверки тоже прошли: https://github.com/Aspksa/Reika/actions/runs/40262358383."
+          ],
+          "risks": [
+            "Автономный архив рассчитан на Windows x64; исходный ZIP репозитория и старые выпуски не меняются.",
+            "Сборка выпуска зависит от доступности python.org; при сбое до публикации тег не создаётся."
+          ],
+          "migration": [
+            "Скачайте готовый ZIP нового выпуска GitHub и полностью распакуйте его. Установленный Python для этого архива не требуется. Старый архив v0.20.0 по-прежнему требует Python 3.10 или новее."
+          ]
+        }
+      ],
+      "files": [
+        {
+          "path": ".chronicle/events.jsonl",
+          "action": "modified",
+          "component": "config"
+        },
+        {
+          "path": ".github/workflows/checks.yml",
+          "action": "modified",
+          "component": "checks"
+        },
+        {
+          "path": ".github/workflows/release.yml",
+          "action": "modified",
+          "component": "checks"
+        },
+        {
+          "path": "README.md",
+          "action": "modified",
+          "component": "docs"
+        },
+        {
+          "path": "scripts/package_release.py",
+          "action": "added",
+          "component": "release"
+        },
+        {
+          "path": "tests/test_package_release.py",
+          "action": "added",
+          "component": "checks"
+        },
+        {
+          "path": "tests/verify_portable_release.py",
+          "action": "added",
+          "component": "checks"
+        },
+        {
+          "path": "versions.json",
+          "action": "modified",
+          "component": "config"
+        }
+      ],
+      "commits": [
+        "e3128f25b881326f6c02e65a039db0423c5e7d61",
+        "b6c91f2e5a2af00ba192ddae01358c53412e6584",
+        "5cbb4b74d890c9517272444dbe434f165bfa37f7",
+        "01fc3a92589075eed2d1321dcc14235e71655441",
+        "f7622a109bffd11497c65e9419423a91ab65837d"
+      ]
+    },
+    {
       "version": "0.20.0",
       "previous": "0.19.0",
       "source": "5a6309c8276dc53e42ec43871b8d7c5fac7581c8",

@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "project": "0.20.0",
+  "project": "0.21.0",
   "components": {
     "core": {
       "name": "Ядро и API",
@@ -117,7 +117,7 @@
     },
     "build": {
       "name": "Сборка Node.js",
-      "version": "0.3.16",
+      "version": "0.3.17",
       "paths": [
         "package.json",
         "package-lock.json",
@@ -151,7 +151,7 @@
     },
     "checks": {
       "name": "Проверки",
-      "version": "0.5.4",
+      "version": "0.6.0",
       "paths": [
         "tests/",
         ".github/"
@@ -193,7 +193,7 @@
     },
     "docs": {
       "name": "Документация",
-      "version": "0.5.2",
+      "version": "0.5.3",
       "paths": [
         "README.md",
         "CHANGELOG.md",
@@ -213,7 +213,7 @@
     },
     "config": {
       "name": "Конфигурация",
-      "version": "0.5.4",
+      "version": "0.5.5",
       "paths": [
         "versions.json",
         ".gitignore",
@@ -226,7 +226,7 @@
     },
     "release": {
       "name": "История и выпуски",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "description": "Собирает русские описания изменений, рассчитывает версии и готовит проверенные выпуски.",
       "status": "active",
       "paths": [

@@ -1,16 +1,16 @@
 {
-  "version": "0.20.0",
+  "version": "0.21.0",
   "components": {
     "core": "0.8.1",
     "frontend": "0.17.0",
     "styles": "0.8.2",
     "launcher": "0.3.1",
     "tray": "0.3.1",
-    "build": "0.3.16",
-    "checks": "0.5.4",
-    "docs": "0.5.2",
-    "config": "0.5.4",
-    "release": "0.2.0",
+    "build": "0.3.17",
+    "checks": "0.6.0",
+    "docs": "0.5.3",
+    "config": "0.5.5",
+    "release": "0.3.0",
     "updates": "0.3.0"
   },
   "files": {
