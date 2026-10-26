@@ -198,7 +198,15 @@ function renderHistory(){
 }
 
 export function showProjectTab(name) {
+  if (!["overview", "modules", "links", "analysis", "history", "updates"].includes(name)) name="overview";
   projectTab=name;
+  // Keep direct links stable across refresh without adding noisy browser history.
+  if (location.hash === "#project" || location.hash.startsWith("#project/")) {
+    history.replaceState(null, "", "#project/" + name);
+  }
+  document.querySelectorAll("[data-project-tab]").forEach(button => {
+    if(button.dataset.projectTab === name) button.scrollIntoView({block:"nearest",inline:"nearest"});
+  });
   const pane=$("#project-inspector");
   if(name==="links")$(".project-map-workspace").append(pane);
   else $(".project-module-workspace").append(pane);
